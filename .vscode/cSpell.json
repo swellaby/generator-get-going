@@ -1,0 +1,19 @@
+{
+    "version": "0.1",
+    "language": "en",
+    "words": [
+      "opensource",
+      "posttest",
+      "prelint",
+      "pretranspile",
+      "sonarqube",
+      "swellaby",
+      "tagless",
+      "testresults",
+      "tslib",
+      "yosay"
+    ],
+    "flagWords": [
+
+    ]
+}

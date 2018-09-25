@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "GuardRex.status-bar-tasks",
+        "joelday.docthis",
+        "eg2.tslint",
+        "dbaeumer.vscode-eslint",
+        "christian-kohler.path-intellisense",
+        "christian-kohler.npm-intellisense",
+        "eamodio.gitlens",
+        "pflannery.vscode-versionlens"
+    ]
+}

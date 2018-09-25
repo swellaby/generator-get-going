@@ -1,0 +1,77 @@
+{
+    "version": "2.0.0",
+    "showOutput": "silent",
+    "tasks": [
+        {
+            "taskName": "install dependencies",
+            "suppressTaskName": true,
+            "args": [
+                "npm",
+                "install"
+            ]
+        },
+        {
+            "taskName": "clean",
+            "suppressTaskName": true,
+            "args": [
+                "npm",
+                "run",
+                "clean"
+            ]
+        },
+        {
+            "taskName": "lint",
+            "suppressTaskName": true,
+            "args": [
+                "npm",
+                "run",
+                "lint"
+            ]
+        },
+        {
+            "taskName": "transpile",
+            "suppressTaskName": true,
+            "args": [
+                "npm",
+                "run",
+                "transpile"
+            ]
+        },
+        {
+            "taskName": "build",
+            "args": [
+                "npm",
+                "run",
+                "build"
+            ],
+            "problemMatcher": "$tsc",
+            "isBuildCommand": true
+        },
+        {
+            "taskName": "unit test",
+            "args": [
+                "npm",
+                "run",
+                "test"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "taskName": "unit test coverage",
+            "suppressTaskName": true,
+            "args": [
+                "npm",
+                "run",
+                "show-unit-test-coverage"
+            ]
+        },
+        {
+            "taskName": "pack",
+            "suppressTaskName": true,
+            "args": [
+                "npm",
+                "pack"
+            ]
+        }
+    ]
+}
