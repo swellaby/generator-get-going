@@ -1,77 +1,58 @@
 {
     "version": "2.0.0",
-    "showOutput": "silent",
     "tasks": [
         {
-            "taskName": "install dependencies",
-            "suppressTaskName": true,
-            "args": [
-                "npm",
-                "install"
-            ]
+            "label": "install",
+            "command": "npm i",
+            "type": "shell"
         },
         {
-            "taskName": "clean",
-            "suppressTaskName": true,
-            "args": [
-                "npm",
-                "run",
-                "clean"
-            ]
+            "label": "clean",
+            "command": "npm run clean",
+            "type": "shell"
         },
         {
-            "taskName": "lint",
-            "suppressTaskName": true,
-            "args": [
-                "npm",
-                "run",
-                "lint"
-            ]
+            "label": "lint",
+            "command": "npm run lint",
+            "type": "shell"
         },
         {
-            "taskName": "transpile",
-            "suppressTaskName": true,
-            "args": [
-                "npm",
-                "run",
-                "transpile"
-            ]
-        },
-        {
-            "taskName": "build",
-            "args": [
-                "npm",
-                "run",
-                "build"
-            ],
+            "label": "transpile",
+            "command": "npm run transpile",
+            "type": "shell",
             "problemMatcher": "$tsc",
-            "isBuildCommand": true
+            "group": "build"
         },
         {
-            "taskName": "unit test",
-            "args": [
-                "npm",
-                "run",
-                "test"
-            ],
-            "problemMatcher": "$tsc"
+            "label": "build",
+            "command": "npm run build",
+            "type": "shell",
+            "problemMatcher": "$tsc",
+            "group": {
+              "kind": "build",
+              "isDefault": true
+            }
         },
         {
-            "taskName": "unit test coverage",
-            "suppressTaskName": true,
-            "args": [
-                "npm",
-                "run",
-                "show-unit-test-coverage"
-            ]
+            "label": "test",
+            "command": "npm run test:unit",
+            "type": "shell",
+            "problemMatcher": "$tsc",
+            "group": {
+              "kind": "test",
+              "isDefault": true
+            }
         },
         {
-            "taskName": "pack",
-            "suppressTaskName": true,
-            "args": [
-                "npm",
-                "pack"
-            ]
+            "label": "coverage:open",
+            "command": "npm run coverage:open",
+            "type": "shell",
+            "group": "test"
+        },
+        {
+            "label": "pack",
+            "command": "npm pack",
+            "type": "shell"
         }
     ]
 }

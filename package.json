@@ -75,6 +75,8 @@
         "typescript": "^3.0.3"
     },
     "dependencies": {
-        "tslib": "^1.9.3"
+        "tslib": "^1.9.3",
+        "yeoman-generator": "^3.1.1",
+        "yosay": "^2.0.2"
     }
 }
