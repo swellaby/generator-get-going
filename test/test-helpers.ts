@@ -4,13 +4,15 @@ import path = require('path');
 import YeomanGenerator = require('yeoman-generator');
 import yosay = require('yosay');
 
+import IProjectConfig = require('../generators/app/project-config');
+
 const generatorRoot = path.join(__dirname, './../../../generators/app');
 const expectedGreetingMessage = yosay('Welcome to the LetsGo Generator!');
 const expectedErrorMessageBase = 'Encountered an unexpected error while creating your ' +
 'new project. Please try again.';
 
 const getExpectedErrorMessage = (errDetails: string): string => {
-    return expectedErrorMessageBase + ` Error details: ${errDetails}`;
+    return expectedErrorMessageBase + ` Error details: '${errDetails}'`;
 };
 
 const fsStats: YeomanGenerator.MemFsEditor = {
@@ -45,10 +47,15 @@ const generatorStub: YeomanGenerator = <YeomanGenerator> {
     spawnCommandSync: (command, args, opt) => null
 };
 
+const projectConfig: IProjectConfig = <IProjectConfig> {
+
+};
+
 export = {
     expectedGreetingMessage,
     expectedErrorMessageBase,
     getExpectedErrorMessage,
     generatorStub,
-    generatorRoot
+    generatorRoot,
+    projectConfig
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-import PromptTypes = require('./inputs/prompt-types');
+import PromptTypes = require('../inputs/prompt-type');
 import inquirer = require('inquirer');
 
 /**

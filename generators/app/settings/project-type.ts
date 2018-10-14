@@ -5,9 +5,9 @@
  *
  * @enum {number}
  */
-enum ProjectTypes {
+enum ProjectType {
     boilerplate = 0,
     cli = 1
 }
 
-export = ProjectTypes;
+export = ProjectType;

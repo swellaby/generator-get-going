@@ -4,6 +4,8 @@
         "generators/**/*"
     ],
     "exclude": [
-        "generators/app/templates/"
+        "generators/app/templates/",
+        "generators/app/project-config.*",
+        "generators/app/settings/project-setting.*"
     ]
 }

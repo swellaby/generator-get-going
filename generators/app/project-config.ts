@@ -1,12 +1,16 @@
 'use strict';
 
-import ProjectTypes = require('./project-types');
+import Linter = require('./settings/linter');
+import ProjectType = require('./settings/project-type');
+import TaskRunner = require('./settings/task-runner');
 
 interface IProjectConfig {
     name: string;
-    projectType: ProjectTypes;
+    projectType: ProjectType;
     author: string;
     includeVSCode: boolean;
+    taskRunner: TaskRunner;
+    primaryLinter: Linter;
 }
 
 export = IProjectConfig;

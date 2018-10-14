@@ -1,8 +1,8 @@
 'use strict';
 
-enum PromptTypes {
+enum PromptType {
     input = 'input',
     confirm = 'confirm'
 }
 
-export = PromptTypes;
+export = PromptType;
