@@ -2,6 +2,9 @@
     "version": "0.1",
     "language": "en",
     "words": [
+      "appname",
+      "letsgo",
+      "nycrc",
       "opensource",
       "posttest",
       "prelint",
@@ -11,6 +14,7 @@
       "tagless",
       "testresults",
       "tslib",
+      "xunit",
       "yosay"
     ],
     "flagWords": [

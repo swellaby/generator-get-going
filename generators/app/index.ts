@@ -1,14 +1,14 @@
 'use strict';
 
 import yeoman = require('yeoman-generator');
+import LetsGoGenerator = require('./letsgo-generator');
 
 /**
  * Main entry point of the application.
  */
-class Generator extends yeoman {
+export = class Generator extends yeoman {
     public execute() {
-        return Promise.resolve();
+        const letsGoGenerator = new LetsGoGenerator(this);
+        return letsGoGenerator.createProject();
     }
-}
-
-export = Generator;
+};

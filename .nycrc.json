@@ -1,7 +1,7 @@
 {
     "extends": "@swellaby/nyc-config",
     "include": [
-        "generators/**/*.js"
+        "generators/**/*"
     ],
     "exclude": [
         "generators/app/templates/"
