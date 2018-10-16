@@ -12,4 +12,8 @@ suite('PromptType Tests:', () => {
     test('Should have correct value for confirm prompt type', () => {
         assert.deepEqual(promptType.confirm, 'confirm');
     });
+
+    test('Should have correct value for list prompt type', () => {
+        assert.deepEqual(promptType.list, 'list');
+    });
 });

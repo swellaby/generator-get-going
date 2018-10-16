@@ -6,8 +6,10 @@
  * @enum {number}
  */
 enum ProjectType {
-    boilerplate = 0,
-    cli = 1
+    boilerplate = 'boilerplate',
+    lib = 'lib',
+    libCli = 'libcli',
+    cli = 'cli'
 }
 
 export = ProjectType;

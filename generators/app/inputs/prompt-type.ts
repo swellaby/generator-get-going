@@ -2,7 +2,8 @@
 
 enum PromptType {
     input = 'input',
-    confirm = 'confirm'
+    confirm = 'confirm',
+    list = 'list'
 }
 
 export = PromptType;
