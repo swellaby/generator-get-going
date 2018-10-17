@@ -1,0 +1,4 @@
+.coverage/
+.testresults/
+**/*.exe
+./<%= name %>
