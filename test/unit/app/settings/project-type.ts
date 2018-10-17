@@ -14,7 +14,7 @@ suite('ProjectType Tests:', () => {
     });
 
     test('Should have correct value for libcli project', () => {
-        assert.deepEqual(projectType.libCli, 'libcli');
+        assert.deepEqual(projectType.libcli, 'libcli');
     });
 
     test('Should have correct value for cli project', () => {

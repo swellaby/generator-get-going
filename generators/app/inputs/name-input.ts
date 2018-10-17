@@ -4,16 +4,29 @@ import inquirer = require('inquirer');
 
 import IProjectConfig = require('../project-config');
 import IProjectSetting = require('../settings/project-setting');
-import ProjectType = require('../settings/project-type');
 import PromptType = require('./prompt-type');
 
-const settingName = 'projectType';
+const settingName = 'name';
+
+const isValid = (value: string): boolean => {
+    if (!value) {
+        return false;
+    }
+    return new RegExp('^[\\w-]+$').test(value);
+};
+
+const validatePromptInput = (value: string, answers: inquirer.Answers): string | boolean => {
+    if (isValid(value)) {
+        return true;
+    }
+    return `Invalid app name: '${value}'`;
+};
 
 const prompt: inquirer.Question = {
-    type: PromptType.list,
+    type: PromptType.input,
     name: settingName,
-    message: 'The type of project your app will be',
-    default: ProjectType.boilerplate
+    message: 'The name of your app',
+    validate: validatePromptInput
 };
 
 const tryConvertOptionValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
@@ -21,25 +34,24 @@ const tryConvertOptionValue = (value: unknown, projectConfig: IProjectConfig): b
     if (value === null || value === undefined) {
         return false;
     }
-
     const optionVal: string = String(value);
-    const projType = ProjectType[optionVal.toLowerCase()];
 
-    if (projType === undefined) {
-        return false;
+    if (isValid(optionVal)) {
+        projectConfig.name = optionVal;
+        return true;
     }
 
-    projectConfig.projectType = projType;
-    return true;
+    return false;
 };
 
 const setting: IProjectSetting = {
     name: settingName,
-    optionName: 'type',
+    optionName: 'name',
     prompt: prompt,
     tryExtractOptionValue: tryConvertOptionValue
 };
 
 export = {
-    setting
+    setting,
+    isValid
 };

@@ -8,7 +8,7 @@
 enum ProjectType {
     boilerplate = 'boilerplate',
     lib = 'lib',
-    libCli = 'libcli',
+    libcli = 'libcli',
     cli = 'cli'
 }
 

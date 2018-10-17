@@ -1,6 +1,7 @@
 'use strict';
 
 import inquirer = require('inquirer');
+import yeoman = require('yeoman-generator');
 import IProjectConfig = require('../project-config');
 
 /**
@@ -9,6 +10,7 @@ import IProjectConfig = require('../project-config');
 interface IProjectSetting {
     name: string;
     optionName: string;
+    option?: yeoman.OptionConfig;
     prompt: inquirer.Question;
     /**
      * Determines whether the provided option value is valid.

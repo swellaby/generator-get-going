@@ -1,41 +1,42 @@
 'use strict';
 
 import inquirer = require('inquirer');
+import yeoman = require('yeoman-generator');
 
 import IProjectConfig = require('../project-config');
 import IProjectSetting = require('../settings/project-setting');
-import ProjectType = require('../settings/project-type');
 import PromptType = require('./prompt-type');
 
-const settingName = 'projectType';
+const settingName = 'vscode';
+const settingDefault = true;
+const settingDescription = 'Do you use Visual Studio Code?';
 
 const prompt: inquirer.Question = {
-    type: PromptType.list,
+    type: PromptType.confirm,
     name: settingName,
-    message: 'The type of project your app will be',
-    default: ProjectType.boilerplate
+    message: settingDescription,
+    default: settingDefault
+};
+
+const option: yeoman.OptionConfig = {
+    type: Boolean,
+    default: settingDefault,
+    description: settingDescription
 };
 
 const tryConvertOptionValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
     projectConfig = projectConfig || <IProjectConfig>{};
-    if (value === null || value === undefined) {
+    if (value === null || value === undefined || typeof value !== 'boolean') {
         return false;
     }
-
-    const optionVal: string = String(value);
-    const projType = ProjectType[optionVal.toLowerCase()];
-
-    if (projType === undefined) {
-        return false;
-    }
-
-    projectConfig.projectType = projType;
+    projectConfig.includeVSCode = Boolean(value);
     return true;
 };
 
 const setting: IProjectSetting = {
     name: settingName,
-    optionName: 'type',
+    optionName: settingName,
+    option: option,
     prompt: prompt,
     tryExtractOptionValue: tryConvertOptionValue
 };
