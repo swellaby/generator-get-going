@@ -4,9 +4,21 @@ import YeomanGenerator = require('yeoman-generator');
 import IProjectConfig = require('../project-config');
 import IProjectSetting = require('../settings/project-setting');
 
+const fatalErrorMessage = 'Something awful happened! Please open an issue on GitHub';
+
+const addGeneratorOptions = (generator: YeomanGenerator, settings: IProjectSetting[]) => {
+    if (!generator || !settings || settings.length === 0) {
+        throw new Error(fatalErrorMessage);
+    }
+
+    settings.forEach(setting => {
+        generator.option(setting.optionName, setting.option);
+    });
+};
+
 const getDesiredProjectConfig = async (generator: YeomanGenerator, settings: IProjectSetting[]) => new Promise<IProjectConfig>(async (resolve, reject) => {
-    if (!settings || settings.length === 0) {
-        reject(new Error('foo'));
+    if (!generator || !settings || settings.length === 0) {
+        return reject(new Error(fatalErrorMessage));
     }
 
     const config: IProjectConfig = <IProjectConfig>{};
@@ -19,8 +31,7 @@ const getDesiredProjectConfig = async (generator: YeomanGenerator, settings: IPr
                 setting.tryExtractOptionValue(answer[setting.prompt.name], config);
             }
         } catch (err) {
-            generator.log(`OHHHHH NOOOO. Error details: ${err.message}`);
-            reject(new Error('Prompt failed'));
+            return reject(new Error(fatalErrorMessage));
         }
     }));
 
@@ -28,5 +39,6 @@ const getDesiredProjectConfig = async (generator: YeomanGenerator, settings: IPr
 });
 
 export {
+    addGeneratorOptions,
     getDesiredProjectConfig
 };

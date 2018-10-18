@@ -15,7 +15,8 @@ const assert = Chai.assert;
 
 suite('Index Tests:', () => {
     let index: Index;
-    let letsGoGeneratorCreateProjectStub: Sinon.SinonStub;
+    let createProjectStub: Sinon.SinonStub;
+    let addGeneratorOptionsStub: Sinon.SinonStub;
     const cwd = '/foo/bar/roo';
     const options = {
         env: {
@@ -52,16 +53,18 @@ suite('Index Tests:', () => {
         Sinon.stub(path, 'dirname');
         const dirRoot = { root: undefined };
         Sinon.stub(path, 'parse').callsFake(() => dirRoot);
-        letsGoGeneratorCreateProjectStub = Sinon.stub(LetsGoGenerator.prototype, 'createProject');
+        createProjectStub = Sinon.stub(LetsGoGenerator.prototype, 'createProject');
+        addGeneratorOptionsStub = Sinon.stub(LetsGoGenerator.prototype, 'addGeneratorOptions');
     });
 
     teardown(() => {
         Sinon.restore();
     });
 
-    test('Should invoke the createProject method defined by the LetsGoGenerator', async () => {
+    test('Should invoke the addGeneratorOptions and createProject method defined by the LetsGoGenerator', async () => {
         index = new Index([], options);
+        assert.isTrue(addGeneratorOptionsStub.called);
         await index.execute();
-        assert.isTrue(letsGoGeneratorCreateProjectStub.called);
+        assert.isTrue(createProjectStub.called);
     });
 });

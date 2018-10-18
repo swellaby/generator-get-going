@@ -4,13 +4,15 @@ import fs = require('fs');
 import path = require('path');
 import YeomanGenerator = require('yeoman-generator');
 
+import IProjectConfig = require('./project-config');
+
 /**
  * Initializes a git repository in the created project.
  *
  * @param {YeomanGenerator} generator - The yeoman generator instance.
  * @private
  */
-const initializeGitRepository = (generator: YeomanGenerator) => {
+const initializeGitRepository = (generator: YeomanGenerator, config: IProjectConfig) => {
     generator.log('I see that you don\'t have a git repo in the target directory. I\'ll initialize it for you now, and then ' +
         'you can add your remote later on via a \'git remote add origin <<insert your remote url here>>\'. For example: ' +
         '\'git remote add origin https://github.com/me/my-repo.git\'');
@@ -26,9 +28,10 @@ const initializeGitRepository = (generator: YeomanGenerator) => {
  * Validates that the new project has a git repository.
  *
  * @param {YeomanGenerator} generator - The yeoman generator instance.
+ * @param {IProjectConfig} config - The project configuration.
  * @private
  */
-const validateGitRepository = (generator: YeomanGenerator) => {
+const validateGitRepository = (generator: YeomanGenerator, config: IProjectConfig) => {
     try {
         const gitPath = path.join(path.resolve(generator.destinationRoot()), '.git');
 
@@ -38,11 +41,11 @@ const validateGitRepository = (generator: YeomanGenerator) => {
                 'absolutely do not need it. :)');
             fs.unlinkSync(gitPath);
 
-            initializeGitRepository(generator);
+            initializeGitRepository(generator, config);
         }
     } catch (err) {
         // fs.statSync will throw an exception when the directory does not exist so need to init
-        initializeGitRepository(generator);
+        initializeGitRepository(generator, config);
     }
 };
 

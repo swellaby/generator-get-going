@@ -15,6 +15,10 @@ class LetsGoGenerator {
         this.generator = generator;
     }
 
+    public addGeneratorOptions() {
+        projectConfigUtils.addGeneratorOptions(this.generator, projectSettings);
+    }
+
     public async createProject(): Promise<void> {
         this.generator.log(yosay('Welcome to the LetsGo Generator!'));
 
