@@ -12,7 +12,7 @@ const assert = Chai.assert;
 suite('projectConfigUtils Tests:', () => {
     suite('getDesiredProjectConfig Tests:', () => {
         test('Should return correct config', async () => {
-            const config = await projectConfigUtils.getDesiredProjectConfig(null);
+            const config = await projectConfigUtils.getDesiredProjectConfig(null, null);
             assert.isNull(config);
         });
     });

@@ -1,12 +1,14 @@
 'use strict';
 
 import inquirer = require('inquirer');
+import yeoman = require('yeoman-generator');
 
 import IProjectConfig = require('../project-config');
 import IProjectSetting = require('../settings/project-setting');
 import PromptType = require('./prompt-type');
 
 const settingName = 'name';
+const settingDescription = 'The name of your app';
 
 const isValid = (value: string): boolean => {
     if (!value) {
@@ -25,8 +27,13 @@ const validatePromptInput = (value: string, answers: inquirer.Answers): string |
 const prompt: inquirer.Question = {
     type: PromptType.input,
     name: settingName,
-    message: 'The name of your app',
+    message: settingDescription,
     validate: validatePromptInput
+};
+
+const option: yeoman.OptionConfig = {
+    type: String,
+    description: settingDescription
 };
 
 const tryConvertOptionValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
@@ -46,7 +53,8 @@ const tryConvertOptionValue = (value: unknown, projectConfig: IProjectConfig): b
 
 const setting: IProjectSetting = {
     name: settingName,
-    optionName: 'name',
+    optionName: settingName,
+    option: option,
     prompt: prompt,
     tryExtractOptionValue: tryConvertOptionValue
 };
