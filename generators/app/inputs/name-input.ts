@@ -17,7 +17,8 @@ const isValid = (value: string): boolean => {
     return new RegExp('^[\\w-]+$').test(value);
 };
 
-const validatePromptInput = (value: string, answers: inquirer.Answers): string | boolean => {
+// eslint-disable-next-line no-unused-vars
+const validatePromptInput = (value: string, answers?: inquirer.Answers): string | boolean => {
     if (isValid(value)) {
         return true;
     }

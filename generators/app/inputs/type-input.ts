@@ -13,7 +13,25 @@ const prompt: inquirer.Question = {
     type: PromptType.list,
     name: settingName,
     message: 'The type of project your app will be',
-    default: ProjectType.boilerplate
+    default: ProjectType.boilerplate,
+    choices: [
+        {
+            name: 'New App with just the boilerplate',
+            value: ProjectType.boilerplate
+        },
+        {
+            name: 'New Lib/Package App',
+            value: ProjectType.lib
+        },
+        {
+            name: 'New Lib/Package with a CLI App',
+            value: ProjectType.libcli
+        },
+        {
+            name: 'New CLI App',
+            value: ProjectType.cli
+        }
+    ]
 };
 
 const tryConvertOptionValue = (value: unknown, projectConfig: IProjectConfig): boolean => {

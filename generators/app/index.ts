@@ -13,7 +13,6 @@ export = class Generator extends yeoman {
     constructor(args: string | string[], opts?: any) {
         super(args, opts);
         this.letsGoGenerator = new LetsGoGenerator(this);
-        this.letsGoGenerator.addGeneratorOptions();
     }
 
     public execute() {

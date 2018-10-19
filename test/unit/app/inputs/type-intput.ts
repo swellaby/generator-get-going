@@ -18,24 +18,60 @@ suite('TypeInput Tests:', () => {
        assert.deepEqual(setting.name, expSettingName);
     });
 
-    test('Should have correct option name', () => {
-        assert.deepEqual(setting.optionName, 'type');
+    suite('optionConfig Tests:', () => {
+        test('Should have correct option name', () => {
+            assert.deepEqual(setting.optionName, 'type');
+        });
     });
 
-    test('Should have correct prompt name', () => {
-        assert.deepEqual(settingPrompt.name, expSettingName);
-    });
+    suite('promptConfig Tests:', () => {
+        test('Should have correct prompt name', () => {
+            assert.deepEqual(settingPrompt.name, expSettingName);
+        });
 
-    test('Should have correct prompt type', () => {
-        assert.deepEqual(settingPrompt.type, PromptType.list);
-    });
+        test('Should have correct prompt type', () => {
+            assert.deepEqual(settingPrompt.type, PromptType.list);
+        });
 
-    test('Should have correct prompt display message', () => {
-        assert.deepEqual(settingPrompt.message, 'The type of project your app will be');
-    });
+        test('Should have correct prompt display message', () => {
+            assert.deepEqual(settingPrompt.message, 'The type of project your app will be');
+        });
 
-    test('Should have correct default value', () => {
-        assert.deepEqual(settingPrompt.default, ProjectType.boilerplate);
+        test('Should have correct default value', () => {
+            assert.deepEqual(settingPrompt.default, ProjectType.boilerplate);
+        });
+
+        suite('choices Tests:', () => {
+            const choices = settingPrompt.choices;
+
+            test('Should have correct number of choices', () => {
+                assert.deepEqual(choices.length, 4);
+            });
+
+            test('Should have correct boilerplate choice', () => {
+                const choice = choices[0];
+                assert.deepEqual(choice.name, 'New App with just the boilerplate');
+                assert.deepEqual(choice.value, ProjectType.boilerplate);
+            });
+
+            test('Should have correct lib choice', () => {
+                const choice = choices[1];
+                assert.deepEqual(choice.name, 'New Lib/Package App');
+                assert.deepEqual(choice.value, ProjectType.lib);
+            });
+
+            test('Should have correct lib/cli choice', () => {
+                const choice = choices[2];
+                assert.deepEqual(choice.name, 'New Lib/Package with a CLI App');
+                assert.deepEqual(choice.value, ProjectType.libcli);
+            });
+
+            test('Should have correct cli choice', () => {
+                const choice = choices[3];
+                assert.deepEqual(choice.name, 'New CLI App');
+                assert.deepEqual(choice.value, ProjectType.cli);
+            });
+        });
     });
 
     suite('tryConvertOptionValue Tests:', () => {

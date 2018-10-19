@@ -18,7 +18,6 @@ suite('git Tests:', () => {
     let fsUnlinkSyncStub: Sinon.SinonStub;
     let pathJoinStub: Sinon.SinonStub;
     let pathResolveStub: Sinon.SinonStub;
-    let generatorDestinationRootStub: Sinon.SinonStub;
     let generatorLogStub: Sinon.SinonStub;
     let generatorSpawnCommandSyncStub: Sinon.SinonStub;
     const generatorStub: YeomanGenerator = testUtils.generatorStub;
@@ -38,15 +37,9 @@ suite('git Tests:', () => {
     setup(() => {
         generatorLogStub = Sinon.stub(generatorStub, 'log');
         generatorSpawnCommandSyncStub = Sinon.stub(generatorStub, 'spawnCommandSync').callsFake(() => null);
-        generatorDestinationRootStub = Sinon.stub(generatorStub, 'destinationRoot').callsFake(() => {
-            return destinationRootBase;
-        });
-        pathJoinStub = Sinon.stub(path, 'join').onFirstCall().callsFake(() => {
-            return joinedGitPath;
-        });
-        pathResolveStub = Sinon.stub(path, 'resolve').onFirstCall().callsFake(() => {
-            return resolvedGitPath;
-        });
+        Sinon.stub(generatorStub, 'destinationRoot').callsFake(() => destinationRootBase);
+        pathJoinStub = Sinon.stub(path, 'join').onFirstCall().callsFake(() => joinedGitPath);
+        pathResolveStub = Sinon.stub(path, 'resolve').onFirstCall().callsFake(() => resolvedGitPath);
         fsIsFileStub = Sinon.stub(fsStatsStub, 'isFile').callsFake(() => false);
         fsStatSyncStub = Sinon.stub(fs, 'statSync').callsFake(() => fsStatsStub);
         fsUnlinkSyncStub = Sinon.stub(fs, 'unlinkSync');

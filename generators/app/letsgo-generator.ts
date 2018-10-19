@@ -3,6 +3,7 @@
 import YeomanGenerator = require('yeoman-generator');
 import yosay = require('yosay');
 
+import directory = require('./directory');
 import IProjectConfig = require('./project-config');
 import projectConfigUtils = require('./inputs/project-config-utils');
 import projectSettings = require('./settings/settings');
@@ -13,9 +14,6 @@ class LetsGoGenerator {
 
     constructor(generator: YeomanGenerator) {
         this.generator = generator;
-    }
-
-    public addGeneratorOptions() {
         projectConfigUtils.addGeneratorOptions(this.generator, projectSettings);
     }
 
@@ -24,6 +22,7 @@ class LetsGoGenerator {
 
         try {
             this.config = await projectConfigUtils.getDesiredProjectConfig(this.generator, projectSettings);
+            directory.validateDirectoryName(this.generator, this.config);
         } catch (err) {
             let errMsg = 'Encountered an unexpected error while creating your ' +
             'new project. Please try again.';

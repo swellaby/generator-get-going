@@ -8,8 +8,10 @@ import Sinon = require('sinon');
 const yeomanEnvironment = require('yeoman-environment');
 const yeomanGenerator = require('yeoman-generator');
 
-import Index = require('././../../../generators/app/index');
-import LetsGoGenerator = require('./../../../generators/app/letsgo-generator');
+import Index = require('../../../generators/app/index');
+import LetsGoGenerator = require('../../../generators/app/letsgo-generator');
+import projectConfigUtils = require('../../../generators/app/inputs/project-config-utils');
+import projectSettings = require('../../../generators/app/settings/settings');
 
 const assert = Chai.assert;
 
@@ -54,7 +56,7 @@ suite('Index Tests:', () => {
         const dirRoot = { root: undefined };
         Sinon.stub(path, 'parse').callsFake(() => dirRoot);
         createProjectStub = Sinon.stub(LetsGoGenerator.prototype, 'createProject');
-        addGeneratorOptionsStub = Sinon.stub(LetsGoGenerator.prototype, 'addGeneratorOptions');
+        addGeneratorOptionsStub = Sinon.stub(projectConfigUtils, 'addGeneratorOptions');
     });
 
     teardown(() => {
@@ -63,7 +65,7 @@ suite('Index Tests:', () => {
 
     test('Should invoke the addGeneratorOptions and createProject method defined by the LetsGoGenerator', async () => {
         index = new Index([], options);
-        assert.isTrue(addGeneratorOptionsStub.called);
+        assert.isTrue(addGeneratorOptionsStub.calledWithExactly(index, projectSettings));
         await index.execute();
         assert.isTrue(createProjectStub.called);
     });

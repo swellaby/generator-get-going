@@ -6,7 +6,7 @@ import typeInput = require('../inputs/type-input');
 import vscodeInput = require('../inputs/vscode-input');
 
 const settings: IProjectSetting[] = [
-    // typeInput.setting,
+    typeInput.setting,
     nameInput.setting,
     vscodeInput.setting
 ];

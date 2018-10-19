@@ -79,10 +79,16 @@ suite('projectConfigUtils Tests:', () => {
     });
 
     suite('getDesiredProjectConfig Tests:', () => {
+        let firstSettingExtractValStub: Sinon.SinonStub;
+        let secondSettingExtractValStub: Sinon.SinonStub;
         let generatorPromptStub: Sinon.SinonStub;
+        let answers;
 
         setup(() => {
-            generatorPromptStub = Sinon.stub(generatorStub, 'prompt');
+            answers = {};
+            generatorPromptStub = Sinon.stub(generatorStub, 'prompt').callsFake(() => answers);
+            firstSettingExtractValStub = Sinon.stub(firstSetting, 'tryExtractOptionValue').callsFake(() => true);
+            secondSettingExtractValStub = Sinon.stub(secondSetting, 'tryExtractOptionValue').callsFake(() => true);
             generatorStub.options = {};
         });
 
@@ -90,7 +96,7 @@ suite('projectConfigUtils Tests:', () => {
             Sinon.restore();
         });
 
-        test('Should throw correct error when generator is null and settings is null', async () => {
+        test('Should reject with correct error when generator is null and settings is null', async () => {
             try {
                 await projectConfigUtils.getDesiredProjectConfig(null, null);
                 assert.isFalse(true);
@@ -99,7 +105,7 @@ suite('projectConfigUtils Tests:', () => {
             }
         });
 
-        test('Should throw correct error when generator is null and settings is undefined', async () => {
+        test('Should reject with correct error when generator is null and settings is undefined', async () => {
             try {
                 await projectConfigUtils.getDesiredProjectConfig(null, undefined);
                 assert.isFalse(true);
@@ -108,7 +114,7 @@ suite('projectConfigUtils Tests:', () => {
             }
          });
 
-        test('Should throw correct error when generator is null and settings is empty', async () => {
+        test('Should reject with correct error when generator is null and settings is empty', async () => {
             try {
                 await projectConfigUtils.getDesiredProjectConfig(null, []);
                 assert.isFalse(true);
@@ -117,7 +123,7 @@ suite('projectConfigUtils Tests:', () => {
             }
         });
 
-        test('Should throw correct error when generator is null and valid settings', async () => {
+        test('Should reject with correct error when generator is null and valid settings', async () => {
             try {
                 await projectConfigUtils.getDesiredProjectConfig(null, projectSettings);
                 assert.isFalse(true);
@@ -126,7 +132,7 @@ suite('projectConfigUtils Tests:', () => {
             }
         });
 
-        test('Should throw correct error when generator is undefined and settings is null', async () => {
+        test('Should reject with correct error when generator is undefined and settings is null', async () => {
             try {
                 await projectConfigUtils.getDesiredProjectConfig(undefined, null);
                 assert.isFalse(true);
@@ -135,7 +141,7 @@ suite('projectConfigUtils Tests:', () => {
             }
         });
 
-        test('Should throw correct error when generator is undefined and settings is undefined', async () => {
+        test('Should reject with correct error when generator is undefined and settings is undefined', async () => {
             try {
                 await projectConfigUtils.getDesiredProjectConfig(undefined, undefined);
                 assert.isFalse(true);
@@ -144,7 +150,7 @@ suite('projectConfigUtils Tests:', () => {
             }
         });
 
-        test('Should throw correct error when generator is undefined and settings is empty', async () => {
+        test('Should reject with correct error when generator is undefined and settings is empty', async () => {
             try {
                 await projectConfigUtils.getDesiredProjectConfig(undefined, []);
                 assert.isFalse(true);
@@ -153,7 +159,7 @@ suite('projectConfigUtils Tests:', () => {
             }
         });
 
-        test('Should throw correct error when generator is undefined and valid settings', async () => {
+        test('Should reject with correct error when generator is undefined and valid settings', async () => {
             try {
                 await projectConfigUtils.getDesiredProjectConfig(undefined, projectSettings);
                 assert.isFalse(true);
@@ -162,7 +168,7 @@ suite('projectConfigUtils Tests:', () => {
             }
         });
 
-        test('Should throw correct error when generator is valid and settings is null', async () => {
+        test('Should reject with correct error when generator is valid and settings is null', async () => {
             try {
                 await projectConfigUtils.getDesiredProjectConfig(generatorStub, null);
                 assert.isFalse(true);
@@ -171,7 +177,7 @@ suite('projectConfigUtils Tests:', () => {
             }
         });
 
-        test('Should throw correct error when generator is valid and settings is undefined', async () => {
+        test('Should reject with correct error when generator is valid and settings is undefined', async () => {
             try {
                 await projectConfigUtils.getDesiredProjectConfig(generatorStub, undefined);
                 assert.isFalse(true);
@@ -180,7 +186,7 @@ suite('projectConfigUtils Tests:', () => {
             }
         });
 
-        test('Should throw correct error when generator is valid and settings is empty', async () => {
+        test('Should reject with correct error when generator is valid and settings is empty', async () => {
             try {
                 await projectConfigUtils.getDesiredProjectConfig(generatorStub, []);
                 assert.isFalse(true);
@@ -189,14 +195,39 @@ suite('projectConfigUtils Tests:', () => {
             }
         });
 
-        test('Should not prompt when generator options are set correctly', async () => {
-            // options
+        test('Should reject with correct error when setting check throws an error', async () => {
+            firstSettingExtractValStub.callsFake(() => { throw new Error(); });
+            try {
+                await projectConfigUtils.getDesiredProjectConfig(generatorStub, projectSettings);
+                assert.isFalse(true);
+            } catch (err) {
+                assert.deepEqual(err.message, errMessage);
+            }
         });
 
-        // test('Should add all options when generator is valid and valid settings', async () => {
-        //     projectConfigUtils.getDesiredProjectConfig(generatorStub, projectSettings);
-        //     assert.isTrue(generatorPromptStub.firstCall.calledWithExactly(firstSetting.optionName, firstSetting.option));
-        //     assert.isTrue(generatorPromptStub.secondCall.calledWithExactly(secondSetting.optionName, secondSetting.option));
-        // });
+        test('Should not prompt when generator options are set correctly', async () => {
+            await projectConfigUtils.getDesiredProjectConfig(generatorStub, projectSettings);
+            assert.isFalse(generatorPromptStub.called);
+        });
+
+        test('Should add all options when generator is valid and valid settings', async () => {
+            firstSettingExtractValStub.callsFake(() => false);
+            secondSettingExtractValStub.callsFake(() => false);
+            const firstOptVal = 'foobar';
+            const firstPromptAnswer = 'barFoo';
+            const secondOptVal = true;
+            const secondPromptAnswer = false;
+            generatorStub.options[firstSetting.optionName] = firstOptVal;
+            generatorStub.options[secondSetting.optionName] = secondOptVal;
+            answers[firstSetting.prompt.name] = firstPromptAnswer;
+            answers[secondSetting.prompt.name] = secondPromptAnswer;
+            await projectConfigUtils.getDesiredProjectConfig(generatorStub, projectSettings);
+            assert.isTrue(firstSettingExtractValStub.firstCall.calledWith(firstOptVal));
+            assert.isTrue(generatorPromptStub.firstCall.calledWithExactly([firstSetting.prompt]));
+            assert.isTrue(firstSettingExtractValStub.secondCall.calledWith(firstPromptAnswer));
+            assert.isTrue(secondSettingExtractValStub.firstCall.calledWith(secondOptVal));
+            assert.isTrue(generatorPromptStub.secondCall.calledWithExactly([secondSetting.prompt]));
+            assert.isTrue(secondSettingExtractValStub.secondCall.calledWith(secondPromptAnswer));
+        });
     });
 });

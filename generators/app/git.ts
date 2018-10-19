@@ -12,6 +12,7 @@ import IProjectConfig = require('./project-config');
  * @param {YeomanGenerator} generator - The yeoman generator instance.
  * @private
  */
+// eslint-disable-next-line no-unused-vars
 const initializeGitRepository = (generator: YeomanGenerator, config: IProjectConfig) => {
     generator.log('I see that you don\'t have a git repo in the target directory. I\'ll initialize it for you now, and then ' +
         'you can add your remote later on via a \'git remote add origin <<insert your remote url here>>\'. For example: ' +
