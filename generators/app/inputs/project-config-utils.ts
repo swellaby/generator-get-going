@@ -22,20 +22,28 @@ const getDesiredProjectConfig = async (generator: YeomanGenerator, settings: IPr
     }
 
     const config: IProjectConfig = <IProjectConfig>{};
+    const unsetSettings: IProjectSetting[] = [];
+    const prompts: YeomanGenerator.Question[] = [];
 
-    await Promise.all(settings.map(async setting => {
-        try {
+    try {
+        settings.forEach(setting => {
             const option = generator.options[setting.optionName];
             if (!setting.tryExtractOptionValue(option, config)) {
-                const answer = await generator.prompt([setting.prompt]);
-                setting.tryExtractOptionValue(answer[setting.prompt.name], config);
+                prompts.push(setting.prompt);
+                unsetSettings.push(setting);
             }
-        } catch (err) {
-            return reject(new Error(fatalErrorMessage));
-        }
-    }));
+        });
 
-    resolve(config);
+        if (prompts.length > 0) {
+            const answers = await generator.prompt(prompts);
+            unsetSettings.forEach(setting => {
+                setting.tryExtractOptionValue(answers[setting.prompt.name], config);
+            });
+        }
+        return resolve(config);
+    } catch (err) {
+        return reject(new Error(fatalErrorMessage));
+    }
 });
 
 export {

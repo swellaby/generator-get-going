@@ -223,10 +223,9 @@ suite('projectConfigUtils Tests:', () => {
             answers[secondSetting.prompt.name] = secondPromptAnswer;
             await projectConfigUtils.getDesiredProjectConfig(generatorStub, projectSettings);
             assert.isTrue(firstSettingExtractValStub.firstCall.calledWith(firstOptVal));
-            assert.isTrue(generatorPromptStub.firstCall.calledWithExactly([firstSetting.prompt]));
+            assert.isTrue(generatorPromptStub.firstCall.calledWithExactly([firstSetting.prompt, secondSetting.prompt]));
             assert.isTrue(firstSettingExtractValStub.secondCall.calledWith(firstPromptAnswer));
             assert.isTrue(secondSettingExtractValStub.firstCall.calledWith(secondOptVal));
-            assert.isTrue(generatorPromptStub.secondCall.calledWithExactly([secondSetting.prompt]));
             assert.isTrue(secondSettingExtractValStub.secondCall.calledWith(secondPromptAnswer));
         });
     });
