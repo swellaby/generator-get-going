@@ -87,8 +87,8 @@ suite('projectConfigUtils Tests:', () => {
         setup(() => {
             answers = {};
             generatorPromptStub = Sinon.stub(generatorStub, 'prompt').callsFake(() => answers);
-            firstSettingExtractValStub = Sinon.stub(firstSetting, 'tryExtractOptionValue').callsFake(() => true);
-            secondSettingExtractValStub = Sinon.stub(secondSetting, 'tryExtractOptionValue').callsFake(() => true);
+            firstSettingExtractValStub = Sinon.stub(firstSetting, 'tryExtractSettingValue').callsFake(() => true);
+            secondSettingExtractValStub = Sinon.stub(secondSetting, 'tryExtractSettingValue').callsFake(() => true);
             generatorStub.options = {};
         });
 

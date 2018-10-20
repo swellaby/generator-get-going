@@ -13,6 +13,7 @@
       "prelint",
       "pretranspile",
       "repo",
+      "scaffolder",
       "sonarqube",
       "swellaby",
       "tagless",

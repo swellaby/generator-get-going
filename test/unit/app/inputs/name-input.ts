@@ -64,7 +64,7 @@ suite('NameInput Tests:', () => {
         });
     });
 
-    suite('tryConvertOptionValue Tests:', () => {
+    suite('tryExtractSettingValue Tests:', () => {
         let config: IProjectConfig;
 
         setup(() => {
@@ -76,36 +76,36 @@ suite('NameInput Tests:', () => {
         });
 
         test('Should return false when value is null', () => {
-            assert.isFalse(setting.tryExtractOptionValue(null, null));
+            assert.isFalse(setting.tryExtractSettingValue(null, null));
         });
 
         test('Should return false when value is undefined', () => {
-            assert.isFalse(setting.tryExtractOptionValue(undefined, config));
+            assert.isFalse(setting.tryExtractSettingValue(undefined, config));
         });
 
         test('Should return false on empty string input', () => {
-            assert.isFalse(setting.tryExtractOptionValue('', config));
+            assert.isFalse(setting.tryExtractSettingValue('', config));
         });
 
         test('Should return false on invalid string input', () => {
-            assert.isFalse(setting.tryExtractOptionValue('foo/bar', config));
+            assert.isFalse(setting.tryExtractSettingValue('foo/bar', config));
         });
 
         test('Should set config name correctly on valid dash string input', () => {
             const name = 'foo-bar';
-            assert.isTrue(setting.tryExtractOptionValue(name, config));
+            assert.isTrue(setting.tryExtractSettingValue(name, config));
             assert.deepEqual(config.name, name);
         });
 
         test('Should set config name correctly on valid underscore string input', () => {
             const name = 'foo_bar';
-            assert.isTrue(setting.tryExtractOptionValue(name, config));
+            assert.isTrue(setting.tryExtractSettingValue(name, config));
             assert.deepEqual(config.name, name);
         });
 
         test('Should set config name correctly on valid numeric string input', () => {
             const name = '-7';
-            assert.isTrue(setting.tryExtractOptionValue(name, config));
+            assert.isTrue(setting.tryExtractSettingValue(name, config));
             assert.deepEqual(config.name, name);
         });
     });

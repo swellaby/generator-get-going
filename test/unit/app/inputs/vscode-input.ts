@@ -55,7 +55,7 @@ suite('VSCodeInput Tests:', () => {
         });
     });
 
-    suite('tryConvertOptionValue Tests:', () => {
+    suite('tryExtractSettingValue Tests:', () => {
         let config: IProjectConfig;
 
         setup(() => {
@@ -67,28 +67,28 @@ suite('VSCodeInput Tests:', () => {
         });
 
         test('Should return false when value is null', () => {
-            assert.isFalse(setting.tryExtractOptionValue(null, null));
+            assert.isFalse(setting.tryExtractSettingValue(null, null));
         });
 
         test('Should return false when value is undefined', () => {
-            assert.isFalse(setting.tryExtractOptionValue(undefined, config));
+            assert.isFalse(setting.tryExtractSettingValue(undefined, config));
         });
 
         test('Should return false on empty string input', () => {
-            assert.isFalse(setting.tryExtractOptionValue('', config));
+            assert.isFalse(setting.tryExtractSettingValue('', config));
         });
 
         test('Should return false on string input', () => {
-            assert.isFalse(setting.tryExtractOptionValue('foobar', config));
+            assert.isFalse(setting.tryExtractSettingValue('foobar', config));
         });
 
         test('Should set config vscode correctly on false input', () => {
-            assert.isTrue(setting.tryExtractOptionValue(false, config));
+            assert.isTrue(setting.tryExtractSettingValue(false, config));
             assert.isFalse(config.includeVSCode);
         });
 
         test('Should set config vscode correctly on true input', () => {
-            assert.isTrue(setting.tryExtractOptionValue(true, config));
+            assert.isTrue(setting.tryExtractSettingValue(true, config));
             assert.isTrue(config.includeVSCode);
         });
     });

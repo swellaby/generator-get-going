@@ -13,13 +13,12 @@ interface IProjectSetting {
     option?: yeoman.OptionConfig;
     prompt: inquirer.Question;
     /**
-     * Determines whether the provided option value is valid.
-     * @param {any} value - The value provided for the option.
+     * Attempts to apply the specified value to corresponding setting.
+     * @param {any} value - The value provided..
      * @param {IProjectConfig} config - The project configuration.
-     * @returns {boolean}
+     * @returns {boolean} - Returns true if the value was valid and added to the config, otherwise false.
      */
-    // tslint:disable-next-line:no-any
-    tryExtractOptionValue(value: any, projectConfig: IProjectConfig): boolean;
+    tryExtractSettingValue(value: unknown, projectConfig: IProjectConfig): boolean;
 }
 
 export = IProjectSetting;

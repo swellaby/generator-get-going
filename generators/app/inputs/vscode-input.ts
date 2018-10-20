@@ -24,7 +24,7 @@ const option: yeoman.OptionConfig = {
     description: settingDescription
 };
 
-const tryConvertOptionValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
+const tryExtractSettingValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
     projectConfig = projectConfig || <IProjectConfig>{};
     if (value === null || value === undefined || typeof value !== 'boolean') {
         return false;
@@ -38,7 +38,7 @@ const setting: IProjectSetting = {
     optionName: settingName,
     option: option,
     prompt: prompt,
-    tryExtractOptionValue: tryConvertOptionValue
+    tryExtractSettingValue: tryExtractSettingValue
 };
 
 export = {

@@ -68,7 +68,7 @@ const firstSetting: IProjectSetting = <IProjectSetting> {
     prompt: {
         name: 'foo'
     },
-    tryExtractOptionValue: () => true
+    tryExtractSettingValue: () => true
 };
 
 const secondSetting: IProjectSetting = <IProjectSetting> {
@@ -80,7 +80,7 @@ const secondSetting: IProjectSetting = <IProjectSetting> {
     prompt: {
         name: 'bar'
     },
-    tryExtractOptionValue: () => true
+    tryExtractSettingValue: () => true
 };
 
 const projectSettings = [ firstSetting, secondSetting ];
