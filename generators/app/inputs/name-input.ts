@@ -3,12 +3,12 @@
 import inquirer = require('inquirer');
 import yeoman = require('yeoman-generator');
 
-import IProjectConfig = require('../project-config');
-import IProjectSetting = require('../settings/project-setting');
-import PromptType = require('./prompt-type');
+import IProjectConfig = require('../interfaces/project-config');
+import IProjectInput = require('../interfaces/project-input');
+import PromptType = require('../enums/prompt-type');
 
-const settingName = 'name';
-const settingDescription = 'The name of your app';
+const name = 'name';
+const description = 'The name of your app';
 
 const isValid = (value: string): boolean => {
     if (!value) {
@@ -27,14 +27,14 @@ const validatePromptInput = (value: string, answers?: inquirer.Answers): string 
 
 const prompt: inquirer.Question = {
     type: PromptType.input,
-    name: settingName,
-    message: settingDescription,
+    name: name,
+    message: description,
     validate: validatePromptInput
 };
 
 const option: yeoman.OptionConfig = {
     type: String,
-    description: settingDescription
+    description: description
 };
 
 const tryExtractSettingValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
@@ -52,15 +52,15 @@ const tryExtractSettingValue = (value: unknown, projectConfig: IProjectConfig): 
     return false;
 };
 
-const setting: IProjectSetting = {
-    name: settingName,
-    optionName: settingName,
+const input: IProjectInput = {
+    name: name,
+    optionName: name,
     option: option,
     prompt: prompt,
     tryExtractSettingValue: tryExtractSettingValue
 };
 
 export = {
-    setting,
+    input,
     isValid
 };

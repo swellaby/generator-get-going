@@ -1,7 +1,7 @@
 'use strict';
 
 import chai = require('chai');
-import projectType = require('../../../../generators/app/settings/project-type');
+import projectType = require('../../../../generators/app/enums/project-type');
 const assert = chai.assert;
 
 suite('ProjectType Tests:', () => {

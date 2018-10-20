@@ -1,7 +1,7 @@
 'use strict';
 
 import chai = require('chai');
-import taskRunner = require('../../../../generators/app/settings/task-runner');
+import taskRunner = require('../../../../generators/app/enums/task-runner');
 const assert = chai.assert;
 
 suite('TaskRunner Tests:', () => {

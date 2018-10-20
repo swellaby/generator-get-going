@@ -5,8 +5,8 @@ import path = require('path');
 import YeomanGenerator = require('yeoman-generator');
 import yosay = require('yosay');
 
-import IProjectConfig = require('../generators/app/project-config');
-import IProjectSetting = require('../generators/app/settings/project-setting');
+import IProjectConfig = require('../generators/app/interfaces/project-config');
+import IProjectInput = require('../generators/app/interfaces/project-input');
 
 const generatorRoot = path.join(__dirname, './../../../generators/app');
 const expectedGreetingMessage = yosay('Welcome to the LetsGo Generator!');
@@ -59,7 +59,7 @@ const projectConfig: IProjectConfig = <IProjectConfig> {
 
 };
 
-const firstSetting: IProjectSetting = <IProjectSetting> {
+const firstInput: IProjectInput = <IProjectInput> {
     name: 'one',
     optionName: 'first',
     option: {
@@ -71,7 +71,7 @@ const firstSetting: IProjectSetting = <IProjectSetting> {
     tryExtractSettingValue: () => true
 };
 
-const secondSetting: IProjectSetting = <IProjectSetting> {
+const secondInput: IProjectInput = <IProjectInput> {
     name: 'two',
     optionName: 'second',
     option: {
@@ -83,7 +83,7 @@ const secondSetting: IProjectSetting = <IProjectSetting> {
     tryExtractSettingValue: () => true
 };
 
-const projectSettings = [ firstSetting, secondSetting ];
+const projectInputs = [ firstInput, secondInput ];
 
 export = {
     expectedGreetingMessage,
@@ -93,7 +93,7 @@ export = {
     generatorRoot,
     projectConfig,
     fsStatStub,
-    firstSetting,
-    secondSetting,
-    projectSettings
+    firstInput,
+    secondInput,
+    projectInputs
 };

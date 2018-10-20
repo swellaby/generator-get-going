@@ -27,7 +27,7 @@
         "clean:test": "rimraf .testresults .coverage",
         "clean:test:unit": "rimraf .testresults/unit .coverage/unit",
         "clean:test:component": "rimraf .testresults/component .coverage/component",
-        "clean:js": "rimraf test/**/{*.js,*.map} generators/{app/*.js*,*.js*}",
+        "clean:js": "rimraf test/**/{*.js,*.map} generators/**/{*.js,*.map}",
         "clean": "npm run clean:test && npm run clean:js",
         "pretranspile": "npm run clean:js",
         "transpile": "tsc -p tsconfig.json",

@@ -4,7 +4,7 @@ import fs = require('fs');
 import path = require('path');
 import YeomanGenerator = require('yeoman-generator');
 
-import IProjectConfig = require('./project-config');
+import IProjectConfig = require('./interfaces/project-config');
 
 /**
  * Initializes a git repository in the created project.

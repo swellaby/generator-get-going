@@ -1,7 +1,7 @@
 'use strict';
 
 import chai = require('chai');
-import promptType = require('../../../../generators/app/inputs/prompt-type');
+import promptType = require('../../../../generators/app/enums/prompt-type');
 const assert = chai.assert;
 
 suite('PromptType Tests:', () => {

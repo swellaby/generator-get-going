@@ -3,35 +3,35 @@
 import chai = require('chai');
 import inquirer = require('inquirer');
 
-import IProjectConfig = require('../../../../generators/app/project-config');
-import PromptType = require('../../.././../generators/app/inputs/prompt-type');
+import IProjectConfig = require('../../../../generators/app/interfaces/project-config');
+import PromptType = require('../../../../generators/app/enums/prompt-type');
 import nameInput = require('../../../../generators/app/inputs/name-input');
 
-const setting = nameInput.setting;
-const settingPrompt = setting.prompt;
+const input = nameInput.input;
+const prompt = input.prompt;
 const assert = chai.assert;
 
 suite('NameInput Tests:', () => {
     const expSettingName = 'name';
 
     test('Should have correct setting name', () => {
-       assert.deepEqual(setting.name, expSettingName);
+       assert.deepEqual(input.name, expSettingName);
     });
 
     test('Should have correct option name', () => {
-        assert.deepEqual(setting.optionName, expSettingName);
+        assert.deepEqual(input.optionName, expSettingName);
     });
 
     test('Should have correct prompt name', () => {
-        assert.deepEqual(settingPrompt.name, expSettingName);
+        assert.deepEqual(prompt.name, expSettingName);
     });
 
     test('Should have correct prompt type', () => {
-        assert.deepEqual(settingPrompt.type, PromptType.input);
+        assert.deepEqual(prompt.type, PromptType.input);
     });
 
     test('Should have correct prompt display message', () => {
-        assert.deepEqual(settingPrompt.message, 'The name of your app');
+        assert.deepEqual(prompt.message, 'The name of your app');
     });
 
     suite('isValid Tests:', () => {
@@ -76,36 +76,36 @@ suite('NameInput Tests:', () => {
         });
 
         test('Should return false when value is null', () => {
-            assert.isFalse(setting.tryExtractSettingValue(null, null));
+            assert.isFalse(input.tryExtractSettingValue(null, null));
         });
 
         test('Should return false when value is undefined', () => {
-            assert.isFalse(setting.tryExtractSettingValue(undefined, config));
+            assert.isFalse(input.tryExtractSettingValue(undefined, config));
         });
 
         test('Should return false on empty string input', () => {
-            assert.isFalse(setting.tryExtractSettingValue('', config));
+            assert.isFalse(input.tryExtractSettingValue('', config));
         });
 
         test('Should return false on invalid string input', () => {
-            assert.isFalse(setting.tryExtractSettingValue('foo/bar', config));
+            assert.isFalse(input.tryExtractSettingValue('foo/bar', config));
         });
 
         test('Should set config name correctly on valid dash string input', () => {
             const name = 'foo-bar';
-            assert.isTrue(setting.tryExtractSettingValue(name, config));
+            assert.isTrue(input.tryExtractSettingValue(name, config));
             assert.deepEqual(config.name, name);
         });
 
         test('Should set config name correctly on valid underscore string input', () => {
             const name = 'foo_bar';
-            assert.isTrue(setting.tryExtractSettingValue(name, config));
+            assert.isTrue(input.tryExtractSettingValue(name, config));
             assert.deepEqual(config.name, name);
         });
 
         test('Should set config name correctly on valid numeric string input', () => {
             const name = '-7';
-            assert.isTrue(setting.tryExtractSettingValue(name, config));
+            assert.isTrue(input.tryExtractSettingValue(name, config));
             assert.deepEqual(config.name, name);
         });
     });
@@ -118,36 +118,36 @@ suite('NameInput Tests:', () => {
 
         test('Should return correct error message when value is null', () => {
             const expMessage = getErrorMessage(null);
-            assert.deepEqual(settingPrompt.validate(null, answers), expMessage);
+            assert.deepEqual(prompt.validate(null, answers), expMessage);
         });
 
         test('Should return correct error message when value is undefined', () => {
             const expMessage = getErrorMessage(undefined);
-            assert.deepEqual(settingPrompt.validate(undefined, answers), expMessage);
+            assert.deepEqual(prompt.validate(undefined, answers), expMessage);
         });
 
         test('Should return correct error message on empty string input', () => {
             const expMessage = getErrorMessage('');
-            assert.deepEqual(settingPrompt.validate('', answers), expMessage);
+            assert.deepEqual(prompt.validate('', answers), expMessage);
         });
 
         test('Should return correct error message on invalid string input', () => {
             const name = 'foo/bar';
             const expMessage = getErrorMessage(name);
-            const actMessage = settingPrompt.validate('foo/bar', answers);
+            const actMessage = prompt.validate('foo/bar', answers);
             assert.deepEqual(actMessage, expMessage);
         });
 
         test('Should return true on valid dash string input', () => {
-            assert.isTrue(settingPrompt.validate('foo-bar', answers));
+            assert.isTrue(prompt.validate('foo-bar', answers));
         });
 
         test('Should return true on valid underscore string input', () => {
-            assert.isTrue(settingPrompt.validate('foo_bar', answers));
+            assert.isTrue(prompt.validate('foo_bar', answers));
         });
 
         test('Should return true on valid numeric string input', () => {
-            assert.isTrue(settingPrompt.validate('-7', answers));
+            assert.isTrue(prompt.validate('-7', answers));
         });
     });
 });

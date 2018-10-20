@@ -7,7 +7,7 @@ import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 
 import directory = require('../../../generators/app/directory');
-import IProjectConfig = require('../../../generators/app/project-config');
+import IProjectConfig = require('../../../generators/app/interfaces/project-config');
 import testUtils = require('../../test-utils');
 
 const assert = Chai.assert;
@@ -26,7 +26,7 @@ suite('directory Tests:', () => {
     const destinationRootBase = '';
     const destPathReturnValue = 'fooBarRoo';
     const newDirMessage = 'Your generator must be inside a directory with the same name ' +
-        `as your project name '${appName}'\n I'll automatically create this directory for you.`;
+        `as your project name '${appName}'\nI'll automatically create this directory for you.`;
 
     setup(() => {
         mkdirpSyncStub = Sinon.stub(mkdirp, 'sync');

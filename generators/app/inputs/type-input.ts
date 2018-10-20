@@ -2,16 +2,16 @@
 
 import inquirer = require('inquirer');
 
-import IProjectConfig = require('../project-config');
-import IProjectSetting = require('../settings/project-setting');
-import ProjectType = require('../settings/project-type');
-import PromptType = require('./prompt-type');
+import IProjectConfig = require('../interfaces/project-config');
+import IProjectInput = require('../interfaces/project-input');
+import ProjectType = require('../enums/project-type');
+import PromptType = require('../enums/prompt-type');
 
-const settingName = 'projectType';
+const name = 'projectType';
 
 const prompt: inquirer.Question = {
     type: PromptType.list,
-    name: settingName,
+    name: name,
     message: 'The type of project your app will be',
     default: ProjectType.boilerplate,
     choices: [
@@ -51,13 +51,13 @@ const tryExtractSettingValue = (value: unknown, projectConfig: IProjectConfig): 
     return true;
 };
 
-const setting: IProjectSetting = {
-    name: settingName,
+const input: IProjectInput = {
+    name: name,
     optionName: 'type',
     prompt: prompt,
     tryExtractSettingValue: tryExtractSettingValue
 };
 
 export = {
-    setting
+    input
 };

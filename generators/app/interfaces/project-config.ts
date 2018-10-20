@@ -1,8 +1,8 @@
 'use strict';
 
-import Linter = require('./settings/linter');
-import ProjectType = require('./settings/project-type');
-import TaskRunner = require('./settings/task-runner');
+import Linter = require('../enums/linter');
+import ProjectType = require('../enums/project-type');
+import TaskRunner = require('../enums/task-runner');
 
 interface IProjectConfig {
     name: string;

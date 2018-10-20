@@ -6,8 +6,8 @@ import YeomanGenerator = require('yeoman-generator');
 
 import directory = require('../../../generators/app/directory');
 import LetsGoGenerator = require('../../../generators/app/letsgo-generator');
-import projectConfigUtils = require('../../../generators/app/inputs/project-config-utils');
-import projectSettings = require('../../../generators/app/settings/settings');
+import projectInputUtils = require('../../../generators/app/inputs/project-input-utils');
+import projectInputs = require('../../../generators/app/inputs/project-inputs');
 import testUtils = require('../../test-utils');
 
 const assert = Chai.assert;
@@ -23,8 +23,8 @@ suite('LetsGoGenerator Tests:', () => {
 
     setup(() => {
         generatorStub = testUtils.generatorStub;
-        getDesiredProjectConfigStub = Sinon.stub(projectConfigUtils, 'getDesiredProjectConfig').callsFake(() => Promise.resolve(config));
-        addGeneratorOptionsStub = Sinon.stub(projectConfigUtils, 'addGeneratorOptions');
+        getDesiredProjectConfigStub = Sinon.stub(projectInputUtils, 'getDesiredProjectConfig').callsFake(() => Promise.resolve(config));
+        addGeneratorOptionsStub = Sinon.stub(projectInputUtils, 'addGeneratorOptions');
         validateDirectoryNameStub = Sinon.stub(directory, 'validateDirectoryName');
         generatorLogStub = Sinon.stub(generatorStub, 'log');
         letsGoGenerator = new LetsGoGenerator(generatorStub);
@@ -37,7 +37,7 @@ suite('LetsGoGenerator Tests:', () => {
     });
 
     test('Should call options setup function on constructor', () => {
-        assert.isTrue(addGeneratorOptionsStub.calledWithExactly(generatorStub, projectSettings));
+        assert.isTrue(addGeneratorOptionsStub.calledWithExactly(generatorStub, projectInputs));
     });
 
     test('Should display correct greet message', async () => {

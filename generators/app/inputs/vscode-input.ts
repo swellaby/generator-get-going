@@ -3,25 +3,25 @@
 import inquirer = require('inquirer');
 import yeoman = require('yeoman-generator');
 
-import IProjectConfig = require('../project-config');
-import IProjectSetting = require('../settings/project-setting');
-import PromptType = require('./prompt-type');
+import IProjectConfig = require('../interfaces/project-config');
+import IProjectInput = require('../interfaces/project-input');
+import PromptType = require('../enums/prompt-type');
 
-const settingName = 'vscode';
-const settingDefault = true;
-const settingDescription = 'Do you use Visual Studio Code?';
+const name = 'vscode';
+const defaultValue = true;
+const description = 'Do you use Visual Studio Code?';
 
 const prompt: inquirer.Question = {
     type: PromptType.confirm,
-    name: settingName,
-    message: settingDescription,
-    default: settingDefault
+    name: name,
+    message: description,
+    default: defaultValue
 };
 
 const option: yeoman.OptionConfig = {
     type: Boolean,
-    default: settingDefault,
-    description: settingDescription
+    default: defaultValue,
+    description: description
 };
 
 const tryExtractSettingValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
@@ -33,14 +33,14 @@ const tryExtractSettingValue = (value: unknown, projectConfig: IProjectConfig): 
     return true;
 };
 
-const setting: IProjectSetting = {
-    name: settingName,
-    optionName: settingName,
+const input: IProjectInput = {
+    name: name,
+    optionName: name,
     option: option,
     prompt: prompt,
     tryExtractSettingValue: tryExtractSettingValue
 };
 
 export = {
-    setting
+    input
 };

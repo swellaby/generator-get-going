@@ -1,12 +1,12 @@
 'use strict';
 
 import YeomanGenerator = require('yeoman-generator');
-import IProjectConfig = require('../project-config');
-import IProjectSetting = require('../settings/project-setting');
+import IProjectConfig = require('../interfaces/project-config');
+import IProjectInput = require('../interfaces/project-input');
 
 const fatalErrorMessage = 'Something awful happened! Please open an issue on GitHub';
 
-const addGeneratorOptions = (generator: YeomanGenerator, settings: IProjectSetting[]) => {
+const addGeneratorOptions = (generator: YeomanGenerator, settings: IProjectInput[]) => {
     if (!generator || !settings || settings.length === 0) {
         throw new Error(fatalErrorMessage);
     }
@@ -16,28 +16,28 @@ const addGeneratorOptions = (generator: YeomanGenerator, settings: IProjectSetti
     });
 };
 
-const getDesiredProjectConfig = async (generator: YeomanGenerator, settings: IProjectSetting[]) => new Promise<IProjectConfig>(async (resolve, reject) => {
-    if (!generator || !settings || settings.length === 0) {
+const getDesiredProjectConfig = async (generator: YeomanGenerator, inputs: IProjectInput[]) => new Promise<IProjectConfig>(async (resolve, reject) => {
+    if (!generator || !inputs || inputs.length === 0) {
         return reject(new Error(fatalErrorMessage));
     }
 
     const config: IProjectConfig = <IProjectConfig>{};
-    const missingSettings: IProjectSetting[] = [];
+    const missingInputs: IProjectInput[] = [];
     const prompts: YeomanGenerator.Question[] = [];
 
     try {
-        settings.forEach(setting => {
-            const option = generator.options[setting.optionName];
-            if (!setting.tryExtractSettingValue(option, config)) {
-                prompts.push(setting.prompt);
-                missingSettings.push(setting);
+        inputs.forEach(input => {
+            const option = generator.options[input.optionName];
+            if (!input.tryExtractSettingValue(option, config)) {
+                prompts.push(input.prompt);
+                missingInputs.push(input);
             }
         });
 
         if (prompts.length > 0) {
             const answers = await generator.prompt(prompts);
-            missingSettings.forEach(setting => {
-                setting.tryExtractSettingValue(answers[setting.prompt.name], config);
+            missingInputs.forEach(input => {
+                input.tryExtractSettingValue(answers[input.prompt.name], config);
             });
         }
         return resolve(config);

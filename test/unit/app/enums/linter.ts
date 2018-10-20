@@ -1,7 +1,7 @@
 'use strict';
 
 import chai = require('chai');
-import linter = require('../../../../generators/app/settings/linter');
+import linter = require('../../../../generators/app/enums/linter');
 const assert = chai.assert;
 
 suite('Linter Tests:', () => {
