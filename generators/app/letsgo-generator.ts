@@ -4,6 +4,7 @@ import YeomanGenerator = require('yeoman-generator');
 import yosay = require('yosay');
 
 import directory = require('./directory');
+import git = require('./git');
 import IProjectConfig = require('./interfaces/project-config');
 import projectInputUtils = require('./inputs/project-input-utils');
 import projectInputs = require('./inputs/project-inputs');
@@ -23,6 +24,7 @@ class LetsGoGenerator {
         try {
             this.config = await projectInputUtils.getDesiredProjectConfig(this.generator, projectInputs);
             directory.validateDirectoryName(this.generator, this.config);
+            git.validateGitRepository(this.generator, this.config);
         } catch (err) {
             let errMsg = 'Encountered an unexpected error while creating your ' +
             'new project. Please try again.';

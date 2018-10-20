@@ -68,7 +68,7 @@ const firstInput: IProjectInput = <IProjectInput> {
     prompt: {
         name: 'foo'
     },
-    tryExtractSettingValue: () => true
+    tryExtractInputValue: () => true
 };
 
 const secondInput: IProjectInput = <IProjectInput> {
@@ -80,7 +80,7 @@ const secondInput: IProjectInput = <IProjectInput> {
     prompt: {
         name: 'bar'
     },
-    tryExtractSettingValue: () => true
+    tryExtractInputValue: () => true
 };
 
 const projectInputs = [ firstInput, secondInput ];

@@ -74,7 +74,7 @@ suite('TypeInput Tests:', () => {
         });
     });
 
-    suite('tryExtractSettingValue Tests:', () => {
+    suite('tryExtractInputValue Tests:', () => {
         let config: IProjectConfig;
 
         setup(() => {
@@ -86,82 +86,82 @@ suite('TypeInput Tests:', () => {
         });
 
         test('Should return false when value is null', () => {
-            assert.isFalse(input.tryExtractSettingValue(null, null));
+            assert.isFalse(input.tryExtractInputValue(null, null));
         });
 
         test('Should return false when value is undefined', () => {
-            assert.isFalse(input.tryExtractSettingValue(undefined, config));
+            assert.isFalse(input.tryExtractInputValue(undefined, config));
         });
 
         test('Should return false on unknown string input', () => {
-            assert.isFalse(input.tryExtractSettingValue('foobar', config));
+            assert.isFalse(input.tryExtractInputValue('foobar', config));
         });
 
         test('Should return false on boolean input', () => {
-            assert.isFalse(input.tryExtractSettingValue(true, config));
+            assert.isFalse(input.tryExtractInputValue(true, config));
         });
 
         test('Should return false on numeric input', () => {
-            assert.isFalse(input.tryExtractSettingValue(-7, config));
+            assert.isFalse(input.tryExtractInputValue(-7, config));
         });
 
         test('Should set config to boilerplate project type on lowercase key string input', () => {
-            assert.isTrue(input.tryExtractSettingValue('boilerplate', config));
+            assert.isTrue(input.tryExtractInputValue('boilerplate', config));
             assert.deepEqual(config.projectType, ProjectType.boilerplate);
         });
 
         test('Should set config to boilerplate project type on uppercase key string input', () => {
-            assert.isTrue(input.tryExtractSettingValue('BOILERPLATE', config));
+            assert.isTrue(input.tryExtractInputValue('BOILERPLATE', config));
             assert.deepEqual(config.projectType, ProjectType.boilerplate);
         });
 
         test('Should set config to boilerplate project type on mixed case key string input', () => {
-            assert.isTrue(input.tryExtractSettingValue('bOiLeRpLaTe', config));
+            assert.isTrue(input.tryExtractInputValue('bOiLeRpLaTe', config));
             assert.deepEqual(config.projectType, ProjectType.boilerplate);
         });
 
         test('Should set config to lib project type on lowercase key string input', () => {
-            assert.isTrue(input.tryExtractSettingValue('lib', config));
+            assert.isTrue(input.tryExtractInputValue('lib', config));
             assert.deepEqual(config.projectType, ProjectType.lib);
         });
 
         test('Should set config to lib project type on uppercase key string input', () => {
-            assert.isTrue(input.tryExtractSettingValue('LIB', config));
+            assert.isTrue(input.tryExtractInputValue('LIB', config));
             assert.deepEqual(config.projectType, ProjectType.lib);
         });
 
         test('Should set config to lib project type on mixed case key string input', () => {
-            assert.isTrue(input.tryExtractSettingValue('LiB', config));
+            assert.isTrue(input.tryExtractInputValue('LiB', config));
             assert.deepEqual(config.projectType, ProjectType.lib);
         });
 
         test('Should set config to libCli project type on lowercase key string input', () => {
-            assert.isTrue(input.tryExtractSettingValue('libcli', config));
+            assert.isTrue(input.tryExtractInputValue('libcli', config));
             assert.deepEqual(config.projectType, ProjectType.libcli);
         });
 
         test('Should set config to libCli project type on uppercase key string input', () => {
-            assert.isTrue(input.tryExtractSettingValue('LIBCLI', config));
+            assert.isTrue(input.tryExtractInputValue('LIBCLI', config));
             assert.deepEqual(config.projectType, ProjectType.libcli);
         });
 
         test('Should set config to libCli project type on mixed case key string input', () => {
-            assert.isTrue(input.tryExtractSettingValue('LiBcLi', config));
+            assert.isTrue(input.tryExtractInputValue('LiBcLi', config));
             assert.deepEqual(config.projectType, ProjectType.libcli);
         });
 
         test('Should set config to cli project type on lowercase key string input', () => {
-            assert.isTrue(input.tryExtractSettingValue('cli', config));
+            assert.isTrue(input.tryExtractInputValue('cli', config));
             assert.deepEqual(config.projectType, ProjectType.cli);
         });
 
         test('Should set config to cli project type on uppercase key string input', () => {
-            assert.isTrue(input.tryExtractSettingValue('CLI', config));
+            assert.isTrue(input.tryExtractInputValue('CLI', config));
             assert.deepEqual(config.projectType, ProjectType.cli);
         });
 
         test('Should set config to cli project type on mixed case key string input', () => {
-            assert.isTrue(input.tryExtractSettingValue('cLI', config));
+            assert.isTrue(input.tryExtractInputValue('cLI', config));
             assert.deepEqual(config.projectType, ProjectType.cli);
         });
     });

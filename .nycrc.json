@@ -4,7 +4,7 @@
         "generators/**/*"
     ],
     "exclude": [
-        "generators/app/templates/",
+        "generators/app/templates",
         "generators/app/interfaces"
     ]
 }

@@ -19,7 +19,7 @@ interface IProjectInput {
      * @param {IProjectConfig} config - The project configuration.
      * @returns {boolean} - Returns true if the value was valid and added to the config, otherwise false.
      */
-    tryExtractSettingValue(value: unknown, projectConfig: IProjectConfig): boolean;
+    tryExtractInputValue(value: unknown, projectConfig: IProjectConfig): boolean;
     scaffolder?: ISettingScaffolder;
 }
 

@@ -5,6 +5,7 @@ import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 
 import directory = require('../../../generators/app/directory');
+import git = require('../../../generators/app/git');
 import LetsGoGenerator = require('../../../generators/app/letsgo-generator');
 import projectInputUtils = require('../../../generators/app/inputs/project-input-utils');
 import projectInputs = require('../../../generators/app/inputs/project-inputs');
@@ -26,6 +27,7 @@ suite('LetsGoGenerator Tests:', () => {
         getDesiredProjectConfigStub = Sinon.stub(projectInputUtils, 'getDesiredProjectConfig').callsFake(() => Promise.resolve(config));
         addGeneratorOptionsStub = Sinon.stub(projectInputUtils, 'addGeneratorOptions');
         validateDirectoryNameStub = Sinon.stub(directory, 'validateDirectoryName');
+        Sinon.stub(git, 'validateGitRepository');
         generatorLogStub = Sinon.stub(generatorStub, 'log');
         letsGoGenerator = new LetsGoGenerator(generatorStub);
     });

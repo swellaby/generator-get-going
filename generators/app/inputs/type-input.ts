@@ -34,7 +34,7 @@ const prompt: inquirer.Question = {
     ]
 };
 
-const tryExtractSettingValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
+const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
     projectConfig = projectConfig || <IProjectConfig>{};
     if (value === null || value === undefined) {
         return false;
@@ -55,7 +55,7 @@ const input: IProjectInput = {
     name: name,
     optionName: 'type',
     prompt: prompt,
-    tryExtractSettingValue: tryExtractSettingValue
+    tryExtractInputValue: tryExtractInputValue
 };
 
 export = {

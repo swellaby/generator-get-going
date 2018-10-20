@@ -64,7 +64,7 @@ suite('NameInput Tests:', () => {
         });
     });
 
-    suite('tryExtractSettingValue Tests:', () => {
+    suite('tryExtractInputValue Tests:', () => {
         let config: IProjectConfig;
 
         setup(() => {
@@ -76,36 +76,36 @@ suite('NameInput Tests:', () => {
         });
 
         test('Should return false when value is null', () => {
-            assert.isFalse(input.tryExtractSettingValue(null, null));
+            assert.isFalse(input.tryExtractInputValue(null, null));
         });
 
         test('Should return false when value is undefined', () => {
-            assert.isFalse(input.tryExtractSettingValue(undefined, config));
+            assert.isFalse(input.tryExtractInputValue(undefined, config));
         });
 
         test('Should return false on empty string input', () => {
-            assert.isFalse(input.tryExtractSettingValue('', config));
+            assert.isFalse(input.tryExtractInputValue('', config));
         });
 
         test('Should return false on invalid string input', () => {
-            assert.isFalse(input.tryExtractSettingValue('foo/bar', config));
+            assert.isFalse(input.tryExtractInputValue('foo/bar', config));
         });
 
         test('Should set config name correctly on valid dash string input', () => {
             const name = 'foo-bar';
-            assert.isTrue(input.tryExtractSettingValue(name, config));
+            assert.isTrue(input.tryExtractInputValue(name, config));
             assert.deepEqual(config.name, name);
         });
 
         test('Should set config name correctly on valid underscore string input', () => {
             const name = 'foo_bar';
-            assert.isTrue(input.tryExtractSettingValue(name, config));
+            assert.isTrue(input.tryExtractInputValue(name, config));
             assert.deepEqual(config.name, name);
         });
 
         test('Should set config name correctly on valid numeric string input', () => {
             const name = '-7';
-            assert.isTrue(input.tryExtractSettingValue(name, config));
+            assert.isTrue(input.tryExtractInputValue(name, config));
             assert.deepEqual(config.name, name);
         });
     });

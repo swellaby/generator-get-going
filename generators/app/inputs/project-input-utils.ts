@@ -6,13 +6,13 @@ import IProjectInput = require('../interfaces/project-input');
 
 const fatalErrorMessage = 'Something awful happened! Please open an issue on GitHub';
 
-const addGeneratorOptions = (generator: YeomanGenerator, settings: IProjectInput[]) => {
-    if (!generator || !settings || settings.length === 0) {
+const addGeneratorOptions = (generator: YeomanGenerator, inputs: IProjectInput[]) => {
+    if (!generator || !inputs || inputs.length === 0) {
         throw new Error(fatalErrorMessage);
     }
 
-    settings.forEach(setting => {
-        generator.option(setting.optionName, setting.option);
+    inputs.forEach(input => {
+        generator.option(input.optionName, input.option);
     });
 };
 
@@ -28,7 +28,7 @@ const getDesiredProjectConfig = async (generator: YeomanGenerator, inputs: IProj
     try {
         inputs.forEach(input => {
             const option = generator.options[input.optionName];
-            if (!input.tryExtractSettingValue(option, config)) {
+            if (!input.tryExtractInputValue(option, config)) {
                 prompts.push(input.prompt);
                 missingInputs.push(input);
             }
@@ -37,7 +37,7 @@ const getDesiredProjectConfig = async (generator: YeomanGenerator, inputs: IProj
         if (prompts.length > 0) {
             const answers = await generator.prompt(prompts);
             missingInputs.forEach(input => {
-                input.tryExtractSettingValue(answers[input.prompt.name], config);
+                input.tryExtractInputValue(answers[input.prompt.name], config);
             });
         }
         return resolve(config);

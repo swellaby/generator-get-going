@@ -79,16 +79,16 @@ suite('projectInputUtils Tests:', () => {
     });
 
     suite('getDesiredProjectConfig Tests:', () => {
-        let firstSettingExtractValStub: Sinon.SinonStub;
-        let secondSettingExtractValStub: Sinon.SinonStub;
+        let firstTryExtractInputValueStub: Sinon.SinonStub;
+        let secondTryExtractInputValueStub: Sinon.SinonStub;
         let generatorPromptStub: Sinon.SinonStub;
         let answers;
 
         setup(() => {
             answers = {};
             generatorPromptStub = Sinon.stub(generatorStub, 'prompt').callsFake(() => answers);
-            firstSettingExtractValStub = Sinon.stub(firstInput, 'tryExtractSettingValue').callsFake(() => true);
-            secondSettingExtractValStub = Sinon.stub(secondInput, 'tryExtractSettingValue').callsFake(() => true);
+            firstTryExtractInputValueStub = Sinon.stub(firstInput, 'tryExtractInputValue').callsFake(() => true);
+            secondTryExtractInputValueStub = Sinon.stub(secondInput, 'tryExtractInputValue').callsFake(() => true);
             generatorStub.options = {};
         });
 
@@ -196,7 +196,7 @@ suite('projectInputUtils Tests:', () => {
         });
 
         test('Should reject with correct error when setting check throws an error', async () => {
-            firstSettingExtractValStub.callsFake(() => { throw new Error(); });
+            firstTryExtractInputValueStub.callsFake(() => { throw new Error(); });
             try {
                 await projectInputUtils.getDesiredProjectConfig(generatorStub, projectInputs);
                 assert.isFalse(true);
@@ -211,8 +211,8 @@ suite('projectInputUtils Tests:', () => {
         });
 
         test('Should add all options when generator is valid and valid settings', async () => {
-            firstSettingExtractValStub.callsFake(() => false);
-            secondSettingExtractValStub.callsFake(() => false);
+            firstTryExtractInputValueStub.callsFake(() => false);
+            secondTryExtractInputValueStub.callsFake(() => false);
             const firstOptVal = 'foobar';
             const firstPromptAnswer = 'barFoo';
             const secondOptVal = true;
@@ -222,11 +222,11 @@ suite('projectInputUtils Tests:', () => {
             answers[firstInput.prompt.name] = firstPromptAnswer;
             answers[secondInput.prompt.name] = secondPromptAnswer;
             await projectInputUtils.getDesiredProjectConfig(generatorStub, projectInputs);
-            assert.isTrue(firstSettingExtractValStub.firstCall.calledWith(firstOptVal));
+            assert.isTrue(firstTryExtractInputValueStub.firstCall.calledWith(firstOptVal));
             assert.isTrue(generatorPromptStub.firstCall.calledWithExactly([firstInput.prompt, secondInput.prompt]));
-            assert.isTrue(firstSettingExtractValStub.secondCall.calledWith(firstPromptAnswer));
-            assert.isTrue(secondSettingExtractValStub.firstCall.calledWith(secondOptVal));
-            assert.isTrue(secondSettingExtractValStub.secondCall.calledWith(secondPromptAnswer));
+            assert.isTrue(firstTryExtractInputValueStub.secondCall.calledWith(firstPromptAnswer));
+            assert.isTrue(secondTryExtractInputValueStub.firstCall.calledWith(secondOptVal));
+            assert.isTrue(secondTryExtractInputValueStub.secondCall.calledWith(secondPromptAnswer));
         });
     });
 });
