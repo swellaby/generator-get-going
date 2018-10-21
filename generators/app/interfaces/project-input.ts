@@ -3,7 +3,6 @@
 import inquirer = require('inquirer');
 import yeoman = require('yeoman-generator');
 import IProjectConfig = require('./project-config');
-import ISettingScaffolder = require('./setting-scaffolder');
 
 /**
  * Describes an input for the project.
@@ -20,7 +19,6 @@ interface IProjectInput {
      * @returns {boolean} - Returns true if the value was valid and added to the config, otherwise false.
      */
     tryExtractInputValue(value: unknown, projectConfig: IProjectConfig): boolean;
-    scaffolder?: ISettingScaffolder;
 }
 
 export = IProjectInput;

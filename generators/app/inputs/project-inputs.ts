@@ -6,8 +6,8 @@ import typeInput = require('./type-input');
 import vscodeInput = require('./vscode-input');
 
 const inputs: IProjectInput[] = [
-    typeInput.input,
     nameInput.input,
+    typeInput.input,
     vscodeInput.input
 ];
 

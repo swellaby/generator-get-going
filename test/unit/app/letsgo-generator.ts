@@ -4,11 +4,11 @@ import Chai = require('chai');
 import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 
-import directory = require('../../../generators/app/directory');
-import git = require('../../../generators/app/git');
 import LetsGoGenerator = require('../../../generators/app/letsgo-generator');
 import projectInputUtils = require('../../../generators/app/inputs/project-input-utils');
 import projectInputs = require('../../../generators/app/inputs/project-inputs');
+import projectScaffolders = require('../../../generators/app/scaffolders/project-scaffolders');
+import scaffoldEngine = require('../../../generators/app/scaffold-engine');
 import testUtils = require('../../test-utils');
 
 const assert = Chai.assert;
@@ -19,15 +19,14 @@ suite('LetsGoGenerator Tests:', () => {
     let letsGoGenerator: LetsGoGenerator;
     let getDesiredProjectConfigStub: Sinon.SinonStub;
     let addGeneratorOptionsStub: Sinon.SinonStub;
-    let validateDirectoryNameStub: Sinon.SinonStub;
+    let scaffoldNewProjectStub: Sinon.SinonStub;
     const config = testUtils.projectConfig;
 
     setup(() => {
         generatorStub = testUtils.generatorStub;
         getDesiredProjectConfigStub = Sinon.stub(projectInputUtils, 'getDesiredProjectConfig').callsFake(() => Promise.resolve(config));
         addGeneratorOptionsStub = Sinon.stub(projectInputUtils, 'addGeneratorOptions');
-        validateDirectoryNameStub = Sinon.stub(directory, 'validateDirectoryName');
-        Sinon.stub(git, 'validateGitRepository');
+        scaffoldNewProjectStub = Sinon.stub(scaffoldEngine, 'scaffoldNewProject');
         generatorLogStub = Sinon.stub(generatorStub, 'log');
         letsGoGenerator = new LetsGoGenerator(generatorStub);
     });
@@ -62,6 +61,6 @@ suite('LetsGoGenerator Tests:', () => {
 
     test('Should run correct scaffolding function sequence when config returns', async () => {
         await letsGoGenerator.createProject();
-        assert.isTrue(validateDirectoryNameStub.calledWithExactly(generatorStub, config));
+        assert.isTrue(scaffoldNewProjectStub.calledWithExactly(projectScaffolders, generatorStub, config));
     });
 });

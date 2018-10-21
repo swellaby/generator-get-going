@@ -7,6 +7,7 @@ import yosay = require('yosay');
 
 import IProjectConfig = require('../generators/app/interfaces/project-config');
 import IProjectInput = require('../generators/app/interfaces/project-input');
+import IProjectScaffolder = require('../generators/app/interfaces/project-scaffolder');
 
 const generatorRoot = path.join(__dirname, './../../../generators/app');
 const expectedGreetingMessage = yosay('Welcome to the LetsGo Generator!');
@@ -59,6 +60,8 @@ const projectConfig: IProjectConfig = <IProjectConfig> {
 
 };
 
+const emptyProjectConfig = <IProjectConfig> {};
+
 const firstInput: IProjectInput = <IProjectInput> {
     name: 'one',
     optionName: 'first',
@@ -85,6 +88,16 @@ const secondInput: IProjectInput = <IProjectInput> {
 
 const projectInputs = [ firstInput, secondInput ];
 
+const firstScaffolder: IProjectScaffolder = <IProjectScaffolder>{
+    scaffold: () => null
+};
+
+const secondScaffolder: IProjectScaffolder = <IProjectScaffolder>{
+    scaffold: () => null
+};
+
+const projectScaffolders = [ firstScaffolder, secondScaffolder ];
+
 export = {
     expectedGreetingMessage,
     expectedErrorMessageBase,
@@ -92,8 +105,12 @@ export = {
     generatorStub,
     generatorRoot,
     projectConfig,
+    emptyProjectConfig,
     fsStatStub,
     firstInput,
     secondInput,
-    projectInputs
+    projectInputs,
+    projectScaffolders,
+    firstScaffolder,
+    secondScaffolder
 };

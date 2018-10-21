@@ -3,9 +3,11 @@
 import mkdirp = require('mkdirp');
 import path = require('path');
 import YeomanGenerator = require('yeoman-generator');
-import IProjectConfig = require('./interfaces/project-config');
 
-export const validateDirectoryName = (generator: YeomanGenerator, config: IProjectConfig) => {
+import IProjectConfig = require('../interfaces/project-config');
+import IProjectScaffolder = require('../interfaces/project-scaffolder');
+
+const validateDirectoryName = (generator: YeomanGenerator, config: IProjectConfig) => {
     const appName = config.name;
 
     if (path.basename(generator.destinationPath()) !== appName) {
@@ -15,4 +17,8 @@ export const validateDirectoryName = (generator: YeomanGenerator, config: IProje
         mkdirp.sync(appName, null);
         generator.destinationRoot(generator.destinationPath(appName));
     }
+};
+
+export = <IProjectScaffolder>{
+    scaffold: validateDirectoryName
 };

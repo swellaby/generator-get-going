@@ -4,7 +4,8 @@ import fs = require('fs');
 import path = require('path');
 import YeomanGenerator = require('yeoman-generator');
 
-import IProjectConfig = require('./interfaces/project-config');
+import IProjectConfig = require('../interfaces/project-config');
+import IProjectScaffolder = require('../interfaces/project-scaffolder');
 
 /**
  * Initializes a git repository in the created project.
@@ -50,6 +51,6 @@ const validateGitRepository = (generator: YeomanGenerator, config: IProjectConfi
     }
 };
 
-export = {
-    validateGitRepository
+export = <IProjectScaffolder>{
+    scaffold: validateGitRepository
 };

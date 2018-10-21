@@ -6,9 +6,9 @@ import path = require('path');
 import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 
-import directory = require('../../../generators/app/directory');
-import IProjectConfig = require('../../../generators/app/interfaces/project-config');
-import testUtils = require('../../test-utils');
+import directory = require('../../../../generators/app/scaffolders/directory');
+import IProjectConfig = require('../../../../generators/app/interfaces/project-config');
+import testUtils = require('../../../test-utils');
 
 const assert = Chai.assert;
 
@@ -41,19 +41,19 @@ suite('directory Tests:', () => {
     });
 
     test('Should not create a subdirectory if the cwd name matches the supplied app name', async () => {
-        directory.validateDirectoryName(generatorStub, config);
+        directory.scaffold(generatorStub, config);
         assert.isFalse(generatorLogStub.called);
         assert.isFalse(mkdirpSyncStub.called);
-        assert.isFalse(generatorDestinationRootStub.calledWith(destPathReturnValue));
+        assert.isFalse(generatorDestinationRootStub.calledWithExactly(destPathReturnValue));
     });
 
     test('Should create a subdirectory if the cwd name does not match the supplied app name', async () => {
         pathBasenameStub.callsFake(() => 'not the same as the app name');
         generatorDestinationPathStub.onSecondCall().callsFake(() => destPathReturnValue);
-        directory.validateDirectoryName(generatorStub, config);
+        directory.scaffold(generatorStub, config);
         assert.isTrue(generatorDestinationPathStub.secondCall.calledWith(appName));
         assert.isTrue(generatorLogStub.firstCall.calledWithExactly(newDirMessage));
-        assert.isTrue(mkdirpSyncStub.calledWith(appName, null));
-        assert.isTrue(generatorDestinationRootStub.calledWith(destPathReturnValue));
+        assert.isTrue(mkdirpSyncStub.calledWithExactly(appName, null));
+        assert.isTrue(generatorDestinationRootStub.calledWithExactly(destPathReturnValue));
     });
 });

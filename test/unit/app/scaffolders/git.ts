@@ -6,8 +6,8 @@ import path = require('path');
 import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 
-import git = require('../../../generators/app/git');
-import testUtils = require('../../test-utils');
+import git = require('../../../../generators/app/scaffolders/git');
+import testUtils = require('../../../test-utils');
 
 const assert = Chai.assert;
 
@@ -50,7 +50,7 @@ suite('git Tests:', () => {
     });
 
     test('Should not attempt to initialize an existing git repository', async () => {
-        await git.validateGitRepository(generatorStub, null);
+        await git.scaffold(generatorStub, null);
         assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
         assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
         assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));
@@ -62,7 +62,7 @@ suite('git Tests:', () => {
 
     test('Should initialize a git repo and delete the .git file when a file named .git is found', async () => {
         fsIsFileStub.callsFake(() => true);
-        await git.validateGitRepository(generatorStub, null);
+        await git.scaffold(generatorStub, null);
         assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
         assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
         assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));
@@ -74,7 +74,7 @@ suite('git Tests:', () => {
 
     test('Should initialize a git repo when there is no .git directory present', async () => {
         fsStatSyncStub.throws(new Error('EONET: not found'));
-        await git.validateGitRepository(generatorStub, null);
+        await git.scaffold(generatorStub, null);
         assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
         assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
         assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));
@@ -87,7 +87,7 @@ suite('git Tests:', () => {
     test('Should display an error when the git repo initialization fails', async () => {
         fsStatSyncStub.throws(new Error('EONET: not found'));
         generatorSpawnCommandSyncStub.throws(new Error('command not found'));
-        await git.validateGitRepository(generatorStub, null);
+        await git.scaffold(generatorStub, null);
         assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
         assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
         assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));

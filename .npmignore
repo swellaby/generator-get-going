@@ -4,7 +4,11 @@
 .vscode/
 .github/
 test/
+.editorconfig
 .eslintignore
 .eslintrc.js
+.huskyrc.json
+.nycrc.json
+renovate.json
 tsconfig.json
 tslint.json

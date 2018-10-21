@@ -3,14 +3,13 @@
 import YeomanGenerator = require('yeoman-generator');
 import yosay = require('yosay');
 
-import directory = require('./directory');
-import git = require('./git');
 import IProjectConfig = require('./interfaces/project-config');
 import projectInputUtils = require('./inputs/project-input-utils');
 import projectInputs = require('./inputs/project-inputs');
+import projectScaffolders = require('./scaffolders/project-scaffolders');
+import scaffoldEngine = require('./scaffold-engine');
 
 class LetsGoGenerator {
-    private config: IProjectConfig;
     private generator: YeomanGenerator;
 
     constructor(generator: YeomanGenerator) {
@@ -22,9 +21,8 @@ class LetsGoGenerator {
         this.generator.log(yosay('Welcome to the LetsGo Generator!'));
 
         try {
-            this.config = await projectInputUtils.getDesiredProjectConfig(this.generator, projectInputs);
-            directory.validateDirectoryName(this.generator, this.config);
-            git.validateGitRepository(this.generator, this.config);
+            const config: IProjectConfig = await projectInputUtils.getDesiredProjectConfig(this.generator, projectInputs);
+            scaffoldEngine.scaffoldNewProject(projectScaffolders, this.generator, config);
         } catch (err) {
             let errMsg = 'Encountered an unexpected error while creating your ' +
             'new project. Please try again.';
