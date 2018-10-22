@@ -1,6 +1,7 @@
 'use strict';
 
 import IProjectInput = require('../interfaces/project-input');
+import linterInput = require('./linter-input');
 import nameInput = require('./name-input');
 import typeInput = require('./type-input');
 import vscodeInput = require('./vscode-input');
@@ -8,6 +9,7 @@ import vscodeInput = require('./vscode-input');
 const inputs: IProjectInput[] = [
     nameInput.input,
     typeInput.input,
+    linterInput.input,
     vscodeInput.input
 ];
 

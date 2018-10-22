@@ -1,6 +1,6 @@
 'use strict';
 
-import Linter = require('../enums/linter');
+import ILinterConfig = require('./linter-config');
 import ProjectType = require('../enums/project-type');
 import TaskRunner = require('../enums/task-runner');
 
@@ -10,7 +10,7 @@ interface IProjectConfig {
     author: string;
     includeVSCode: boolean;
     taskRunner: TaskRunner;
-    primaryLinter: Linter;
+    linterConfig: ILinterConfig;
 }
 
 export = IProjectConfig;
