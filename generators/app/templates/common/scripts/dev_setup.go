@@ -10,16 +10,16 @@ import (
 )
 
 func installTaskRunner() {
-	cmd := exec.Command("go", "get", "-v", "github.com/go-task/task/cmd/task")
+	cmd := exec.Command("go", "get", "-v", "<%= taskRunnerConfig.packageInstallPath %>")
 	cmd.Dir = os.TempDir()
 	out, err := cmd.CombinedOutput()
 
 	if err != nil {
-		fmt.Printf("An error occurred while installing task %s\n", err)
+		fmt.Printf("An error occurred while installing <%= taskRunnerConfig.name %> %s\n", err)
 		fmt.Printf("Error details: %s\n", string(out))
 		os.Exit(1)
 	} else {
-		fmt.Println("Task successfully installed.")
+		fmt.Println("<%= taskRunnerConfig.name %> successfully installed.")
 	}
 }
 
@@ -29,7 +29,7 @@ func runSetupTarget() {
 	cmd.Dir = filepath.Join(path.Dir(currentFilePath), "..")
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Printf("Error encountered while running `task setup`. Error details: %s\n", err)
+		fmt.Printf("Error encountered while running `<%= taskRunnerConfig.commandName %> <%= taskRunnerConfig.taskNames.setup %>`. Error details: %s\n", err)
 		os.Exit(1)
 	}
 	fmt.Printf("%s", string(out))
@@ -37,8 +37,8 @@ func runSetupTarget() {
 }
 
 func main() {
-	fmt.Println("Ensuring Task is installed and available...")
+	fmt.Println("Ensuring <%= taskRunnerConfig.name %> is installed and available...")
 	installTaskRunner()
-	fmt.Println("Running `task setup` to configure workspace...")
+	fmt.Println("Running `<%= taskRunnerConfig.commandName %> <%= taskRunnerConfig.taskNames.setup %>` to configure workspace...")
 	runSetupTarget()
 }

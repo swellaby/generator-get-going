@@ -12,6 +12,7 @@ const inputName = 'linter';
 
 const linterMap = new Map<Linter, ILinterConfig>();
 linterMap.set(Linter.golint, {
+    linterName: 'Golint',
     commandName: 'golint',
     linterType: Linter.golint,
     packageInstallPath: 'golang.org/x/lint/golint'
@@ -20,11 +21,11 @@ linterMap.set(Linter.golint, {
 const prompt: inquirer.Question = {
     type: PromptType.list,
     name: inputName,
-    message: 'What linter do you want to use?',
+    message: 'Which linter do you want to use?',
     default: Linter.golint,
     choices: [
         {
-            name: 'golint - The default Go linter',
+            name: 'Golint - The default Go linter',
             value: Linter.golint
         }
     ]

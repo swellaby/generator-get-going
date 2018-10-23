@@ -14,15 +14,20 @@ vars:
 
 tasks:
   default:
-    deps: [test]
+    deps: [<%= taskRunnerConfig.taskNames.test %>]
     silent: true
 
-  setup:
+  <%= taskRunnerConfig.taskNames.setup %>:
     desc: Sets up the workspace.
-    deps: [install-deps, install-dev-deps, create-report-dirs]
+    deps: [<%= taskRunnerConfig.taskNames.install %>, create-report-dirs]
     # cmds:
     #   - go install .
     #   - captain-githook init
+
+  <%= taskRunnerConfig.taskNames.install %>:
+    desc: Installs dependencies
+    deps: [install-deps, install-dev-deps]
+    silent: true
 
   install-deps:
     desc: Runs go mod download
@@ -53,53 +58,48 @@ tasks:
       - '{{if eq OS "windows"}}cmd.exe /C IF NOT EXIST {{.COVERAGE_DIR}} mkdir{{else}}mkdir -p{{end}} {{.COVERAGE_DIR}}'
     silent: true
 
-  clean:
+  <%= taskRunnerConfig.taskNames.clean %>:
     desc: Cleans the workspace.
     cmds:
       - '{{if eq OS "windows"}}cmd.exe /C rd /Q /S{{else}}rm -rf{{end}} {{.TESTRESULTS_DIR}} {{.COVERAGE_DIR}}'
     silent: true
     ignore_error: true
 
-  test:
+  <%= taskRunnerConfig.taskNames.test %>:
     desc: Runs unit tests.
     deps: [create-report-dirs]
     cmds:
       - gotestsum --format standard-verbose --junitfile {{.JUNIT_RESULTS_FILE}} --jsonfile {{.JSON_RESULTS_FILE}} -- -coverprofile={{.COVOUT_FILE}} <%= testTarget %>
     silent: true
 
-  coverage:
+  <%= taskRunnerConfig.taskNames.coverage %>:
     desc: Runs unit tests and generates code coverage reports.
-    deps: [test]
+    deps: [<%= taskRunnerConfig.taskNames.test %>]
     cmds:
       - gocov convert {{.COVOUT_FILE}} > {{.GOCOV_JSON_FILE}}
       - gocov-xml < {{.GOCOV_JSON_FILE}} > {{.COBERTURA_XML_FILE}}
       - gocov-html {{.GOCOV_JSON_FILE}} > {{.GOCOV_HTML_FILE}}
     silent: true
 
-  open-cov:
+  <%= taskRunnerConfig.taskNames.openCoverage %>:
     desc: Opens the HTML Code Coverage Report
-    deps: [coverage]
+    deps: [<%= taskRunnerConfig.taskNames.coverage %>]
     cmds:
       - '{{if eq OS "windows"}}cmd.exe /C start{{else if eq OS "darwin"}}open{{else}}xdg-open{{end}} {{.GOCOV_HTML_FILE}}'
 
-  lint:
+  <%= taskRunnerConfig.taskNames.lint %>:
     desc: Runs the linter and prints results to STDOUT.
     cmds:
       - <%= linterConfig.commandName %> ./...
 
-  vet:
+  <%= taskRunnerConfig.taskNames.vet %>:
     desc: Runs govet and prints results to STDOUT.
     cmds:
       - go vet ./...
 
-  # vet-ci:
-  #   desc: Runs govet silently.
-  #   cmds:
-  #     - go vet ./...
-
-  ci:
+  <%= taskRunnerConfig.taskNames.ci %>:
     desc: Runs sequence of desired commands for performing validation in a CI build
-    deps: [coverage, vet, lint]
+    deps: [<%= taskRunnerConfig.taskNames.coverage %>, <%= taskRunnerConfig.taskNames.lint %>]
 
   print-version:
     desc: Prints the current captain-githook package version

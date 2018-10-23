@@ -2,18 +2,18 @@
 
 import chai = require('chai');
 
-import ILinterConfig = require('../../../../generators/app/interfaces/linter-config');
+import ITaskRunnerConfig = require('../../../../generators/app/interfaces/task-runner-config');
 import IProjectConfig = require('../../../../generators/app/interfaces/project-config');
-import Linter = require('../../../../generators/app/enums/linter');
-import linterInput = require('../../../../generators/app/inputs/linter-input');
+import TaskRunner = require('../../../../generators/app/enums/task-runner');
+import taskRunnerInput = require('../../../../generators/app/inputs/task-runner-input');
 import PromptType = require('../../../../generators/app/enums/prompt-type');
 
-const input = linterInput.input;
+const input = taskRunnerInput.input;
 const prompt = input.prompt;
 const assert = chai.assert;
 
-suite('LinterInput Tests:', () => {
-    const expSettingName = 'linter';
+suite('TaskRunnerInput Tests:', () => {
+    const expSettingName = 'taskRunner';
 
     test('Should have correct setting name', () => {
        assert.deepEqual(input.name, expSettingName);
@@ -35,11 +35,11 @@ suite('LinterInput Tests:', () => {
         });
 
         test('Should have correct prompt display message', () => {
-            assert.deepEqual(prompt.message, 'Which linter do you want to use?');
+            assert.deepEqual(prompt.message, 'Which task runner do you want to use?');
         });
 
         test('Should have correct default value', () => {
-            assert.deepEqual(prompt.default, Linter.golint);
+            assert.deepEqual(prompt.default, TaskRunner.task);
         });
 
         suite('choices Tests:', () => {
@@ -49,23 +49,35 @@ suite('LinterInput Tests:', () => {
                 assert.deepEqual(choices.length, 1);
             });
 
-            test('Should have correct golint choice', () => {
+            test('Should have correct task choice', () => {
                 const choice = choices[0];
-                assert.deepEqual(choice.name, 'Golint - The default Go linter');
-                assert.deepEqual(choice.value, Linter.golint);
+                assert.deepEqual(choice.name, 'task - A task runner/simpler Make alternative written in Go');
+                assert.deepEqual(choice.value, TaskRunner.task);
             });
         });
     });
 
     suite('tryExtractInputValue Tests:', () => {
         let config: IProjectConfig;
-        const golint = 'golint';
-        const expGoLintPackageInstallPath = 'golang.org/x/lint/golint';
-        const expGoLintLinterConfig = <ILinterConfig>{
-            linterName: 'Golint',
-            linterType: Linter.golint,
-            commandName: golint,
-            packageInstallPath: expGoLintPackageInstallPath
+        const task = 'task';
+        const expTaskPackageInstallPath = 'github.com/go-task/task/cmd/task';
+        const expTaskTaskRunnerConfig = <ITaskRunnerConfig>{
+            name: task,
+            commandName: task,
+            taskRunner: TaskRunner.task,
+            packageInstallPath: expTaskPackageInstallPath,
+            taskScriptNames: {
+                ci: 'ci',
+                clean: 'clean',
+                coverage: 'coverage',
+                format: 'fmt',
+                install: 'install',
+                lint: 'lint',
+                openCoverage: 'open-cov',
+                setup: 'setup',
+                test: 'test',
+                vet: 'vet'
+            }
         };
 
         setup(() => {
@@ -97,25 +109,25 @@ suite('LinterInput Tests:', () => {
         });
 
         test('Should set config to boilerplate project type on lowercase key string input', () => {
-            assert.isTrue(input.tryExtractInputValue(golint, config));
-            assert.deepEqual(config.linterConfig, expGoLintLinterConfig);
+            assert.isTrue(input.tryExtractInputValue(task, config));
+            assert.deepEqual(config.taskRunnerConfig, expTaskTaskRunnerConfig);
         });
 
         test('Should set config to boilerplate project type on uppercase key string input', () => {
-            assert.isTrue(input.tryExtractInputValue('GOLINT', config));
-            assert.deepEqual(config.linterConfig, expGoLintLinterConfig);
+            assert.isTrue(input.tryExtractInputValue('TASK', config));
+            assert.deepEqual(config.taskRunnerConfig, expTaskTaskRunnerConfig);
         });
 
         test('Should set config to boilerplate project type on mixed case key string input', () => {
-            assert.isTrue(input.tryExtractInputValue('gOlInT', config));
-            assert.deepEqual(config.linterConfig, expGoLintLinterConfig);
+            assert.isTrue(input.tryExtractInputValue('tAsK', config));
+            assert.deepEqual(config.taskRunnerConfig, expTaskTaskRunnerConfig);
         });
 
-        test('Should return false if linter type is not found in config map', () => {
-            const golintConfig = linterInput.linterMap.get(Linter.golint);
-            linterInput.linterMap.delete(Linter.golint);
-            assert.isFalse(input.tryExtractInputValue(golint, config));
-            linterInput.linterMap.set(Linter.golint, golintConfig);
+        test('Should return false if task runner type is not found in config map', () => {
+            const taskConfig = taskRunnerInput.taskRunnerMap.get(TaskRunner.task);
+            taskRunnerInput.taskRunnerMap.delete(TaskRunner.task);
+            assert.isFalse(input.tryExtractInputValue(task, config));
+            taskRunnerInput.taskRunnerMap.set(TaskRunner.task, taskConfig);
         });
     });
 });

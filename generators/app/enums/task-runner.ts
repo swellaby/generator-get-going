@@ -1,8 +1,8 @@
 'use strict';
 
 enum TaskRunner {
-    goTask = 0,
-    mage = 1
+    task = 'task',
+    mage = 'mage'
 }
 
 export = TaskRunner;

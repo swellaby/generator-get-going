@@ -28,7 +28,7 @@ const prompt: inquirer.Question = {
             value: ProjectType.libcli
         },
         {
-            name: 'New CLI App',
+            name: 'New CLI App (with no Lib/Package)',
             value: ProjectType.cli
         }
     ]

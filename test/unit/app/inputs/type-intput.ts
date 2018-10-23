@@ -68,7 +68,7 @@ suite('TypeInput Tests:', () => {
 
             test('Should have correct cli choice', () => {
                 const choice = choices[3];
-                assert.deepEqual(choice.name, 'New CLI App');
+                assert.deepEqual(choice.name, 'New CLI App (with no Lib/Package)');
                 assert.deepEqual(choice.value, ProjectType.cli);
             });
         });
