@@ -16,30 +16,38 @@ const addGeneratorOptions = (generator: YeomanGenerator, inputs: IProjectInput[]
     });
 };
 
+const extractConfigFromInputs = async(generator: YeomanGenerator, inputs: IProjectInput[]): Promise<IProjectConfig> => {
+    const config: IProjectConfig = <IProjectConfig>{
+        testResultsReportDirectory: '.testresults/unit',
+        coverageReportDirectory: '.coverage/unit'
+    };
+    const missingInputs: IProjectInput[] = [];
+    const prompts: YeomanGenerator.Question[] = [];
+
+    inputs.forEach(input => {
+        const option = generator.options[input.optionName];
+        if (!input.tryExtractInputValue(option, config)) {
+            prompts.push(input.prompt);
+            missingInputs.push(input);
+        }
+    });
+
+    if (prompts.length > 0) {
+        const answers = await generator.prompt(prompts);
+        missingInputs.forEach(input => {
+            input.tryExtractInputValue(answers[input.prompt.name], config);
+        });
+    }
+    return config;
+};
+
 const getDesiredProjectConfig = async (generator: YeomanGenerator, inputs: IProjectInput[]) => new Promise<IProjectConfig>(async (resolve, reject) => {
     if (!generator || !inputs || inputs.length === 0) {
         return reject(new Error(fatalErrorMessage));
     }
 
-    const config: IProjectConfig = <IProjectConfig>{};
-    const missingInputs: IProjectInput[] = [];
-    const prompts: YeomanGenerator.Question[] = [];
-
     try {
-        inputs.forEach(input => {
-            const option = generator.options[input.optionName];
-            if (!input.tryExtractInputValue(option, config)) {
-                prompts.push(input.prompt);
-                missingInputs.push(input);
-            }
-        });
-
-        if (prompts.length > 0) {
-            const answers = await generator.prompt(prompts);
-            missingInputs.forEach(input => {
-                input.tryExtractInputValue(answers[input.prompt.name], config);
-            });
-        }
+        const config = await extractConfigFromInputs(generator, inputs);
         return resolve(config);
     } catch (err) {
         return reject(new Error(fatalErrorMessage));

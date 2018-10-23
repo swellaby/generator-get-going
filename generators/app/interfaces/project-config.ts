@@ -11,6 +11,8 @@ interface IProjectConfig {
     includeVSCode: boolean;
     taskRunner: TaskRunner;
     linterConfig: ILinterConfig;
+    coverageReportDirectory: string;
+    testResultsReportDirectory: string;
 }
 
 export = IProjectConfig;

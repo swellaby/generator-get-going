@@ -3,12 +3,12 @@
 version: '2'
 
 vars:
-  COVERAGE_DIR: ".coverage"
+  COVERAGE_DIR: "<%= coverageReportDirectory %>"
   COVOUT_FILE: "{{.COVERAGE_DIR}}/coverage.out"
   GOCOV_JSON_FILE: "{{.COVERAGE_DIR}}/gocov.json"
   GOCOV_HTML_FILE: "{{.COVERAGE_DIR}}/index.html"
   COBERTURA_XML_FILE: "{{.COVERAGE_DIR}}/cobertura.xml"
-  TESTRESULTS_DIR: ".testresults"
+  TESTRESULTS_DIR: "<%= testResultsReportDirectory %>"
   JUNIT_RESULTS_FILE: "{{.TESTRESULTS_DIR}}/junit.xml"
   JSON_RESULTS_FILE: "{{.TESTRESULTS_DIR}}/unit.json"
 
@@ -49,8 +49,8 @@ tasks:
   create-report-dirs:
     desc: Creates the directories where generated reports are written.
     cmds:
-      - '{{if eq OS "windows"}}cmd.exe /C IF NOT EXIST {{.TESTRESULTS_DIR}} mkdir {{.TESTRESULTS_DIR}}{{else}}mkdir -p {{.TESTRESULTS_DIR}}{{end}}'
-      - '{{if eq OS "windows"}}cmd.exe /C IF NOT EXIST {{.COVERAGE_DIR}} mkdir {{.COVERAGE_DIR}}{{else}}mkdir -p {{.COVERAGE_DIR}}{{end}}'
+      - '{{if eq OS "windows"}}cmd.exe /C IF NOT EXIST {{.TESTRESULTS_DIR}} mkdir{{else}}mkdir -p{{end}} {{.TESTRESULTS_DIR}}'
+      - '{{if eq OS "windows"}}cmd.exe /C IF NOT EXIST {{.COVERAGE_DIR}} mkdir{{else}}mkdir -p{{end}} {{.COVERAGE_DIR}}'
     silent: true
 
   clean:
@@ -64,7 +64,7 @@ tasks:
     desc: Runs unit tests.
     deps: [create-report-dirs]
     cmds:
-      - gotestsum --format standard-verbose --junitfile {{.JUNIT_RESULTS_FILE}} --jsonfile {{.JSON_RESULTS_FILE}} -- -coverprofile={{.COVOUT_FILE}} ./captaingithook ./internal/cli
+      - gotestsum --format standard-verbose --junitfile {{.JUNIT_RESULTS_FILE}} --jsonfile {{.JSON_RESULTS_FILE}} -- -coverprofile={{.COVOUT_FILE}} <%= testTarget %>
     silent: true
 
   coverage:

@@ -34,6 +34,10 @@ const prompt: inquirer.Question = {
     ]
 };
 
+const setConfigValues = (projectConfig: IProjectConfig, projectType: ProjectType) => {
+    projectConfig.projectType = projectType;
+};
+
 const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
     projectConfig = projectConfig || <IProjectConfig>{};
     if (value === null || value === undefined) {
@@ -47,7 +51,7 @@ const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): bo
         return false;
     }
 
-    projectConfig.projectType = projType;
+    setConfigValues(projectConfig, projType);
     return true;
 };
 
