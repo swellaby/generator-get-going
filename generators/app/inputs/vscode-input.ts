@@ -1,7 +1,6 @@
 'use strict';
 
-import inquirer = require('inquirer');
-import yeoman = require('yeoman-generator');
+import YeomanGenerator = require('yeoman-generator');
 
 import IProjectConfig = require('../interfaces/project-config');
 import IProjectInput = require('../interfaces/project-input');
@@ -11,14 +10,14 @@ const name = 'vscode';
 const defaultValue = true;
 const description = 'Do you use Visual Studio Code?';
 
-const prompt: inquirer.Question = {
+const prompt: YeomanGenerator.Question = {
     type: PromptType.confirm,
     name: name,
     message: description,
     default: defaultValue
 };
 
-const option: yeoman.OptionConfig = {
+const option: YeomanGenerator.OptionConfig = {
     type: Boolean,
     default: defaultValue,
     description: description

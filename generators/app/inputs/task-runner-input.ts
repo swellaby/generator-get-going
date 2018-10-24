@@ -1,6 +1,6 @@
 'use strict';
 
-import inquirer = require('inquirer');
+import YeomanGenerator = require('yeoman-generator');
 
 import ITaskRunnerConfig = require('../interfaces/task-runner-config');
 import IProjectConfig = require('../interfaces/project-config');
@@ -30,7 +30,7 @@ taskRunnerMap.set(TaskRunner.task, {
     }
 });
 
-const prompt: inquirer.Question = {
+const prompt: YeomanGenerator.Question = {
     type: PromptType.list,
     name: inputName,
     message: 'Which task runner do you want to use?',

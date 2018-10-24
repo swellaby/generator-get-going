@@ -1,7 +1,6 @@
 'use strict';
 
-import inquirer = require('inquirer');
-import yeoman = require('yeoman-generator');
+import YeomanGenerator = require('yeoman-generator');
 
 import IProjectConfig = require('../interfaces/project-config');
 import IProjectInput = require('../interfaces/project-input');
@@ -18,21 +17,21 @@ const isValid = (value: string): boolean => {
 };
 
 // eslint-disable-next-line no-unused-vars
-const validatePromptInput = (value: string, answers?: inquirer.Answers): string | boolean => {
+const validatePromptInput = (value: string, answers?: YeomanGenerator.Answers): string | boolean => {
     if (isValid(value)) {
         return true;
     }
     return `Invalid app name: '${value}'`;
 };
 
-const prompt: inquirer.Question = {
+const prompt: YeomanGenerator.Question = {
     type: PromptType.input,
     name: name,
     message: description,
     validate: validatePromptInput
 };
 
-const option: yeoman.OptionConfig = {
+const option: YeomanGenerator.OptionConfig = {
     type: String,
     description: description
 };

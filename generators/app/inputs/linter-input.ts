@@ -1,6 +1,6 @@
 'use strict';
 
-import inquirer = require('inquirer');
+import YeomanGenerator = require('yeoman-generator');
 
 import ILinterConfig = require('../interfaces/linter-config');
 import IProjectConfig = require('../interfaces/project-config');
@@ -18,7 +18,7 @@ linterMap.set(Linter.golint, {
     packageInstallPath: 'golang.org/x/lint/golint'
 });
 
-const prompt: inquirer.Question = {
+const prompt: YeomanGenerator.Question = {
     type: PromptType.list,
     name: inputName,
     message: 'Which linter do you want to use?',

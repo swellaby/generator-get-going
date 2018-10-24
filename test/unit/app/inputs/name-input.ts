@@ -1,7 +1,7 @@
 'use strict';
 
 import chai = require('chai');
-import inquirer = require('inquirer');
+import YeomanGenerator = require('yeoman-generator');
 
 import IProjectConfig = require('../../../../generators/app/interfaces/project-config');
 import PromptType = require('../../../../generators/app/enums/prompt-type');
@@ -111,7 +111,7 @@ suite('NameInput Tests:', () => {
     });
 
     suite('promptValidate Tests:', () => {
-        const answers: inquirer.Answers = {};
+        const answers: YeomanGenerator.Answers = {};
         const getErrorMessage = (input: string): string => {
             return `Invalid app name: '${input}'`;
         };

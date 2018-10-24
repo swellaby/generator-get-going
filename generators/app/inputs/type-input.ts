@@ -1,6 +1,6 @@
 'use strict';
 
-import inquirer = require('inquirer');
+import YeomanGenerator = require('yeoman-generator');
 
 import IProjectConfig = require('../interfaces/project-config');
 import IProjectInput = require('../interfaces/project-input');
@@ -9,7 +9,7 @@ import PromptType = require('../enums/prompt-type');
 
 const name = 'projectType';
 
-const prompt: inquirer.Question = {
+const prompt: YeomanGenerator.Question = {
     type: PromptType.list,
     name: name,
     message: 'The type of project your app will be',
