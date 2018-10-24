@@ -6,12 +6,12 @@ import path = require('path');
 import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 
-import git = require('../../../../generators/app/scaffolders/git');
+import gitScaffolder = require('../../../../generators/app/scaffolders/git-scaffolder');
 import testUtils = require('../../../test-utils');
 
 const assert = Chai.assert;
 
-suite('git Tests:', () => {
+suite('gitScaffolder Tests:', () => {
     let fsIsFileStub: Sinon.SinonStub;
     const fsStatsStub: fs.Stats = testUtils.fsStatStub;
     let fsStatSyncStub: Sinon.SinonStub;
@@ -49,8 +49,8 @@ suite('git Tests:', () => {
         Sinon.restore();
     });
 
-    test('Should not attempt to initialize an existing git repository', async () => {
-        await git.scaffold(generatorStub, null);
+    test('Should not attempt to initialize an existing git repository', () => {
+        gitScaffolder.scaffold(generatorStub, null);
         assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
         assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
         assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));
@@ -60,9 +60,9 @@ suite('git Tests:', () => {
         assert.isFalse(generatorSpawnCommandSyncStub.calledWith('git', ['init', '--quiet']));
     });
 
-    test('Should initialize a git repo and delete the .git file when a file named .git is found', async () => {
+    test('Should initialize a git repo and delete the .git file when a file named .git is found', () => {
         fsIsFileStub.callsFake(() => true);
-        await git.scaffold(generatorStub, null);
+        gitScaffolder.scaffold(generatorStub, null);
         assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
         assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
         assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));
@@ -72,9 +72,9 @@ suite('git Tests:', () => {
         assert.isTrue(generatorSpawnCommandSyncStub.calledWith('git', ['init', '--quiet']));
     });
 
-    test('Should initialize a git repo when there is no .git directory present', async () => {
+    test('Should initialize a git repo when there is no .git directory present', () => {
         fsStatSyncStub.throws(new Error('EONET: not found'));
-        await git.scaffold(generatorStub, null);
+        gitScaffolder.scaffold(generatorStub, null);
         assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
         assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
         assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));
@@ -84,10 +84,10 @@ suite('git Tests:', () => {
         assert.isTrue(generatorSpawnCommandSyncStub.calledWith('git', ['init', '--quiet']));
     });
 
-    test('Should display an error when the git repo initialization fails', async () => {
+    test('Should display an error when the git repo initialization fails', () => {
         fsStatSyncStub.throws(new Error('EONET: not found'));
         generatorSpawnCommandSyncStub.throws(new Error('command not found'));
-        await git.scaffold(generatorStub, null);
+        gitScaffolder.scaffold(generatorStub, null);
         assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
         assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
         assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));

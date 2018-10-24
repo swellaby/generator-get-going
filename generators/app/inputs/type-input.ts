@@ -36,6 +36,7 @@ const prompt: YeomanGenerator.Question = {
 
 const setConfigValues = (projectConfig: IProjectConfig, projectType: ProjectType) => {
     projectConfig.projectType = projectType;
+    projectConfig.testTarget = './...';
 };
 
 const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): boolean => {

@@ -57,7 +57,7 @@ const fsStatStub: fs.Stats = <fs.Stats>{
 };
 
 const projectConfig: IProjectConfig = <IProjectConfig> {
-
+    taskRunnerConfig: {}
 };
 
 const emptyProjectConfig = <IProjectConfig> {};
@@ -112,5 +112,6 @@ export = {
     projectInputs,
     projectScaffolders,
     firstScaffolder,
-    secondScaffolder
+    secondScaffolder,
+    wildcardGlobSuffix: '**/*'
 };

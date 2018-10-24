@@ -6,13 +6,13 @@ import path = require('path');
 import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 
-import directory = require('../../../../generators/app/scaffolders/directory');
+import directoryScaffolder = require('../../../../generators/app/scaffolders/directory-scaffolder');
 import IProjectConfig = require('../../../../generators/app/interfaces/project-config');
 import testUtils = require('../../../test-utils');
 
 const assert = Chai.assert;
 
-suite('directory Tests:', () => {
+suite('directoryScaffolder Tests:', () => {
     let pathBasenameStub: Sinon.SinonStub;
     let generatorLogStub: Sinon.SinonStub;
     let generatorDestinationPathStub: Sinon.SinonStub;
@@ -41,7 +41,7 @@ suite('directory Tests:', () => {
     });
 
     test('Should not create a subdirectory if the cwd name matches the supplied app name', async () => {
-        directory.scaffold(generatorStub, config);
+        directoryScaffolder.scaffold(generatorStub, config);
         assert.isFalse(generatorLogStub.called);
         assert.isFalse(mkdirpSyncStub.called);
         assert.isFalse(generatorDestinationRootStub.calledWithExactly(destPathReturnValue));
@@ -50,7 +50,7 @@ suite('directory Tests:', () => {
     test('Should create a subdirectory if the cwd name does not match the supplied app name', async () => {
         pathBasenameStub.callsFake(() => 'not the same as the app name');
         generatorDestinationPathStub.onSecondCall().callsFake(() => destPathReturnValue);
-        directory.scaffold(generatorStub, config);
+        directoryScaffolder.scaffold(generatorStub, config);
         assert.isTrue(generatorDestinationPathStub.secondCall.calledWith(appName));
         assert.isTrue(generatorLogStub.firstCall.calledWithExactly(newDirMessage));
         assert.isTrue(mkdirpSyncStub.calledWithExactly(appName, null));
