@@ -24,8 +24,7 @@ class LetsGoGenerator {
             const config: IProjectConfig = await projectInputUtils.getDesiredProjectConfig(this.generator, projectInputs);
             scaffoldEngine.scaffoldNewProject(projectScaffolders, this.generator, config);
         } catch (err) {
-            let errMsg = 'Encountered an unexpected error while creating your ' +
-            'new project. Please try again.';
+            let errMsg = 'Encountered an unexpected error while creating your new project. Please try again.';
             if (err && err.message) {
                 errMsg += ` Error details: '${err.message}'`;
             }

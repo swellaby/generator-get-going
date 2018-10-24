@@ -2,12 +2,33 @@
 
 import YeomanGenerator = require('yeoman-generator');
 
+import IGoContentConfig = require('../interfaces/go-content-config');
 import IProjectConfig = require('../interfaces/project-config');
 import IProjectInput = require('../interfaces/project-input');
 import ProjectType = require('../enums/project-type');
 import PromptType = require('../enums/prompt-type');
 
 const name = 'projectType';
+const defaultCliPath = './internal/cli';
+const goContentConfigMap = new Map<ProjectType, IGoContentConfig>();
+goContentConfigMap.set(ProjectType.boilerplate, <IGoContentConfig>{
+    testTarget: './...'
+});
+
+goContentConfigMap.set(ProjectType.cli, <IGoContentConfig>{
+    testTarget: defaultCliPath,
+    cliDirectoryPath: defaultCliPath
+});
+
+goContentConfigMap.set(ProjectType.lib, <IGoContentConfig>{
+
+});
+
+goContentConfigMap.set(ProjectType.libcli, <IGoContentConfig>{
+    cliDirectoryPath: defaultCliPath,
+    // tslint:disable-next-line:no-invalid-this
+    testTarget: `${this.cliDirectoryPath} ${this.packageDirectoryPath}`
+});
 
 const prompt: YeomanGenerator.Question = {
     type: PromptType.list,
@@ -36,7 +57,8 @@ const prompt: YeomanGenerator.Question = {
 
 const setConfigValues = (projectConfig: IProjectConfig, projectType: ProjectType) => {
     projectConfig.projectType = projectType;
-    projectConfig.testTarget = './...';
+    const goContentConfig = goContentConfigMap.get(projectType);
+    projectConfig.goContentConfig = goContentConfig;
 };
 
 const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): boolean => {

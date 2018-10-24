@@ -69,7 +69,7 @@ tasks:
     desc: Runs unit tests.
     deps: [create-report-dirs]
     cmds:
-      - gotestsum --format standard-verbose --junitfile {{.JUNIT_RESULTS_FILE}} --jsonfile {{.JSON_RESULTS_FILE}} -- -coverprofile={{.COVOUT_FILE}} <%= testTarget %>
+      - gotestsum --format standard-verbose --junitfile {{.JUNIT_RESULTS_FILE}} --jsonfile {{.JSON_RESULTS_FILE}} -- -coverprofile={{.COVOUT_FILE}} <%= goContentConfig.testTarget %>
     silent: true
 
   <%= taskRunnerConfig.taskScriptNames.coverage %>:
