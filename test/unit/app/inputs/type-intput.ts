@@ -34,7 +34,7 @@ suite('TypeInput Tests:', () => {
         });
 
         test('Should have correct prompt display message', () => {
-            assert.deepEqual(prompt.message, 'The type of project your app will be');
+            assert.deepEqual(prompt.message, 'What type of project do you want?');
         });
 
         test('Should have correct default value', () => {

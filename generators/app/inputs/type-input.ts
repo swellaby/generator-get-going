@@ -25,15 +25,13 @@ goContentConfigMap.set(ProjectType.lib, <IGoContentConfig>{
 });
 
 goContentConfigMap.set(ProjectType.libcli, <IGoContentConfig>{
-    cliDirectoryPath: defaultCliPath,
-    // tslint:disable-next-line:no-invalid-this
-    testTarget: `${this.cliDirectoryPath} ${this.packageDirectoryPath}`
+    cliDirectoryPath: defaultCliPath
 });
 
 const prompt: YeomanGenerator.Question = {
     type: PromptType.list,
     name: name,
-    message: 'The type of project your app will be',
+    message: 'What type of project do you want?',
     default: ProjectType.boilerplate,
     choices: [
         {
