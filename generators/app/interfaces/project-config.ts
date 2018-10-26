@@ -8,7 +8,8 @@ import ProjectType = require('../enums/project-type');
 interface IProjectConfig {
     name: string;
     projectType: ProjectType;
-    author: string;
+    owner: string;
+    moduleName: string;
     goContentConfig: IGoContentConfig;
     linterConfig: ILinterConfig;
     taskRunnerConfig: ITaskRunnerConfig;
