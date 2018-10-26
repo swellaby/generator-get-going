@@ -1,6 +1,7 @@
 ---
-name: Report a Bug
+name: Bug Report
 about: Create a bug report to help us improve
+tags: bug
 
 ---
 

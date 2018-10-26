@@ -1,6 +1,6 @@
 ---
-name: Request a new Feature
-about: Suggest an idea for this project
+name: Feature Request
+about: Request a new feature or enhancement for this project
 
 ---
 
