@@ -1,6 +1,7 @@
 'use strict';
 
 import chai = require('chai');
+import descriptionInput = require('../../../generators/app/inputs/description-input');
 import linterInput = require('../../../generators/app/inputs/linter-input');
 import moduleInput = require('../../../generators/app/inputs/module-input');
 import nameInput = require('../../../generators/app/inputs/name-input');
@@ -14,7 +15,7 @@ const assert = chai.assert;
 
 suite('projectInputs Tests:', () => {
     test('Should have correct number of inputs', () => {
-        assert.deepEqual(projectInputs.length, 7);
+        assert.deepEqual(projectInputs.length, 8);
     });
 
     test('Should have correct first input', () => {
@@ -24,31 +25,36 @@ suite('projectInputs Tests:', () => {
 
     test('Should have correct second input', () => {
         const input = projectInputs[1];
-        assert.deepEqual(input, ownerInput.input);
+        assert.deepEqual(input, descriptionInput.input);
     });
 
     test('Should have correct third input', () => {
         const input = projectInputs[2];
-        assert.deepEqual(input, moduleInput.input);
+        assert.deepEqual(input, ownerInput.input);
     });
 
     test('Should have correct fourth input', () => {
         const input = projectInputs[3];
-        assert.deepEqual(input, typeInput.input);
+        assert.deepEqual(input, moduleInput.input);
     });
 
     test('Should have correct fifth input', () => {
         const input = projectInputs[4];
-        assert.deepEqual(input, linterInput.input);
+        assert.deepEqual(input, typeInput.input);
     });
 
     test('Should have correct sixth input', () => {
         const input = projectInputs[5];
-        assert.deepEqual(input, taskRunnerInput.input);
+        assert.deepEqual(input, linterInput.input);
     });
 
     test('Should have correct seventh input', () => {
         const input = projectInputs[6];
+        assert.deepEqual(input, taskRunnerInput.input);
+    });
+
+    test('Should have correct eighth input', () => {
+        const input = projectInputs[7];
         assert.deepEqual(input, vscodeInput.input);
     });
 });
