@@ -24,7 +24,7 @@ func installTaskRunner() {
 }
 
 func runSetupTarget() {
-	cmd := exec.Command("task", "setup")
+	cmd := exec.Command("<%= taskRunnerConfig.commandName %>", "<%= taskRunnerConfig.taskNames.setup")
 	_, currentFilePath, _, _ := runtime.Caller(0)
 	cmd.Dir = filepath.Join(path.Dir(currentFilePath), "..")
 	out, err := cmd.CombinedOutput()

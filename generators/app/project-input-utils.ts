@@ -1,8 +1,8 @@
 'use strict';
 
 import YeomanGenerator = require('yeoman-generator');
-import IProjectConfig = require('../interfaces/project-config');
-import IProjectInput = require('../interfaces/project-input');
+import IProjectConfig = require('./interfaces/project-config');
+import IProjectInput = require('./interfaces/project-input');
 
 const fatalErrorMessage = 'Something awful happened! Please open an issue on GitHub';
 

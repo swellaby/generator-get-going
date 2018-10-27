@@ -10,8 +10,8 @@ const yeomanGenerator = require('yeoman-generator');
 
 import Index = require('../../../generators/app/index');
 import LetsGoGenerator = require('../../../generators/app/letsgo-generator');
-import projectInputUtils = require('../../../generators/app/inputs/project-input-utils');
-import projectInputs = require('../../../generators/app/inputs/project-inputs');
+import projectInputUtils = require('../../../generators/app/project-input-utils');
+import projectInputs = require('../../../generators/app/project-inputs');
 
 const assert = Chai.assert;
 
