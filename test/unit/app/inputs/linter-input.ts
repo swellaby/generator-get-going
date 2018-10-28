@@ -110,12 +110,5 @@ suite('LinterInput Tests:', () => {
             assert.isTrue(input.tryExtractInputValue('gOlInT', config));
             assert.deepEqual(config.linterConfig, expGoLintLinterConfig);
         });
-
-        test('Should return false if linter type is not found in config map', () => {
-            const golintConfig = linterInput.linterMap.get(Linter.golint);
-            linterInput.linterMap.delete(Linter.golint);
-            assert.isFalse(input.tryExtractInputValue(golint, config));
-            linterInput.linterMap.set(Linter.golint, golintConfig);
-        });
     });
 });

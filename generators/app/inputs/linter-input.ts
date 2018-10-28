@@ -32,7 +32,6 @@ const prompt: YeomanGenerator.Question = {
 };
 
 const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
-    projectConfig = projectConfig || <IProjectConfig>{};
     if (!value) {
         return false;
     }
@@ -44,13 +43,7 @@ const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): bo
         return false;
     }
 
-    const linterConfig = linterMap.get(linter);
-
-    if (linterConfig === undefined) {
-        return false;
-    }
-
-    projectConfig.linterConfig = linterConfig;
+    projectConfig.linterConfig = linterMap.get(linter);
     return true;
 };
 
@@ -62,6 +55,5 @@ const input: IProjectInput = {
 };
 
 export = {
-    input,
-    linterMap
+    input
 };

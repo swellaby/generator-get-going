@@ -60,7 +60,6 @@ const setConfigValues = (projectConfig: IProjectConfig, projectType: ProjectType
 };
 
 const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
-    projectConfig = projectConfig || <IProjectConfig>{};
     if (value === null || value === undefined) {
         return false;
     }

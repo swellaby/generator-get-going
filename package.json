@@ -50,7 +50,7 @@
         "coverage:component:enforce": "nyc --report-dir .coverage/component npm run test:component",
         "coverage:component:open": "npm run coverage:component && opn .coverage/component/index.html",
         "dev:reset": "npm run clean && node -e \"require('rimraf').sync('node_modules');\" && npm run dev:setup",
-        "dev:setup": "npm install && npm i -g yo && npm run build"
+        "dev:setup": "npm i && npm i -g yo && npm run build"
     },
     "devDependencies": {
         "@swellaby/eslint-config": "^1.1.6",
@@ -65,7 +65,7 @@
         "@types/yeoman-test": "^1.7.4",
         "@types/yosay": "^0.0.29",
         "chai": "^4.2.0",
-        "eslint": "^5.7.0",
+        "eslint": "^5.8.0",
         "husky": "^1.1.2",
         "mocha": "^5.2.0",
         "mocha-multi-reporters": "^1.1.7",

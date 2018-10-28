@@ -122,12 +122,5 @@ suite('TaskRunnerInput Tests:', () => {
             assert.isTrue(input.tryExtractInputValue('tAsK', config));
             assert.deepEqual(config.taskRunnerConfig, expTaskTaskRunnerConfig);
         });
-
-        test('Should return false if task runner type is not found in config map', () => {
-            const taskConfig = taskRunnerInput.taskRunnerMap.get(TaskRunner.task);
-            taskRunnerInput.taskRunnerMap.delete(TaskRunner.task);
-            assert.isFalse(input.tryExtractInputValue(task, config));
-            taskRunnerInput.taskRunnerMap.set(TaskRunner.task, taskConfig);
-        });
     });
 });

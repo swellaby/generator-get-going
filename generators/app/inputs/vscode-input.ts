@@ -24,7 +24,6 @@ const option: YeomanGenerator.OptionConfig = {
 };
 
 const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
-    projectConfig = projectConfig || <IProjectConfig>{};
     if (value === null || value === undefined || typeof value !== 'boolean') {
         return false;
     }

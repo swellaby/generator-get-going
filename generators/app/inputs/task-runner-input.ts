@@ -44,7 +44,6 @@ const prompt: YeomanGenerator.Question = {
 };
 
 const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
-    projectConfig = projectConfig || <IProjectConfig>{};
     if (!value) {
         return false;
     }
@@ -56,13 +55,7 @@ const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): bo
         return false;
     }
 
-    const taskRunnerConfig = taskRunnerMap.get(taskRunner);
-
-    if (taskRunnerConfig === undefined) {
-        return false;
-    }
-
-    projectConfig.taskRunnerConfig = taskRunnerConfig;
+    projectConfig.taskRunnerConfig = taskRunnerMap.get(taskRunner);
     return true;
 };
 
@@ -74,6 +67,5 @@ const input: IProjectInput = {
 };
 
 export = {
-    input,
-    taskRunnerMap
+    input
 };
