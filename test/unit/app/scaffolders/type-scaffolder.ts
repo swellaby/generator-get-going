@@ -14,6 +14,7 @@ const assert = Chai.assert;
 
 suite('typeScaffolder Tests:', () => {
     let generatorFsCopyTplStub: Sinon.SinonStub;
+    let generatorFsMoveStub: Sinon.SinonStub;
     const generatorStub: YeomanGenerator = testUtils.generatorStub;
     let config: IProjectConfig;
     const destinationRoot = '/usr/foo/bar';
@@ -21,10 +22,13 @@ suite('typeScaffolder Tests:', () => {
     const expFromSharedAllProjectsPath = `${expFromSharedRoot}/all-projects/${testUtils.wildcardGlobSuffix}`;
     const expFromNonBoilerplateProjectsPath = `${expFromSharedRoot}/non-boilerplate/${testUtils.wildcardGlobSuffix}`;
     const expFromProjectsRoot = utils.projectsTemplateRootPath;
+    const gitignoreFrom = `${destinationRoot}/gitignore`;
+    const gitignoreTo = `${destinationRoot}/.gitignore`;
 
     setup(() => {
         generatorFsCopyTplStub = Sinon.stub(generatorStub.fs, 'copyTpl');
         Sinon.stub(generatorStub, 'destinationRoot').callsFake(() => destinationRoot);
+        generatorFsMoveStub = Sinon.stub(generatorStub.fs, 'move');
         config = JSON.parse(JSON.stringify(testUtils.projectConfig));
     });
 
@@ -43,6 +47,7 @@ suite('typeScaffolder Tests:', () => {
 
         test('Should correctly scaffold shared content when project type is boilerplate', () => {
             assert.isTrue(generatorFsCopyTplStub.calledWithExactly(expFromSharedAllProjectsPath, destinationRoot, config));
+            assert.isTrue(generatorFsMoveStub.calledWithExactly(gitignoreFrom, gitignoreTo));
          });
 
         test('Should not scaffold non boilerplate content when project type is boilerplate', () => {
@@ -64,6 +69,7 @@ suite('typeScaffolder Tests:', () => {
 
         test('Should correctly scaffold shared content when project type is cli', () => {
             assert.isTrue(generatorFsCopyTplStub.calledWithExactly(expFromSharedAllProjectsPath, destinationRoot, config));
+            assert.isTrue(generatorFsMoveStub.calledWithExactly(gitignoreFrom, gitignoreTo));
         });
 
         test('Should correctly scaffold non boilerplate content when project type is cli', () => {
@@ -85,6 +91,7 @@ suite('typeScaffolder Tests:', () => {
 
         test('Should correctly scaffold shared content when project type is lib', () => {
             assert.isTrue(generatorFsCopyTplStub.calledWithExactly(expFromSharedAllProjectsPath, destinationRoot, config));
+            assert.isTrue(generatorFsMoveStub.calledWithExactly(gitignoreFrom, gitignoreTo));
         });
 
         test('Should correctly scaffold non boilerplate content when project type is lib', () => {
@@ -106,6 +113,7 @@ suite('typeScaffolder Tests:', () => {
 
         test('Should correctly scaffold shared content when project type is libcli', () => {
             assert.isTrue(generatorFsCopyTplStub.calledWithExactly(expFromSharedAllProjectsPath, destinationRoot, config));
+            assert.isTrue(generatorFsMoveStub.calledWithExactly(gitignoreFrom, gitignoreTo));
         });
 
         test('Should correctly scaffold non boilerplate content when project type is libcli', () => {
