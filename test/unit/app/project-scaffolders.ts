@@ -6,12 +6,13 @@ import dirScaffolder = require('../../../generators/app/scaffolders/directory-sc
 import gitScaffolder = require('../../../generators/app/scaffolders/git-scaffolder');
 import taskRunnerScaffolder = require('../../../generators/app/scaffolders/task-runner-scaffolder');
 import typeScaffolder = require('../../../generators/app/scaffolders/type-scaffolder');
+import vsCodeScaffolder = require('../../../generators/app/scaffolders/vscode-scaffolder');
 
 const assert = chai.assert;
 
 suite('projectScaffolders Tests:', () => {
     test('Should have correct number of scaffolders', () => {
-        assert.deepEqual(projectScaffolders.length, 4);
+        assert.deepEqual(projectScaffolders.length, 5);
     });
 
     test('Should have correct first scaffolder', () => {
@@ -31,6 +32,11 @@ suite('projectScaffolders Tests:', () => {
 
     test('Should have correct fourth scaffolder', () => {
         const scaffolder = projectScaffolders[3];
+        assert.deepEqual(scaffolder, vsCodeScaffolder);
+    });
+
+    test('Should have correct fifth scaffolder', () => {
+        const scaffolder = projectScaffolders[4];
         assert.deepEqual(scaffolder, gitScaffolder);
     });
 });

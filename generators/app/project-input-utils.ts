@@ -16,15 +16,17 @@ const addGeneratorOptions = (generator: YeomanGenerator, inputs: IProjectInput[]
     });
 };
 
+const getDefaultConfig = () => <IProjectConfig>{
+    testConfig: {
+        coverageOutFilename: 'coverage.out',
+        coverageReportRootDirectory: '.coverage',
+        testResultsJsonFilename: 'results.json',
+        testResultsReportRootDirectory: '.testresults'
+    }
+};
+
 const extractConfigFromInputs = async(generator: YeomanGenerator, inputs: IProjectInput[]): Promise<IProjectConfig> => {
-    const config: IProjectConfig = <IProjectConfig>{
-        testConfig: {
-            coverageOutFilename: 'coverage.out',
-            coverageReportRootDirectory: '.coverage',
-            testResultsJsonFilename: 'results.json',
-            testResultsReportRootDirectory: '.testresults'
-        }
-    };
+    const config: IProjectConfig = getDefaultConfig();
     const missingInputs: IProjectInput[] = [];
     const prompts: YeomanGenerator.Question[] = [];
 
