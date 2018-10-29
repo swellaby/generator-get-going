@@ -23,6 +23,11 @@ suite('LinterInput Tests:', () => {
         test('Should have correct option name', () => {
             assert.deepEqual(input.optionName, expSettingName);
         });
+
+        test('Should have correct option description', () => {
+            const option = input.option;
+            assert.deepEqual(option.description, 'The type of linter to use');
+        });
     });
 
     suite('promptConfig Tests:', () => {
@@ -109,13 +114,6 @@ suite('LinterInput Tests:', () => {
         test('Should set config to boilerplate project type on mixed case key string input', () => {
             assert.isTrue(input.tryExtractInputValue('gOlInT', config));
             assert.deepEqual(config.linterConfig, expGoLintLinterConfig);
-        });
-
-        test('Should return false if linter type is not found in config map', () => {
-            const golintConfig = linterInput.linterMap.get(Linter.golint);
-            linterInput.linterMap.delete(Linter.golint);
-            assert.isFalse(input.tryExtractInputValue(golint, config));
-            linterInput.linterMap.set(Linter.golint, golintConfig);
         });
     });
 });

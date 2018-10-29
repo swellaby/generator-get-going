@@ -4,9 +4,9 @@ import YeomanGenerator = require('yeoman-generator');
 import yosay = require('yosay');
 
 import IProjectConfig = require('./interfaces/project-config');
-import projectInputUtils = require('./inputs/project-input-utils');
-import projectInputs = require('./inputs/project-inputs');
-import projectScaffolders = require('./scaffolders/project-scaffolders');
+import projectInputUtils = require('./project-input-utils');
+import projectInputs = require('./project-inputs');
+import projectScaffolders = require('./project-scaffolders');
 import scaffoldEngine = require('./scaffold-engine');
 
 class LetsGoGenerator {

@@ -19,6 +19,7 @@
       "test/**/*.ts"
     ],
     "exclude": [
-        "generators/app/templates/**/*.ts"
+        "generators/app/templates/",
+        "node_modules/"
     ]
 }

@@ -1,8 +1,8 @@
 'use strict';
 
 import YeomanGenerator = require('yeoman-generator');
-import IProjectConfig = require('../interfaces/project-config');
-import IProjectInput = require('../interfaces/project-input');
+import IProjectConfig = require('./interfaces/project-config');
+import IProjectInput = require('./interfaces/project-input');
 
 const fatalErrorMessage = 'Something awful happened! Please open an issue on GitHub';
 
@@ -18,8 +18,12 @@ const addGeneratorOptions = (generator: YeomanGenerator, inputs: IProjectInput[]
 
 const extractConfigFromInputs = async(generator: YeomanGenerator, inputs: IProjectInput[]): Promise<IProjectConfig> => {
     const config: IProjectConfig = <IProjectConfig>{
-        testResultsReportDirectory: '.testresults/unit',
-        coverageReportDirectory: '.coverage/unit'
+        testConfig: {
+            coverageOutFilename: 'coverage.out',
+            coverageReportRootDirectory: '.coverage',
+            testResultsJsonFilename: 'results.json',
+            testResultsReportRootDirectory: '.testresults'
+        }
     };
     const missingInputs: IProjectInput[] = [];
     const prompts: YeomanGenerator.Question[] = [];

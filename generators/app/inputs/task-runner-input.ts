@@ -43,37 +43,34 @@ const prompt: YeomanGenerator.Question = {
     ]
 };
 
+const option: YeomanGenerator.OptionConfig = {
+    description: 'The type of task runner to use'
+};
+
 const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
-    projectConfig = projectConfig || <IProjectConfig>{};
     if (!value) {
         return false;
     }
 
-    const optionVal: string = String(value);
-    const taskRunner: TaskRunner = TaskRunner[optionVal.toLowerCase()];
+    const val: string = String(value);
+    const taskRunner: TaskRunner = TaskRunner[val.toLowerCase()];
 
     if (taskRunner === undefined) {
         return false;
     }
 
-    const taskRunnerConfig = taskRunnerMap.get(taskRunner);
-
-    if (taskRunnerConfig === undefined) {
-        return false;
-    }
-
-    projectConfig.taskRunnerConfig = taskRunnerConfig;
+    projectConfig.taskRunnerConfig = taskRunnerMap.get(taskRunner);
     return true;
 };
 
 const input: IProjectInput = {
     name: inputName,
     optionName: inputName,
+    option: option,
     prompt: prompt,
     tryExtractInputValue: tryExtractInputValue
 };
 
 export = {
-    input,
-    taskRunnerMap
+    input
 };

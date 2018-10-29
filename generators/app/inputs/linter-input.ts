@@ -31,8 +31,11 @@ const prompt: YeomanGenerator.Question = {
     ]
 };
 
+const option: YeomanGenerator.OptionConfig = {
+    description: 'The type of linter to use'
+};
+
 const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
-    projectConfig = projectConfig || <IProjectConfig>{};
     if (!value) {
         return false;
     }
@@ -44,24 +47,18 @@ const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): bo
         return false;
     }
 
-    const linterConfig = linterMap.get(linter);
-
-    if (linterConfig === undefined) {
-        return false;
-    }
-
-    projectConfig.linterConfig = linterConfig;
+    projectConfig.linterConfig = linterMap.get(linter);
     return true;
 };
 
 const input: IProjectInput = {
     name: inputName,
     optionName: inputName,
+    option: option,
     prompt: prompt,
     tryExtractInputValue: tryExtractInputValue
 };
 
 export = {
-    input,
-    linterMap
+    input
 };

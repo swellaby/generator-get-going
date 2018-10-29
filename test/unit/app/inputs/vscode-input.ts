@@ -33,7 +33,7 @@ suite('VSCodeInput Tests:', () => {
         });
 
         test('Should have correct option default', () => {
-            assert.deepEqual(input.option.default, expSettingDefault);
+            assert.deepEqual(input.option.default, undefined);
         });
     });
 

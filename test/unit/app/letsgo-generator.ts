@@ -5,9 +5,9 @@ import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 
 import LetsGoGenerator = require('../../../generators/app/letsgo-generator');
-import projectInputUtils = require('../../../generators/app/inputs/project-input-utils');
-import projectInputs = require('../../../generators/app/inputs/project-inputs');
-import projectScaffolders = require('../../../generators/app/scaffolders/project-scaffolders');
+import projectInputUtils = require('../../../generators/app/project-input-utils');
+import projectInputs = require('../../../generators/app/project-inputs');
+import projectScaffolders = require('../../../generators/app/project-scaffolders');
 import scaffoldEngine = require('../../../generators/app/scaffold-engine');
 import testUtils = require('../../test-utils');
 

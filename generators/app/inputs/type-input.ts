@@ -53,6 +53,10 @@ const prompt: YeomanGenerator.Question = {
     ]
 };
 
+const option: YeomanGenerator.OptionConfig = {
+    description: 'The type of project to create'
+};
+
 const setConfigValues = (projectConfig: IProjectConfig, projectType: ProjectType) => {
     projectConfig.projectType = projectType;
     const goContentConfig = goContentConfigMap.get(projectType);
@@ -60,7 +64,6 @@ const setConfigValues = (projectConfig: IProjectConfig, projectType: ProjectType
 };
 
 const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
-    projectConfig = projectConfig || <IProjectConfig>{};
     if (value === null || value === undefined) {
         return false;
     }
@@ -79,6 +82,7 @@ const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): bo
 const input: IProjectInput = {
     name: name,
     optionName: 'type',
+    option: option,
     prompt: prompt,
     tryExtractInputValue: tryExtractInputValue
 };

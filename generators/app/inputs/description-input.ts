@@ -6,27 +6,24 @@ import IProjectConfig = require('../interfaces/project-config');
 import IProjectInput = require('../interfaces/project-input');
 import PromptType = require('../enums/prompt-type');
 
-const name = 'vscode';
-const defaultValue = true;
-const description = 'Do you use Visual Studio Code?';
+const name = 'description';
 
 const prompt: YeomanGenerator.Question = {
-    type: PromptType.confirm,
+    type: PromptType.input,
     name: name,
-    message: description,
-    default: defaultValue
+    message: 'What is the description/purpose of your app?'
 };
 
 const option: YeomanGenerator.OptionConfig = {
-    type: Boolean,
-    description: description
+    type: String,
+    description: 'The description of your app'
 };
 
 const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
-    if (value === null || value === undefined || typeof value !== 'boolean') {
+    if (value === null || value === undefined) {
         return false;
     }
-    projectConfig.includeVSCode = Boolean(value);
+    projectConfig.description = String(value);
     return true;
 };
 

@@ -30,7 +30,7 @@ suite('taskRunnerScaffolder Tests:', () => {
         Sinon.restore();
     });
 
-    test('Should correctly scaffold when task runner is set to task', async () => {
+    test('Should correctly scaffold when task runner is set to task', () => {
         config.taskRunnerConfig.taskRunner = TaskRunner.task;
         const expFromPath = `${expFromRoot}/task/${testUtils.wildcardGlobSuffix}`;
         taskRunnerScaffolder.scaffold(generatorStub, config);

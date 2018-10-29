@@ -24,12 +24,12 @@ func installTaskRunner() {
 }
 
 func runSetupTarget() {
-	cmd := exec.Command("task", "setup")
+	cmd := exec.Command("<%= taskRunnerConfig.commandName %>", "<%= taskRunnerConfig.taskScriptNames.setup %>")
 	_, currentFilePath, _, _ := runtime.Caller(0)
 	cmd.Dir = filepath.Join(path.Dir(currentFilePath), "..")
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Printf("Error encountered while running `<%= taskRunnerConfig.commandName %> <%= taskRunnerConfig.taskNames.setup %>`. Error details: %s\n", err)
+		fmt.Printf("Error encountered while running `<%= taskRunnerConfig.commandName %> <%= taskRunnerConfig.taskScriptNames.setup %>`. Error details: %s\n", err)
 		os.Exit(1)
 	}
 	fmt.Printf("%s", string(out))
@@ -39,6 +39,6 @@ func runSetupTarget() {
 func main() {
 	fmt.Println("Ensuring <%= taskRunnerConfig.name %> is installed and available...")
 	installTaskRunner()
-	fmt.Println("Running `<%= taskRunnerConfig.commandName %> <%= taskRunnerConfig.taskNames.setup %>` to configure workspace...")
+	fmt.Println("Running `<%= taskRunnerConfig.commandName %> <%= taskRunnerConfig.taskScriptNames.setup %>` to configure workspace...")
 	runSetupTarget()
 }

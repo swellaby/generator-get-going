@@ -4,8 +4,8 @@ import Chai = require('chai');
 import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 
-import projectInputUtils = require('../../../../generators/app/inputs/project-input-utils');
-import testUtils = require('../../../test-utils');
+import projectInputUtils = require('../../../generators/app/project-input-utils');
+import testUtils = require('../../test-utils');
 
 const assert = Chai.assert;
 
