@@ -23,6 +23,11 @@ suite('LinterInput Tests:', () => {
         test('Should have correct option name', () => {
             assert.deepEqual(input.optionName, expSettingName);
         });
+
+        test('Should have correct option description', () => {
+            const option = input.option;
+            assert.deepEqual(option.description, 'The type of linter to use');
+        });
     });
 
     suite('promptConfig Tests:', () => {

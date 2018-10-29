@@ -19,7 +19,6 @@ const prompt: YeomanGenerator.Question = {
 
 const option: YeomanGenerator.OptionConfig = {
     type: Boolean,
-    default: defaultValue,
     description: description
 };
 

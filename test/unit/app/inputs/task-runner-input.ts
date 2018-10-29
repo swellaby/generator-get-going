@@ -23,6 +23,14 @@ suite('TaskRunnerInput Tests:', () => {
         test('Should have correct option name', () => {
             assert.deepEqual(input.optionName, expSettingName);
         });
+
+        test('Should have correct option description', () => {
+            assert.deepEqual(input.option.description, 'The type of task runner to use');
+        });
+
+        test('Should have correct option default', () => {
+            assert.deepEqual(input.option.default, undefined);
+        });
     });
 
     suite('promptConfig Tests:', () => {

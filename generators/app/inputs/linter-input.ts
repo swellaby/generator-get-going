@@ -31,6 +31,10 @@ const prompt: YeomanGenerator.Question = {
     ]
 };
 
+const option: YeomanGenerator.OptionConfig = {
+    description: 'The type of linter to use'
+};
+
 const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
     if (!value) {
         return false;
@@ -50,6 +54,7 @@ const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): bo
 const input: IProjectInput = {
     name: inputName,
     optionName: inputName,
+    option: option,
     prompt: prompt,
     tryExtractInputValue: tryExtractInputValue
 };

@@ -22,12 +22,55 @@ suite('NameInput Tests:', () => {
         assert.deepEqual(input.optionName, expSettingName);
     });
 
-    test('Should have correct prompt name', () => {
-        assert.deepEqual(prompt.name, expSettingName);
-    });
+    suite('promptConfig Tests:', () => {
+        test('Should have correct prompt name', () => {
+            assert.deepEqual(prompt.name, expSettingName);
+        });
 
-    test('Should have correct prompt type', () => {
-        assert.deepEqual(prompt.type, PromptType.input);
+        test('Should have correct prompt type', () => {
+            assert.deepEqual(prompt.type, PromptType.input);
+        });
+
+        suite('promptValidate Tests:', () => {
+            const answers: YeomanGenerator.Answers = {};
+            const getErrorMessage = (input: string): string => {
+                return `Invalid app name: '${input}'`;
+            };
+
+            test('Should return correct error message when value is null', () => {
+                const expMessage = getErrorMessage(null);
+                assert.deepEqual(prompt.validate(null, answers), expMessage);
+            });
+
+            test('Should return correct error message when value is undefined', () => {
+                const expMessage = getErrorMessage(undefined);
+                assert.deepEqual(prompt.validate(undefined, answers), expMessage);
+            });
+
+            test('Should return correct error message on empty string input', () => {
+                const expMessage = getErrorMessage('');
+                assert.deepEqual(prompt.validate('', answers), expMessage);
+            });
+
+            test('Should return correct error message on invalid string input', () => {
+                const name = 'foo/bar';
+                const expMessage = getErrorMessage(name);
+                const actMessage = prompt.validate('foo/bar', answers);
+                assert.deepEqual(actMessage, expMessage);
+            });
+
+            test('Should return true on valid dash string input', () => {
+                assert.isTrue(prompt.validate('foo-bar', answers));
+            });
+
+            test('Should return true on valid underscore string input', () => {
+                assert.isTrue(prompt.validate('foo_bar', answers));
+            });
+
+            test('Should return true on valid numeric string input', () => {
+                assert.isTrue(prompt.validate('-7', answers));
+            });
+        });
     });
 
     test('Should have correct prompt display message', () => {
@@ -107,47 +150,6 @@ suite('NameInput Tests:', () => {
             const name = '-7';
             assert.isTrue(input.tryExtractInputValue(name, config));
             assert.deepEqual(config.name, name);
-        });
-    });
-
-    suite('promptValidate Tests:', () => {
-        const answers: YeomanGenerator.Answers = {};
-        const getErrorMessage = (input: string): string => {
-            return `Invalid app name: '${input}'`;
-        };
-
-        test('Should return correct error message when value is null', () => {
-            const expMessage = getErrorMessage(null);
-            assert.deepEqual(prompt.validate(null, answers), expMessage);
-        });
-
-        test('Should return correct error message when value is undefined', () => {
-            const expMessage = getErrorMessage(undefined);
-            assert.deepEqual(prompt.validate(undefined, answers), expMessage);
-        });
-
-        test('Should return correct error message on empty string input', () => {
-            const expMessage = getErrorMessage('');
-            assert.deepEqual(prompt.validate('', answers), expMessage);
-        });
-
-        test('Should return correct error message on invalid string input', () => {
-            const name = 'foo/bar';
-            const expMessage = getErrorMessage(name);
-            const actMessage = prompt.validate('foo/bar', answers);
-            assert.deepEqual(actMessage, expMessage);
-        });
-
-        test('Should return true on valid dash string input', () => {
-            assert.isTrue(prompt.validate('foo-bar', answers));
-        });
-
-        test('Should return true on valid underscore string input', () => {
-            assert.isTrue(prompt.validate('foo_bar', answers));
-        });
-
-        test('Should return true on valid numeric string input', () => {
-            assert.isTrue(prompt.validate('-7', answers));
         });
     });
 });
