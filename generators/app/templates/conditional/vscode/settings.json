@@ -1,0 +1,7 @@
+{
+    "files.exclude": {
+        "**/*.exe": true,
+        ".coverage": true,
+        ".testresults": true
+    },
+}

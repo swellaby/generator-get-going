@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+      {
+          "label": "lint",
+          "command": "<%= taskRunnerConfig.name %> <%= taskRunnerConfig.taskScriptNames.lint %>",
+          "type": "shell"
+      },
+      {
+          "label": "test",
+          "command": "<%= taskRunnerConfig.name %> <%= taskRunnerConfig.taskScriptNames.test %>",
+          "type": "shell",
+          "group": {
+              "kind": "test",
+              "isDefault": true
+            }
+      },
+      {
+          "label": "coverage:open",
+          "command": "<%= taskRunnerConfig.name %> <%= taskRunnerConfig.taskScriptNames.openCoverage %>",
+          "type": "shell",
+          "group": "test"
+      },
+      {
+          "label": "clean",
+          "command": "<%= taskRunnerConfig.name %> <%= taskRunnerConfig.taskScriptNames.coverage %>",
+          "type": "shell"
+      }
+  ]
+}
