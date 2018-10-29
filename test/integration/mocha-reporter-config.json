@@ -1,6 +1,6 @@
 {
     "reporterEnabled": "spec, xunit",
     "xunitReporterOptions": {
-        "output": ".testresults/component/xunit.xml"
+        "output": ".testresults/integration/xunit.xml"
     }
 }
