@@ -23,7 +23,7 @@
       },
       {
           "label": "clean",
-          "command": "<%= taskRunnerConfig.name %> <%= taskRunnerConfig.taskScriptNames.coverage %>",
+          "command": "<%= taskRunnerConfig.name %> <%= taskRunnerConfig.taskScriptNames.clean %>",
           "type": "shell"
       }
   ]

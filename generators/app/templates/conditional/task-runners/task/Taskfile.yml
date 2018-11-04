@@ -101,9 +101,9 @@ tasks:
     desc: Runs unit tests and generates code coverage reports.
     deps: [<%= taskRunnerConfig.taskScriptNames.test %>]
     cmds:
-      - gocov convert {{.COVOUT_FILE}} > {{.GOCOV_JSON_FILE}}
-      - gocov-xml < {{.GOCOV_JSON_FILE}} > {{.COBERTURA_XML_FILE}}
-      - gocov-html {{.GOCOV_JSON_FILE}} > {{.GOCOV_HTML_FILE}}
+      - gocov convert {{.UNIT_TEST_COVERAGE_OUT_FILEPATH}} > {{.UNIT_TEST_COVERAGE_JSON_FILEPATH}}
+      - gocov-xml < {{.UNIT_TEST_COVERAGE_JSON_FILEPATH}} > {{.UNIT_TEST_COVERAGE_COBERTURA_XML_FILEPATH}}
+      - gocov-html {{.UNIT_TEST_COVERAGE_JSON_FILEPATH}} > {{.UNIT_TEST_COVERAGE_HTML_FILEPATH}}
     silent: true
 
   <%= taskRunnerConfig.taskScriptNames.openCoverage %>:
@@ -136,4 +136,11 @@ tasks:
     desc: Bumps the current patch version
     cmds:
       - go run ./scripts/version/bump/main.go
+    silent: true
+
+  check-gofmt:
+    desc: Checks that files are Go formatted
+    cmds:
+      - echo "Running gofmt check..."
+      - 'if [ "$(gofmt -l .)" = "" ]; then echo "All files are Go formatted!"; else echo "Some files are not Go formatted" && exit 1; fi'
     silent: true
