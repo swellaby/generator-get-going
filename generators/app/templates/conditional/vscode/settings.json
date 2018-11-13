@@ -5,6 +5,12 @@
         ".testresults": true
     },
     "cSpell.enabled": true,
+    "cSpell.ignorePaths": [
+      "go.mod",
+      "go.sum",
+      "**/.git/**",
+      ".vscode",
+  ],
     "go.autocompleteUnimportedPackages": false,
     "go.vetOnSave": "workspace",
     "go.testOnSave": false,

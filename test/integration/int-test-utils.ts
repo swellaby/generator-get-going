@@ -41,6 +41,18 @@ defaultPromptAnswers[vscodeInput.input.prompt.name] = true;
 
 export const defaultPromptAnswersCopy = JSON.parse(JSON.stringify(defaultPromptAnswers));
 
+export const defaultOptions = {};
+defaultOptions[descriptionInput.input.optionName] = description;
+defaultOptions[linterInput.input.optionName] = Linter.golint;
+defaultOptions[moduleInput.input.optionName] = moduleName;
+defaultOptions[ownerInput.input.optionName] = owner;
+defaultOptions[nameInput.input.optionName] = name;
+defaultOptions[taskRunnerInput.input.optionName] = TaskRunner.task;
+defaultOptions[typeInput.input.optionName] = ProjectType.boilerplate;
+defaultOptions[vscodeInput.input.optionName] = true;
+
+export const defaultOptionsCopy = JSON.parse(JSON.stringify(defaultOptions));
+
 export const commonFiles = [
     '.gitignore',
     'go.mod',
@@ -73,6 +85,18 @@ export const createConsoleErrorStub = (): Sinon.SinonStub => {
     return Sinon.stub(console, 'error');
 };
 
+export const createGeneratorLogSpy = (): Sinon.SinonSpy => {
+    return Sinon.spy(YeomanGenerator.prototype, 'log');
+};
+
 export const getCwdAppNameSubDirectoryPath = (appName: string) => path.join(process.cwd(), appName);
 
 export const getYeomanTmpCwd = () => process.cwd().replace('/private', '');
+
+// export const defaultPrompts = {
+//     name: 'foo',
+//     description: 'this is a test description',
+//     projectType: ProjectType.lib,
+//     vscode: true,
+//     author: 'swellaby'
+// };

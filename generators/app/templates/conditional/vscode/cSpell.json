@@ -5,6 +5,8 @@
     "captain-githook",
     "githook",
     "gitignore",
+    "godoc",
+    "gofmt",
     "golint",
     "letsgo",
     "opensource",

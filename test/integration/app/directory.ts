@@ -7,27 +7,19 @@ import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../int-test-utils');
-import ProjectType = require('../../../generators/app/enums/project-type');
+// import ProjectType = require('../../../generators/app/enums/project-type');
 
 const assert = chai.assert;
 
 suite('directory Tests:', () => {
     const baseAppName = 'baseOptionApp';
-    const appType = ProjectType.lib;
-    const appDescription = 'this is a test description';
-    const author = 'hemingway';
     let prompts;
     const baseAppNameDir = intTestUtils.getCwdAppNameSubDirectoryPath(baseAppName);
 
     setup(() => {
         intTestUtils.createGitInitStub();
-        prompts = {
-            name: baseAppName,
-            description: appDescription,
-            projectType: appType,
-            vscode: true,
-            author: author
-        };
+        prompts = intTestUtils.defaultPromptAnswersCopy;
+        prompts.name = baseAppName;
      });
 
     teardown(() => {

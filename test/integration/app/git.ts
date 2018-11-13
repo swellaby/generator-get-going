@@ -11,6 +11,7 @@ import intTestUtils = require('../int-test-utils');
 const assert = chai.assert;
 
 suite('git Tests:', () => {
+    // let generatorLogSpy: Sinon.SinonSpy;
     let gitInitCommandStub: Sinon.SinonStub;
     let yoDestinationPathStub: Sinon.SinonStub;
     const baseAppName = 'baseOptionApp';
@@ -49,5 +50,11 @@ suite('git Tests:', () => {
             fs.mkdirSync(path.join(path.resolve(dir), '.git'));
         }).withPrompts(prompts).toPromise();
         assert.isFalse(gitInitCommandStub.called);
+    });
+
+    test('Should log an error message when init errors', async () => {
+        gitInitCommandStub.throws(new Error());
+        await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+        assert.isTrue(gitInitCommandStub.called);
     });
 });
