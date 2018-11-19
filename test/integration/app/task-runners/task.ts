@@ -27,7 +27,7 @@ suite('task Tests:', () => {
 
     setup(() => {
         intTestUtils.createGitInitStub();
-        });
+    });
 
     teardown(() => {
         Sinon.restore();
@@ -105,6 +105,15 @@ suite('task Tests:', () => {
         cmd += `{{.COVERAGE_ROOT_DIR}}{{if eq OS "windows"}} 2>nul"{{end}}'`;
         let regex = `(clean:)${spaceRegex}(desc: Cleans the workspace)${spaceRegex}`;
         regex += `${cmdsSpaceRegex}(- ${cmd})${spaceSilentRegex}${spaceIgnoreErrorRegex}`;
+        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+    });
+
+    test('Should configure test task correctly', () => {
+        let cmd = `gotestsum --format standard-verbose --junitfile {{.UNIT_TEST_RESULTS_JUNIT_FILEPATH}} --jsonfile `;
+        cmd += `{{.UNIT_TEST_RESULTS_JSON_FILEPATH}} -- -coverprofile={{.UNIT_TEST_COVERAGE_OUT_FILEPATH}} ./...`;
+        let regex = `(test:)${spaceRegex}(desc: Runs unit tests)${spaceRegex}`;
+        regex += `(deps: \\[create-report-dirs\\])${spaceRegex}`;
+        regex += `${cmdsSpaceRegex}(- ${cmd})${spaceSilentRegex}`;
         yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
     });
 });
