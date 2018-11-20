@@ -82,6 +82,13 @@ suite('task Tests:', () => {
             const depRegex = `${regex}(- go get golang.org/x/lint/golint)${spaceRegex}${regexSuffix}`;
             yeomanAssert.fileContent(expTaskfile, new RegExp(depRegex));
         });
+
+        test('Should configure lint task correctly', () => {
+            const cmd = `golint ./...`;
+            let regex = `(lint:)${spaceRegex}(desc: Runs the linter and prints results to STDOUT)${spaceRegex}`;
+            regex += `${cmdsSpaceRegex}(- ${cmd})${spaceRegex}`;
+            yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+        });
     });
 
     test('Should configure create-report-dirs task correctly', () => {
@@ -114,6 +121,58 @@ suite('task Tests:', () => {
         let regex = `(test:)${spaceRegex}(desc: Runs unit tests)${spaceRegex}`;
         regex += `(deps: \\[create-report-dirs\\])${spaceRegex}`;
         regex += `${cmdsSpaceRegex}(- ${cmd})${spaceSilentRegex}`;
+        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+    });
+
+    test('Should configure coverage task correctly', () => {
+        let regex = `(coverage:)${spaceRegex}(desc: Runs unit tests and generates code coverage reports)${spaceRegex}`;
+        regex += `(deps: \\[test\\])${spaceRegex}`;
+        regex += `${cmdsSpaceRegex}(- gocov convert {{.UNIT_TEST_COVERAGE_OUT_FILEPATH}} > {{.UNIT_TEST_COVERAGE_JSON_FILEPATH}})${spaceRegex}`;
+        regex += `(- gocov-xml < {{.UNIT_TEST_COVERAGE_JSON_FILEPATH}} > {{.UNIT_TEST_COVERAGE_COBERTURA_XML_FILEPATH}})${spaceRegex}`;
+        regex += `(- gocov-html {{.UNIT_TEST_COVERAGE_JSON_FILEPATH}} > {{.UNIT_TEST_COVERAGE_HTML_FILEPATH}})${spaceSilentRegex}`;
+        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+    });
+
+    test('Should configure open-coverage task correctly', () => {
+        const cmd = `'{{if eq OS "windows"}}cmd.exe /C start{{else if eq OS "darwin"}}open{{else}}xdg-open{{end}} {{.UNIT_TEST_COVERAGE_HTML_FILEPATH}}'`;
+        let regex = `(open-cov:)${spaceRegex}(desc: Opens the HTML Code Coverage Report)${spaceRegex}`;
+        regex += `(deps: \\[coverage\\])${spaceRegex}`;
+        regex += `${cmdsSpaceRegex}(- ${cmd})${spaceRegex}`;
+        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+    });
+
+    test('Should configure vet task correctly', () => {
+        const cmd = `go vet ./...`;
+        let regex = `(vet:)${spaceRegex}(desc: Runs govet and prints results to STDOUT)${spaceRegex}`;
+        regex += `${cmdsSpaceRegex}(- ${cmd})${spaceRegex}`;
+        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+    });
+
+    test('Should configure ci task correctly', () => {
+        let regex = `(ci:)${spaceRegex}(desc: Runs sequence of desired commands for performing validation in a CI build)${spaceRegex}`;
+        regex += `(deps: \\[coverage, lint\\])${spaceRegex}`;
+        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+    });
+
+    test('Should configure print-version task correctly', () => {
+        const cmd = `go run ./scripts/version/print/main.go`;
+        let regex = `(print-version:)${spaceRegex}(desc: Prints the current version)${spaceRegex}`;
+        regex += `${cmdsSpaceRegex}(- ${cmd})${spaceSilentRegex}`;
+        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+    });
+
+    test('Should configure bump-version task correctly', () => {
+        const cmd = `go run ./scripts/version/bump/main.go`;
+        let regex = `(bump-version:)${spaceRegex}(desc: Bumps the current patch version)${spaceRegex}`;
+        regex += `${cmdsSpaceRegex}(- ${cmd})${spaceSilentRegex}`;
+        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+    });
+
+    test('Should configure check-gofmt task correctly', () => {
+        const cmd = `'if \\[ "\\$\\(gofmt \\-l .\\)" = "" \\]; then echo "All files are Go formatted\\!"; else echo "Some files are not Go formatted" && exit 1; fi'`;
+        let regex = `(check-gofmt:)${spaceRegex}(desc: Checks that files are Go formatted)${spaceRegex}`;
+        regex += `${cmdsSpaceRegex}(- echo "Running gofmt check...")${spaceRegex}`;
+        regex += `(- ${cmd})${spaceSilentRegex}`;
         yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
     });
 });

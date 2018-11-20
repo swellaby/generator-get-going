@@ -110,12 +110,12 @@ tasks:
       - '{{if eq OS "windows"}}cmd.exe /C start{{else if eq OS "darwin"}}open{{else}}xdg-open{{end}} {{.UNIT_TEST_COVERAGE_HTML_FILEPATH}}'
 
   <%= taskRunnerConfig.taskScriptNames.lint %>:
-    desc: Runs the linter and prints results to STDOUT.
+    desc: Runs the linter and prints results to STDOUT
     cmds:
       - <%= linterConfig.commandName %> ./...
 
   <%= taskRunnerConfig.taskScriptNames.vet %>:
-    desc: Runs govet and prints results to STDOUT.
+    desc: Runs govet and prints results to STDOUT
     cmds:
       - go vet ./...
 
