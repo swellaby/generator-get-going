@@ -39,7 +39,7 @@ defaultPromptAnswers[taskRunnerInput.input.prompt.name] = TaskRunner.task;
 defaultPromptAnswers[typeInput.input.prompt.name] = ProjectType.boilerplate;
 defaultPromptAnswers[vscodeInput.input.prompt.name] = true;
 
-export const defaultPromptAnswersCopy = JSON.parse(JSON.stringify(defaultPromptAnswers));
+export const defaultPromptAnswersCopy = () => JSON.parse(JSON.stringify(defaultPromptAnswers));
 
 export const defaultOptions = {};
 defaultOptions[descriptionInput.input.optionName] = description;
@@ -51,7 +51,7 @@ defaultOptions[taskRunnerInput.input.optionName] = TaskRunner.task;
 defaultOptions[typeInput.input.optionName] = ProjectType.boilerplate;
 defaultOptions[vscodeInput.input.optionName] = true;
 
-export const defaultOptionsCopy = JSON.parse(JSON.stringify(defaultOptions));
+export const defaultOptionsCopy = () => JSON.parse(JSON.stringify(defaultOptions));
 
 export const commonFiles = [
     '.gitignore',
@@ -92,11 +92,3 @@ export const createGeneratorLogSpy = (): Sinon.SinonSpy => {
 export const getCwdAppNameSubDirectoryPath = (appName: string) => path.join(process.cwd(), appName);
 
 export const getYeomanTmpCwd = () => process.cwd().replace('/private', '');
-
-// export const defaultPrompts = {
-//     name: 'foo',
-//     description: 'this is a test description',
-//     projectType: ProjectType.lib,
-//     vscode: true,
-//     author: 'swellaby'
-// };

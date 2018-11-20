@@ -18,7 +18,7 @@ suite('directory Tests:', () => {
 
     setup(() => {
         intTestUtils.createGitInitStub();
-        prompts = intTestUtils.defaultPromptAnswersCopy;
+        prompts = intTestUtils.defaultPromptAnswersCopy();
         prompts.name = baseAppName;
      });
 

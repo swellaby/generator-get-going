@@ -11,11 +11,10 @@ import intTestUtils = require('../int-test-utils');
 const assert = chai.assert;
 
 suite('git Tests:', () => {
-    // let generatorLogSpy: Sinon.SinonSpy;
     let gitInitCommandStub: Sinon.SinonStub;
     let yoDestinationPathStub: Sinon.SinonStub;
     const baseAppName = 'baseOptionApp';
-    const prompts = intTestUtils.defaultPromptAnswersCopy;
+    const prompts = intTestUtils.defaultPromptAnswersCopy();
     prompts.name = baseAppName;
 
     setup(() => {

@@ -98,6 +98,13 @@ const secondScaffolder: IProjectScaffolder = <IProjectScaffolder>{
 
 const projectScaffolders = [ firstScaffolder, secondScaffolder ];
 
+const moduleNameErrMessageSuffix = 'Module name must follow the pattern of: host/owner/repo-path, like: ' +
+'github.com/foo/bar or github.com/foo/bar/x/y/z';
+
+const getModuleNameValidationErrorMessage = (input: string): string => {
+    return `Invalid Go module name: '${input}'\n${moduleNameErrMessageSuffix}`;
+};
+
 export = {
     expectedGreetingMessage,
     expectedErrorMessageBase,
@@ -113,5 +120,7 @@ export = {
     projectScaffolders,
     firstScaffolder,
     secondScaffolder,
-    wildcardGlobSuffix: '**/*'
+    wildcardGlobSuffix: '**/*',
+    moduleNameErrMessageSuffix,
+    getModuleNameValidationErrorMessage
 };
