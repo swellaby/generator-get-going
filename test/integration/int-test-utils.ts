@@ -18,8 +18,18 @@ import ProjectType = require('../../generators/app/enums/project-type');
 import TaskRunner = require('../../generators/app/enums/task-runner');
 
 export const generatorRoot = path.join(__dirname, '../../generators/app');
-export const readmeFileName = 'README.md';
+export const devSetupScriptFileName = 'scripts/dev_setup.go';
 export const goModFileName = 'go.mod';
+export const gitIgnoreFileName = '.gitignore';
+export const readmeFileName = 'README.md';
+
+export const commonFiles = [
+    gitIgnoreFileName,
+    goModFileName,
+    readmeFileName,
+    devSetupScriptFileName
+];
+
 export const readmeGeneratorOriginHeader = '### Generator';
 export const readmeGeneratorOriginText = 'Initially created by this [swell generator][parent-generator-url]!';
 export const readmeGeneratorUrlVariableText = '[parent-generator-url]: https://github.com/swellaby/generator-lets-go';
@@ -53,13 +63,6 @@ defaultOptions[typeInput.input.optionName] = ProjectType.boilerplate;
 defaultOptions[vscodeInput.input.optionName] = true;
 
 export const defaultOptionsCopy = () => JSON.parse(JSON.stringify(defaultOptions));
-
-export const commonFiles = [
-    '.gitignore',
-    goModFileName,
-    readmeFileName,
-    'scripts/dev_setup.go'
-];
 
 export const vsCodeFiles = [
     '.vscode/cSpell.json',
