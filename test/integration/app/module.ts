@@ -15,7 +15,7 @@ const assert = chai.assert;
 
 suite('module Tests:', () => {
     let prompts = intTestUtils.defaultPromptAnswersCopy();
-    const expGoModFile = 'go.mod';
+    const expGoModFile = intTestUtils.goModFileName;
     const modOptionName = moduleInput.input.optionName;
     const modPromptName = moduleInput.input.prompt.name;
     const namePromptName = nameInput.input.prompt.name;
