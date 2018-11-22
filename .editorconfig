@@ -15,11 +15,11 @@ trim_trailing_whitespace = false
 indent_style = space
 indent_size = 2
 
-[*.yml,*.yaml]
+[*.{yml,yaml}]
 indent_style = space
 indent_size = 2
 
-[*.js,*.ts]
+[*.{js,ts}]
 indent_style = space
 indent_size = 4
 

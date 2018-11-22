@@ -10,7 +10,7 @@
     "go.mod",
     "go.sum",
     "**/.git/**",
-    ".vscode",
+    ".vscode"
   ],
   "cSpell.enabledLanguageIds": [
     "asciidoc",

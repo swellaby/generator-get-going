@@ -64,12 +64,18 @@ defaultOptions[vscodeInput.input.optionName] = true;
 
 export const defaultOptionsCopy = () => JSON.parse(JSON.stringify(defaultOptions));
 
+export const vscodeCSpellFile = '.vscode/cSpell.json';
+export const vscodeExtensionsFile = '.vscode/extensions.json';
+export const vscodeLaunchFile = '.vscode/launch.json';
+export const vscodeSettingsFile = '.vscode/settings.json';
+export const vscodeTasksFile = '.vscode/tasks.json';
+
 export const vsCodeFiles = [
-    '.vscode/cSpell.json',
-    '.vscode/extensions.json',
-    '.vscode/launch.json',
-    '.vscode/settings.json',
-    '.vscode/tasks.json'
+    vscodeCSpellFile,
+    vscodeExtensionsFile,
+    vscodeLaunchFile,
+    vscodeSettingsFile,
+    vscodeTasksFile
 ];
 
 /**

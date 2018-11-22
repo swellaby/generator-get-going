@@ -4,10 +4,10 @@ import helpers = require('yeoman-test');
 import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 
-import intTestUtils = require('../int-test-utils');
-import vscodeInput = require('../../../generators/app/inputs/vscode-input');
+import intTestUtils = require('../../int-test-utils');
+import vscodeInput = require('../../../../generators/app/inputs/vscode-input');
 
-suite('vscode Tests:', () => {
+suite('vscode scaffolding Tests:', () => {
     let prompts;
     let options;
     const vscodeFiles = intTestUtils.vsCodeFiles;
@@ -44,15 +44,4 @@ suite('vscode Tests:', () => {
             .toPromise();
         yeomanAssert.file(vscodeFiles);
     });
-
-    // test('Should use option module name when valid option is provided', async () => {
-    //     const expName = 'go-getter';
-    //     const options = intTestUtils.defaultOptionsCopy();
-    //     options[optionName] = expName;
-    //     await helpers.run(intTestUtils.generatorRoot)
-    //         .withOptions(options)
-    //         .withPrompts(prompts)
-    //         .toPromise();
-    //     yeomanAssert.fileContent(readmeFile, `# ${expName}`);
-    // });
 });
