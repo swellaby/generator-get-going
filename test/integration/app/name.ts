@@ -29,10 +29,6 @@ suite('name Tests:', () => {
         Sinon.restore();
     });
 
-    test('Should include readme file', () => {
-        yeomanAssert.file(readmeFile);
-    });
-
     test('Should include correct name in readme header', () => {
         yeomanAssert.fileContent(readmeFile, `# ${intTestUtils.name}`);
     });

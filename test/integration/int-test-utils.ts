@@ -30,9 +30,6 @@ export const commonFiles = [
     devSetupScriptFileName
 ];
 
-export const readmeGeneratorOriginHeader = '### Generator';
-export const readmeGeneratorOriginText = 'Initially created by this [swell generator][parent-generator-url]!';
-export const readmeGeneratorUrlVariableText = '[parent-generator-url]: https://github.com/swellaby/generator-lets-go';
 export const packageJson = 'package.json';
 export const yoDestinationPathFunctionName = 'destinationPath';
 export const description = 'awesome go awesomeness';
@@ -102,3 +99,5 @@ export const createGeneratorLogSpy = (): Sinon.SinonSpy => {
 export const getCwdAppNameSubDirectoryPath = (appName: string) => path.join(process.cwd(), appName);
 
 export const getYeomanTmpCwd = () => process.cwd().replace('/private', '');
+
+export const spaceRegex = '\\s*';
