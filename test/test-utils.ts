@@ -14,6 +14,8 @@ const expectedGreetingMessage = yosay('Welcome to the LetsGo Generator!');
 const expectedErrorMessageBase = 'Encountered an unexpected error while creating your ' +
 'new project. Please try again.';
 
+const fatalErrorMessage = 'Something awful happened! Please open an issue on GitHub';
+
 const getExpectedErrorMessage = (errDetails: string): string => {
     return expectedErrorMessageBase + ` Error details: '${errDetails}'`;
 };
@@ -122,5 +124,6 @@ export = {
     secondScaffolder,
     wildcardGlobSuffix: '**/*',
     moduleNameErrMessageSuffix,
-    getModuleNameValidationErrorMessage
+    getModuleNameValidationErrorMessage,
+    fatalErrorMessage
 };

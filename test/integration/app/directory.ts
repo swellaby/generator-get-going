@@ -7,7 +7,6 @@ import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../int-test-utils');
-// import ProjectType = require('../../../generators/app/enums/project-type');
 
 const assert = chai.assert;
 

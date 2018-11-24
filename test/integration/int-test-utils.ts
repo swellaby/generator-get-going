@@ -18,7 +18,7 @@ import ProjectType = require('../../generators/app/enums/project-type');
 import TaskRunner = require('../../generators/app/enums/task-runner');
 
 export const generatorRoot = path.join(__dirname, '../../generators/app');
-export const devSetupScriptFileName = 'scripts/dev_setup.go';
+export const devSetupGoScriptFileName = 'scripts/dev_setup.go';
 export const goModFileName = 'go.mod';
 export const gitIgnoreFileName = '.gitignore';
 export const readmeFileName = 'README.md';
@@ -27,7 +27,7 @@ export const commonFiles = [
     gitIgnoreFileName,
     goModFileName,
     readmeFileName,
-    devSetupScriptFileName
+    devSetupGoScriptFileName
 ];
 
 export const packageJson = 'package.json';
@@ -101,3 +101,15 @@ export const getCwdAppNameSubDirectoryPath = (appName: string) => path.join(proc
 export const getYeomanTmpCwd = () => process.cwd().replace('/private', '');
 
 export const spaceRegex = '\\s*';
+
+export const rootMainGoFileName = 'main.go';
+let boilerplateMainGoFileContent = `package main${spaceRegex}`;
+boilerplateMainGoFileContent += `import \\(${spaceRegex}"fmt"${spaceRegex}\\)${spaceRegex}`;
+boilerplateMainGoFileContent += `func main\\(\\) \\{${spaceRegex}fmt\\.Println\\("Hello World\\!"\\)${spaceRegex}\\}${spaceRegex}`;
+
+export const boilerplateProjectContent = {
+    files: [
+        rootMainGoFileName
+    ],
+    mainGoFileContentRegex: new RegExp(boilerplateMainGoFileContent)
+};
