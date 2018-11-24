@@ -31,6 +31,10 @@ suite('NameInput Tests:', () => {
             assert.deepEqual(prompt.type, PromptType.input);
         });
 
+        test('Should have correct prompt display message', () => {
+            assert.deepEqual(prompt.message, 'The name of your app');
+        });
+
         suite('promptValidate Tests:', () => {
             const answers: YeomanGenerator.Answers = {};
             const getErrorMessage = (input: string): string => {
@@ -71,10 +75,6 @@ suite('NameInput Tests:', () => {
                 assert.isTrue(prompt.validate('-7', answers));
             });
         });
-    });
-
-    test('Should have correct prompt display message', () => {
-        assert.deepEqual(prompt.message, 'The name of your app');
     });
 
     suite('isValid Tests:', () => {

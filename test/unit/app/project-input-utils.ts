@@ -10,7 +10,7 @@ import testUtils = require('../../test-utils');
 const assert = Chai.assert;
 
 suite('projectInputUtils Tests:', () => {
-    const errMessage = 'Something awful happened! Please open an issue on GitHub';
+    const errMessage = testUtils.fatalErrorMessage;
     const generatorStub: YeomanGenerator = testUtils.generatorStub;
     const projectInputs = testUtils.projectInputs;
     const firstInput = testUtils.firstInput;

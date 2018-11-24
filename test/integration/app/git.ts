@@ -14,7 +14,7 @@ suite('git Tests:', () => {
     let gitInitCommandStub: Sinon.SinonStub;
     let yoDestinationPathStub: Sinon.SinonStub;
     const baseAppName = 'baseOptionApp';
-    const prompts = intTestUtils.defaultPromptAnswersCopy;
+    const prompts = intTestUtils.defaultPromptAnswersCopy();
     prompts.name = baseAppName;
 
     setup(() => {
@@ -49,5 +49,11 @@ suite('git Tests:', () => {
             fs.mkdirSync(path.join(path.resolve(dir), '.git'));
         }).withPrompts(prompts).toPromise();
         assert.isFalse(gitInitCommandStub.called);
+    });
+
+    test('Should log an error message when init errors', async () => {
+        gitInitCommandStub.throws(new Error());
+        await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+        assert.isTrue(gitInitCommandStub.called);
     });
 });

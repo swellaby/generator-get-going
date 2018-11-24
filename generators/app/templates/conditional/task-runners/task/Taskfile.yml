@@ -43,11 +43,8 @@ tasks:
     silent: true
 
   <%= taskRunnerConfig.taskScriptNames.setup %>:
-    desc: Sets up the workspace.
+    desc: Sets up the workspace
     deps: [<%= taskRunnerConfig.taskScriptNames.install %>, create-report-dirs]
-    # cmds:
-    #   - go install .
-    #   - captain-githook init
 
   <%= taskRunnerConfig.taskScriptNames.install %>:
     desc: Installs dependencies
@@ -61,7 +58,7 @@ tasks:
     silent: true
 
   install-dev-deps:
-    desc: Installs dev dependencies.
+    desc: Installs dev dependencies
     # Run this outside the working directory to prevent
     # these dev deps from being added to the go.mod file.
     dir: '{{toSlash .TMP_DIR}}'
@@ -77,28 +74,28 @@ tasks:
         sh: go env GOPATH
 
   create-report-dirs:
-    desc: Creates the directories where generated reports are written.
+    desc: Creates the directories where generated reports are written
     cmds:
       - '{{if eq OS "windows"}}cmd.exe /C "mkdir{{else}}mkdir -p{{end}} {{fromSlash .UNIT_TEST_RESULTS_DIR}} {{fromSlash .UNIT_TEST_COVERAGE_DIR}}{{if eq OS "windows"}} 2>nul"{{end}}'
     silent: true
     ignore_error: true
 
   <%= taskRunnerConfig.taskScriptNames.clean %>:
-    desc: Cleans the workspace.
+    desc: Cleans the workspace
     cmds:
       - '{{if eq OS "windows"}}cmd.exe /C "rd /q /s{{else}}rm -rf{{end}} {{.TESTRESULTS_ROOT_DIR}} {{.COVERAGE_ROOT_DIR}}{{if eq OS "windows"}} 2>nul"{{end}}'
     silent: true
     ignore_error: true
 
   <%= taskRunnerConfig.taskScriptNames.test %>:
-    desc: Runs unit tests.
+    desc: Runs unit tests
     deps: [create-report-dirs]
     cmds:
       - gotestsum --format standard-verbose --junitfile {{.UNIT_TEST_RESULTS_JUNIT_FILEPATH}} --jsonfile {{.UNIT_TEST_RESULTS_JSON_FILEPATH}} -- -coverprofile={{.UNIT_TEST_COVERAGE_OUT_FILEPATH}} <%= goContentConfig.testTarget %>
     silent: true
 
   <%= taskRunnerConfig.taskScriptNames.coverage %>:
-    desc: Runs unit tests and generates code coverage reports.
+    desc: Runs unit tests and generates code coverage reports
     deps: [<%= taskRunnerConfig.taskScriptNames.test %>]
     cmds:
       - gocov convert {{.UNIT_TEST_COVERAGE_OUT_FILEPATH}} > {{.UNIT_TEST_COVERAGE_JSON_FILEPATH}}
@@ -113,12 +110,12 @@ tasks:
       - '{{if eq OS "windows"}}cmd.exe /C start{{else if eq OS "darwin"}}open{{else}}xdg-open{{end}} {{.UNIT_TEST_COVERAGE_HTML_FILEPATH}}'
 
   <%= taskRunnerConfig.taskScriptNames.lint %>:
-    desc: Runs the linter and prints results to STDOUT.
+    desc: Runs the linter and prints results to STDOUT
     cmds:
       - <%= linterConfig.commandName %> ./...
 
   <%= taskRunnerConfig.taskScriptNames.vet %>:
-    desc: Runs govet and prints results to STDOUT.
+    desc: Runs govet and prints results to STDOUT
     cmds:
       - go vet ./...
 

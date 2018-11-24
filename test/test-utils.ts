@@ -14,6 +14,8 @@ const expectedGreetingMessage = yosay('Welcome to the LetsGo Generator!');
 const expectedErrorMessageBase = 'Encountered an unexpected error while creating your ' +
 'new project. Please try again.';
 
+const fatalErrorMessage = 'Something awful happened! Please open an issue on GitHub';
+
 const getExpectedErrorMessage = (errDetails: string): string => {
     return expectedErrorMessageBase + ` Error details: '${errDetails}'`;
 };
@@ -98,6 +100,13 @@ const secondScaffolder: IProjectScaffolder = <IProjectScaffolder>{
 
 const projectScaffolders = [ firstScaffolder, secondScaffolder ];
 
+const moduleNameErrMessageSuffix = 'Module name must follow the pattern of: host/owner/repo-path, like: ' +
+'github.com/foo/bar or github.com/foo/bar/x/y/z';
+
+const getModuleNameValidationErrorMessage = (input: string): string => {
+    return `Invalid Go module name: '${input}'\n${moduleNameErrMessageSuffix}`;
+};
+
 export = {
     expectedGreetingMessage,
     expectedErrorMessageBase,
@@ -113,5 +122,8 @@ export = {
     projectScaffolders,
     firstScaffolder,
     secondScaffolder,
-    wildcardGlobSuffix: '**/*'
+    wildcardGlobSuffix: '**/*',
+    moduleNameErrMessageSuffix,
+    getModuleNameValidationErrorMessage,
+    fatalErrorMessage
 };

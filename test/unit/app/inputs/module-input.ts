@@ -187,12 +187,7 @@ suite('ModuleInput Tests:', () => {
     });
 
     suite('promptValidate Tests:', () => {
-        const errMessageSuffix = 'Module name must follow the pattern of: host/owner/repo-path, like: ' +
-        'github.com/foo/bar or github.com/foo/bar/x/y/z';
-        const getErrorMessage = (input: string): string => {
-            return `Invalid Go module name: '${input}'\n${errMessageSuffix}`;
-        };
-
+        const getErrorMessage = testUtils.getModuleNameValidationErrorMessage;
         test('Should return correct error message when value is null', () => {
             const expMessage = getErrorMessage(null);
             assert.deepEqual(prompt.validate(null), expMessage);
