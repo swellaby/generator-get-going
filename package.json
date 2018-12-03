@@ -68,7 +68,7 @@
         "@types/node": "^10.12.10",
         "@types/sinon": "^5.0.7",
         "@types/yeoman-generator": "^3.0.1",
-        "@types/yeoman-test": "^1.7.4",
+        "@types/yeoman-test": "^2.0.0",
         "@types/yosay": "^0.0.29",
         "chai": "^4.2.0",
         "eslint": "^5.9.0",
