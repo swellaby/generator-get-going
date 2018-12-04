@@ -8,7 +8,7 @@ import TaskRunner = require('../../../../generators/app/enums/task-runner');
 import taskRunnerInput = require('../../../../generators/app/inputs/task-runner-input');
 import PromptType = require('../../../../generators/app/enums/prompt-type');
 
-const input = taskRunnerInput.input;
+const input = taskRunnerInput;
 const prompt = input.prompt;
 const assert = chai.assert;
 

@@ -29,8 +29,8 @@ const validatePromptInput = (value: string): string | boolean => {
 };
 
 const getDefaultPromptValue = (answers: YeomanGenerator.Answers): string => {
-    const appName = config.name || answers[nameInput.input.prompt.name];
-    const ownerName = config.owner || answers[ownerInput.input.prompt.name];
+    const appName = config.name || answers[nameInput.prompt.name];
+    const ownerName = config.owner || answers[ownerInput.prompt.name];
     return `github.com/${ownerName}/${appName}`;
 };
 
@@ -62,16 +62,11 @@ const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): bo
     return false;
 };
 
-const input: IProjectInput = {
+export = <IProjectInput>{
     name: name,
     optionName: 'module-path',
     option: option,
     prompt: prompt,
-    tryExtractInputValue: tryExtractInputValue
-};
-
-export = {
-    input,
-    config,
+    tryExtractInputValue: tryExtractInputValue,
     isValid
 };

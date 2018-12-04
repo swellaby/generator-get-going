@@ -7,7 +7,7 @@ import ProjectType = require('../../../../generators/app/enums/project-type');
 import PromptType = require('../../../../generators/app/enums/prompt-type');
 import typeInput = require('../../../../generators/app/inputs/type-input');
 
-const input = typeInput.input;
+const input = typeInput;
 const prompt = input.prompt;
 const assert = chai.assert;
 

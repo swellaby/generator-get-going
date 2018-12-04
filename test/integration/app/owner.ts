@@ -13,10 +13,10 @@ const assert = chai.assert;
 
 suite('owner Tests:', () => {
     let prompts = intTestUtils.defaultPromptAnswersCopy();
-    const promptName = ownerInput.input.prompt.name;
-    const optionName = ownerInput.input.optionName;
-    const modPromptName = moduleInput.input.prompt.name;
-    const modOptionName = moduleInput.input.optionName;
+    const promptName = ownerInput.prompt.name;
+    const optionName = ownerInput.optionName;
+    const modPromptName = moduleInput.prompt.name;
+    const modOptionName = moduleInput.optionName;
     const goModFile = intTestUtils.goModFileName;
 
     const buildGoModuleName = (owner: string) => {
@@ -70,12 +70,12 @@ suite('owner Tests:', () => {
     });
 
     test('Should return true when validate function called with valid value', () => {
-        assert.isTrue(ownerInput.input.prompt.validate(intTestUtils.owner));
+        assert.isTrue(ownerInput.prompt.validate(intTestUtils.owner));
     });
 
     test('Should return correct error when validate function called with invalid value', () => {
         const invalidOwnerName = '/)\\345had7_/*&';
-        const msg = ownerInput.input.prompt.validate(invalidOwnerName);
+        const msg = ownerInput.prompt.validate(invalidOwnerName);
         assert.deepEqual(msg, `Invalid owner/author name: '${invalidOwnerName}'`);
     });
 });

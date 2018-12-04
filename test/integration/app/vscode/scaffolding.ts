@@ -11,8 +11,8 @@ suite('vscode scaffolding Tests:', () => {
     let prompts;
     let options;
     const vscodeFiles = intTestUtils.vsCodeFiles;
-    const promptName = vscodeInput.input.prompt.name;
-    const optionName = vscodeInput.input.optionName;
+    const promptName = vscodeInput.prompt.name;
+    const optionName = vscodeInput.optionName;
 
     setup(() => {
         prompts = intTestUtils.defaultPromptAnswersCopy();

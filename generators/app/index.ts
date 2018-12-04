@@ -1,21 +1,36 @@
 'use strict';
 
-import yeoman = require('yeoman-generator');
-import LetsGoGenerator = require('./letsgo-generator');
+import YeomanGenerator = require('yeoman-generator');
+import yosay = require('yosay');
 
-/**
- * Main entry point of the application.
- */
-export = class Generator extends yeoman {
-    private letsGoGenerator: LetsGoGenerator;
+import IProjectConfig = require('./interfaces/project-config');
+import projectInputUtils = require('./project-input-utils');
+import projectInputs = require('./project-inputs');
+import projectScaffolders = require('./project-scaffolders');
+import scaffoldEngine = require('./scaffold-engine');
 
+class LetsGoGenerator extends YeomanGenerator {
     // tslint:disable-next-line:no-any
     constructor(args: string | string[], opts?: any) {
         super(args, opts);
-        this.letsGoGenerator = new LetsGoGenerator(this);
+        projectInputUtils.addGeneratorOptions(this, projectInputs);
     }
 
-    public execute() {
-        return this.letsGoGenerator.createProject();
+    public async createProject(): Promise<void> {
+        this.log(yosay('Welcome to the LetsGo Generator!'));
+
+        try {
+            const config: IProjectConfig = await projectInputUtils.getDesiredProjectConfig(this, projectInputs);
+            scaffoldEngine.scaffoldNewProject(projectScaffolders, this, config);
+        } catch (err) {
+            let errMsg = 'Encountered an unexpected error while creating your new project. Please try again.';
+            if (err && err.message) {
+                errMsg += ` Error details: '${err.message}'`;
+            }
+            this.log(errMsg);
+        }
     }
-};
+
+}
+
+export = LetsGoGenerator;

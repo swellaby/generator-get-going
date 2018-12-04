@@ -63,14 +63,10 @@ const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): bo
     return true;
 };
 
-const input: IProjectInput = {
+export = <IProjectInput>{
     name: inputName,
     optionName: inputName,
     option: option,
     prompt: prompt,
     tryExtractInputValue: tryExtractInputValue
-};
-
-export = {
-    input
 };

@@ -10,7 +10,7 @@ import intTestUtils = require('../int-test-utils');
 suite('gitignore Tests:', () => {
     const prompts = intTestUtils.defaultPromptAnswersCopy();
     const gitignoreFile = intTestUtils.gitIgnoreFileName;
-    const promptName = nameInput.input.prompt.name;
+    const promptName = nameInput.prompt.name;
 
     suiteSetup(() => {
         return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();

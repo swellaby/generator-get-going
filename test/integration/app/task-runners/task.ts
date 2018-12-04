@@ -35,7 +35,7 @@ suite('task Tests:', () => {
 
     test('Should use prompt answer when option is invalid', async () => {
         const options = intTestUtils.defaultOptionsCopy();
-        options[taskRunnerInput.input.optionName] = 'abc';
+        options[taskRunnerInput.optionName] = 'abc';
         await helpers.run(intTestUtils.generatorRoot).withOptions(options).withPrompts(prompts).toPromise();
         yeomanAssert.file(expTaskfile);
     });

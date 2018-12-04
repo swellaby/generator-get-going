@@ -10,7 +10,7 @@ import ownerInput = require('../../../../generators/app/inputs/owner-input');
 import PromptType = require('../../../../generators/app/enums/prompt-type');
 import testUtils = require('../../../test-utils');
 
-const input = moduleInput.input;
+const input = moduleInput;
 const prompt = input.prompt;
 const assert = chai.assert;
 
@@ -73,7 +73,7 @@ suite('ModuleInput Tests:', () => {
 
             test('Should return correct module name when config has name and does not have owner', () => {
                 const ownerAnswer = 'caleb';
-                answers[ownerInput.input.prompt.name] = ownerAnswer;
+                answers[ownerInput.prompt.name] = ownerAnswer;
                 config.owner = undefined;
                 input.tryExtractInputValue(null, config);
                 assert.deepEqual(prompt.default(answers), getExpModuleName(ownerAnswer, name));
@@ -81,7 +81,7 @@ suite('ModuleInput Tests:', () => {
 
             test('Should return correct module name when config does not have name and does have owner', () => {
                 const nameAnswer = 'ci-detective';
-                answers[nameInput.input.prompt.name] = nameAnswer;
+                answers[nameInput.prompt.name] = nameAnswer;
                 config.name = undefined;
                 input.tryExtractInputValue(null, config);
                 assert.deepEqual(prompt.default(answers), getExpModuleName(owner, nameAnswer));
@@ -89,48 +89,14 @@ suite('ModuleInput Tests:', () => {
 
             test('Should return correct module name when config does not have name nor owner', () => {
                 const nameAnswer = 'foo';
-                answers[nameInput.input.prompt.name] = nameAnswer;
+                answers[nameInput.prompt.name] = nameAnswer;
                 config.name = undefined;
                 const ownerAnswer = 'bar';
-                answers[ownerInput.input.prompt.name] = ownerAnswer;
+                answers[ownerInput.prompt.name] = ownerAnswer;
                 config.owner = undefined;
                 input.tryExtractInputValue(null, config);
                 assert.deepEqual(prompt.default(answers), getExpModuleName(ownerAnswer, nameAnswer));
             });
-        });
-    });
-
-    suite('isValid Tests:', () => {
-        test('Should return false on null input', () => {
-            assert.isFalse(moduleInput.isValid(null));
-        });
-
-        test('Should return false on undefined input', () => {
-            assert.isFalse(moduleInput.isValid(undefined));
-        });
-
-        test('Should return false on empty string input', () => {
-            assert.isFalse(moduleInput.isValid(''));
-        });
-
-        test('Should return false on invalid string input', () => {
-            assert.isFalse(moduleInput.isValid('foo/bar'));
-        });
-
-        test('Should return true on valid dash string input', () => {
-            assert.isTrue(moduleInput.isValid('repo.com/bar/foo-bar'));
-        });
-
-        test('Should return true on valid underscore string input', () => {
-            assert.isTrue(moduleInput.isValid('github.com/foo/foo_bar'));
-        });
-
-        test('Should return true on valid dot string input', () => {
-            assert.isTrue(moduleInput.isValid('github.com/foo.bar/bar-foo_bar'));
-        });
-
-        test('Should return true on valid numeric string input', () => {
-            assert.isTrue(moduleInput.isValid('github.com/foobar/-7'));
         });
     });
 

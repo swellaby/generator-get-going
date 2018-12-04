@@ -20,41 +20,41 @@ suite('projectInputs Tests:', () => {
 
     test('Should have correct first input', () => {
         const input = projectInputs[0];
-        assert.deepEqual(input, nameInput.input);
+        assert.deepEqual(input, nameInput);
     });
 
     test('Should have correct second input', () => {
         const input = projectInputs[1];
-        assert.deepEqual(input, descriptionInput.input);
+        assert.deepEqual(input, descriptionInput);
     });
 
     test('Should have correct third input', () => {
         const input = projectInputs[2];
-        assert.deepEqual(input, ownerInput.input);
+        assert.deepEqual(input, ownerInput);
     });
 
     test('Should have correct fourth input', () => {
         const input = projectInputs[3];
-        assert.deepEqual(input, moduleInput.input);
+        assert.deepEqual(input, moduleInput);
     });
 
     test('Should have correct fifth input', () => {
         const input = projectInputs[4];
-        assert.deepEqual(input, typeInput.input);
+        assert.deepEqual(input, typeInput);
     });
 
     test('Should have correct sixth input', () => {
         const input = projectInputs[5];
-        assert.deepEqual(input, linterInput.input);
+        assert.deepEqual(input, linterInput);
     });
 
     test('Should have correct seventh input', () => {
         const input = projectInputs[6];
-        assert.deepEqual(input, taskRunnerInput.input);
+        assert.deepEqual(input, taskRunnerInput);
     });
 
     test('Should have correct eighth input', () => {
         const input = projectInputs[7];
-        assert.deepEqual(input, vscodeInput.input);
+        assert.deepEqual(input, vscodeInput);
     });
 });

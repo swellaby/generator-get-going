@@ -11,14 +11,14 @@ import typeInput = require('./inputs/type-input');
 import vscodeInput = require('./inputs/vscode-input');
 
 const inputs: IProjectInput[] = [
-    nameInput.input,
-    descriptionInput.input,
-    ownerInput.input,
-    moduleInput.input,
-    typeInput.input,
-    linterInput.input,
-    taskRunnerInput.input,
-    vscodeInput.input
+    nameInput,
+    descriptionInput,
+    ownerInput,
+    moduleInput,
+    typeInput,
+    linterInput,
+    taskRunnerInput,
+    vscodeInput
 ];
 
 export = inputs;

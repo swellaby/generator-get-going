@@ -12,7 +12,7 @@ suite('cli project Tests:', () => {
     const prompts = intTestUtils.defaultPromptAnswersCopy();
 
     suiteSetup(() => {
-        prompts[projectTypeInput.input.prompt.name] = ProjectType.cli;
+        prompts[projectTypeInput.prompt.name] = ProjectType.cli;
         return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
     });
 

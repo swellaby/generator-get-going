@@ -12,7 +12,7 @@ suite('lib project Tests:', () => {
     const prompts = intTestUtils.defaultPromptAnswersCopy();
 
     suiteSetup(() => {
-        prompts[projectTypeInput.input.prompt.name] = ProjectType.lib;
+        prompts[projectTypeInput.prompt.name] = ProjectType.lib;
         return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
     });
 

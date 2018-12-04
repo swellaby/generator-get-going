@@ -13,7 +13,7 @@ suite('boilerplate project Tests:', () => {
     const boilerplateConfig = intTestUtils.boilerplateProjectContent;
 
     suiteSetup(() => {
-        prompts[projectTypeInput.input.prompt.name] = ProjectType.boilerplate;
+        prompts[projectTypeInput.prompt.name] = ProjectType.boilerplate;
         return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
     });
 
