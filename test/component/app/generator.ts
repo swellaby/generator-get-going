@@ -1,12 +1,8 @@
 'use strict';
 
-// tslint:disable:no-var-requires
 import Chai = require('chai');
-const fileEditor = require('mem-fs-editor');
-import path = require('path');
 import Sinon = require('sinon');
-const yeomanEnvironment = require('yeoman-environment');
-const yeomanGenerator = require('yeoman-generator');
+import YeomanGenerator = require('yeoman-generator');
 
 import LetsGoGenerator = require('../../../generators/app/index');
 import projectInputUtils = require('../../../generators/app/project-input-utils');
@@ -24,49 +20,18 @@ import typeInput = require('../../../generators/app/inputs/type-input');
 import vscodeInput = require('../../../generators/app/inputs/vscode-input');
 
 import testUtils = require('../../test-utils');
+import yoUtils = require('../../yo-utils');
 
 const assert = Chai.assert;
 
 suite('LetsGoGenerator Tests:', () => {
     let letsGoGenerator: LetsGoGenerator;
     let generatorOptionStub: Sinon.SinonStub;
-    // const config = testUtils.projectConfig;
-    const cwd = '/foo/bar/roo';
-    const options = {
-        env: {
-            adapter: {
-                log: () => ''
-            },
-            runLoop: true,
-            sharedFs: true
-        },
-        cwd: cwd,
-        resolved: 'foo'
-    };
-
-    /**
-     * Helper function for stubbing internal Yo Generator functions in order
-     * to take control of execution flow.
-     */
-    const stubInternalGeneratorFunctions = () => {
-        Sinon.stub(Object, 'assign').callsFake(() => {
-            return options;
-        });
-        Sinon.stub(yeomanEnvironment, 'enforceUpdate');
-        Sinon.stub(fileEditor, 'create');
-        generatorOptionStub = Sinon.stub(yeomanGenerator.prototype, 'option');
-        Sinon.stub(yeomanGenerator.prototype, '_getStorage');
-        Sinon.stub(yeomanGenerator.prototype, '_getGlobalStorage');
-        Sinon.stub(yeomanGenerator.prototype, 'determineAppname');
-        Sinon.stub(yeomanGenerator.prototype, 'sourceRoot');
-    };
+    const options = yoUtils.generatorOptions;
 
     setup(() => {
-        stubInternalGeneratorFunctions();
-        Sinon.stub(path, 'join');
-        Sinon.stub(path, 'dirname');
-        const dirRoot = <path.ParsedPath>{ root: undefined };
-        Sinon.stub(path, 'parse').callsFake(() => dirRoot);
+        yoUtils.stubInternalGeneratorFunctions();
+        generatorOptionStub = Sinon.stub(YeomanGenerator.prototype, 'option');
         letsGoGenerator = new LetsGoGenerator([], options);
         Sinon.stub(letsGoGenerator, 'log');
     });

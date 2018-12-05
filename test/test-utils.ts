@@ -2,6 +2,7 @@
 
 import fs = require('fs');
 import path = require('path');
+import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 import yosay = require('yosay');
 
