@@ -25,7 +25,7 @@ const getDefaultConfig = () => <IProjectConfig>{
     }
 };
 
-const extractConfigFromInputs = async(generator: YeomanGenerator, inputs: IProjectInput[]): Promise<IProjectConfig> => {
+const extractConfigFromInputs = async (generator: YeomanGenerator, inputs: IProjectInput[]): Promise<IProjectConfig> => {
     const config: IProjectConfig = getDefaultConfig();
     const missingInputs: IProjectInput[] = [];
     const prompts: YeomanGenerator.Question[] = [];
