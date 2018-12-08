@@ -4,10 +4,11 @@ import helpers = require('yeoman-test');
 import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 
+import testUtils = require('../../test-utils');
 import intTestUtils = require('../int-test-utils');
 
 suite('readme Tests:', () => {
-    const prompts = intTestUtils.defaultPromptAnswersCopy();
+    const prompts = testUtils.defaultPromptAnswersCopy();
     const readmeFile = intTestUtils.readmeFileName;
     const spaceRegex = intTestUtils.spaceRegex;
 

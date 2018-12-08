@@ -14,7 +14,7 @@ import intTestUtils = require('../int-test-utils');
 const assert = chai.assert;
 
 suite('module Tests:', () => {
-    let prompts = intTestUtils.defaultPromptAnswersCopy();
+    let prompts = testUtils.defaultPromptAnswersCopy();
     const expGoModFile = intTestUtils.goModFileName;
     const modOptionName = moduleInput.optionName;
     const modPromptName = moduleInput.prompt.name;
@@ -27,7 +27,7 @@ suite('module Tests:', () => {
     });
 
     setup(() => {
-        prompts = intTestUtils.defaultPromptAnswersCopy();
+        prompts = testUtils.defaultPromptAnswersCopy();
         intTestUtils.createGitInitStub();
      });
 

@@ -12,7 +12,7 @@ import testUtils = require('../../test-utils');
 const assert = chai.assert;
 
 suite('app Tests:', () => {
-    const prompts = intTestUtils.defaultPromptAnswersCopy();
+    const prompts = testUtils.defaultPromptAnswersCopy();
 
     setup(() => {
         intTestUtils.createGitInitStub();

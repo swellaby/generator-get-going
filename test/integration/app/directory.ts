@@ -7,6 +7,7 @@ import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../int-test-utils');
+import testUtils = require('../../test-utils');
 
 const assert = chai.assert;
 
@@ -17,7 +18,7 @@ suite('directory Tests:', () => {
 
     setup(() => {
         intTestUtils.createGitInitStub();
-        prompts = intTestUtils.defaultPromptAnswersCopy();
+        prompts = testUtils.defaultPromptAnswersCopy();
         prompts.name = baseAppName;
      });
 

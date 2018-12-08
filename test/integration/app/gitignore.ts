@@ -6,9 +6,10 @@ import yeomanAssert = require('yeoman-assert');
 
 import nameInput = require('../../../generators/app/inputs/name-input');
 import intTestUtils = require('../int-test-utils');
+import testUtils = require('../../test-utils');
 
 suite('gitignore Tests:', () => {
-    const prompts = intTestUtils.defaultPromptAnswersCopy();
+    const prompts = testUtils.defaultPromptAnswersCopy();
     const gitignoreFile = intTestUtils.gitIgnoreFileName;
     const promptName = nameInput.prompt.name;
 

@@ -7,12 +7,14 @@ import yeomanAssert = require('yeoman-assert');
 
 import moduleInput = require('../../../generators/app/inputs/module-input');
 import ownerInput = require('../../../generators/app/inputs/owner-input');
+
+import testUtils = require('../../test-utils');
 import intTestUtils = require('../int-test-utils');
 
 const assert = chai.assert;
 
 suite('owner Tests:', () => {
-    let prompts = intTestUtils.defaultPromptAnswersCopy();
+    let prompts = testUtils.defaultPromptAnswersCopy();
     const promptName = ownerInput.prompt.name;
     const optionName = ownerInput.optionName;
     const modPromptName = moduleInput.prompt.name;
@@ -28,7 +30,7 @@ suite('owner Tests:', () => {
     });
 
     setup(() => {
-        prompts = intTestUtils.defaultPromptAnswersCopy();
+        prompts = testUtils.defaultPromptAnswersCopy();
         intTestUtils.createGitInitStub();
      });
 

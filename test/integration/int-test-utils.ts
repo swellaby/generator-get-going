@@ -37,18 +37,6 @@ export const owner = 'swellaby';
 export const name = 'captain-githook';
 export const moduleName = `github.com/${owner}/${name}`;
 
-export const defaultPromptAnswers = {};
-defaultPromptAnswers[descriptionInput.prompt.name] = description;
-defaultPromptAnswers[linterInput.prompt.name] = Linter.golint;
-defaultPromptAnswers[moduleInput.prompt.name] = moduleName;
-defaultPromptAnswers[ownerInput.prompt.name] = owner;
-defaultPromptAnswers[nameInput.prompt.name] = name;
-defaultPromptAnswers[taskRunnerInput.prompt.name] = TaskRunner.task;
-defaultPromptAnswers[typeInput.prompt.name] = ProjectType.boilerplate;
-defaultPromptAnswers[vscodeInput.prompt.name] = true;
-
-export const defaultPromptAnswersCopy = () => JSON.parse(JSON.stringify(defaultPromptAnswers));
-
 export const defaultOptions = {};
 defaultOptions[descriptionInput.optionName] = description;
 defaultOptions[linterInput.optionName] = Linter.golint;

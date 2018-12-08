@@ -2,13 +2,25 @@
 
 import fs = require('fs');
 import path = require('path');
-import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 import yosay = require('yosay');
 
 import IProjectConfig = require('../generators/app/interfaces/project-config');
 import IProjectInput = require('../generators/app/interfaces/project-input');
 import IProjectScaffolder = require('../generators/app/interfaces/project-scaffolder');
+
+import descriptionInput = require('../generators/app/inputs/description-input');
+import linterInput = require('../generators/app/inputs/linter-input');
+import moduleInput = require('../generators/app/inputs/module-input');
+import nameInput = require('../generators/app/inputs/name-input');
+import ownerInput = require('../generators/app/inputs/owner-input');
+import taskRunnerInput = require('../generators/app/inputs/task-runner-input');
+import typeInput = require('../generators/app/inputs/type-input');
+import vscodeInput = require('../generators/app/inputs/vscode-input');
+
+import Linter = require('../generators/app/enums/linter');
+import ProjectType = require('../generators/app/enums/project-type');
+import TaskRunner = require('../generators/app/enums/task-runner');
 
 const generatorRoot = path.join(__dirname, './../../../generators/app');
 const expectedGreetingMessage = yosay('Welcome to the LetsGo Generator!');
@@ -108,11 +120,29 @@ const getModuleNameValidationErrorMessage = (input: string): string => {
     return `Invalid Go module name: '${input}'\n${moduleNameErrMessageSuffix}`;
 };
 
+const description = 'awesome go awesomeness';
+const owner = 'swellaby';
+const name = 'captain-githook';
+const moduleName = `github.com/${owner}/${name}`;
+
+const defaultPromptAnswers = {};
+defaultPromptAnswers[descriptionInput.prompt.name] = description;
+defaultPromptAnswers[linterInput.prompt.name] = Linter.golint;
+defaultPromptAnswers[moduleInput.prompt.name] = moduleName;
+defaultPromptAnswers[ownerInput.prompt.name] = owner;
+defaultPromptAnswers[nameInput.prompt.name] = name;
+defaultPromptAnswers[taskRunnerInput.prompt.name] = TaskRunner.task;
+defaultPromptAnswers[typeInput.prompt.name] = ProjectType.boilerplate;
+defaultPromptAnswers[vscodeInput.prompt.name] = true;
+
+const defaultPromptAnswersCopy = () => JSON.parse(JSON.stringify(defaultPromptAnswers));
+
 export = {
     expectedGreetingMessage,
     expectedErrorMessageBase,
     getExpectedErrorMessage,
     generatorStub,
+    generatorFs: fsStats,
     generatorRoot,
     projectConfig,
     emptyProjectConfig,
@@ -126,5 +156,7 @@ export = {
     wildcardGlobSuffix: '**/*',
     moduleNameErrMessageSuffix,
     getModuleNameValidationErrorMessage,
-    fatalErrorMessage
+    fatalErrorMessage,
+    defaultPromptAnswersCopy,
+    defaultPromptAnswers
 };

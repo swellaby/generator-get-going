@@ -7,11 +7,12 @@ import yeomanAssert = require('yeoman-assert');
 
 import nameInput = require('../../../generators/app/inputs/name-input');
 import intTestUtils = require('../int-test-utils');
+import testUtils = require('../../test-utils');
 
 const assert = chai.assert;
 
 suite('name Tests:', () => {
-    let prompts = intTestUtils.defaultPromptAnswersCopy();
+    let prompts = testUtils.defaultPromptAnswersCopy();
     const promptName = nameInput.prompt.name;
     const optionName = nameInput.optionName;
     const readmeFile = intTestUtils.readmeFileName;
@@ -21,7 +22,7 @@ suite('name Tests:', () => {
     });
 
     setup(() => {
-        prompts = intTestUtils.defaultPromptAnswersCopy();
+        prompts = testUtils.defaultPromptAnswersCopy();
         intTestUtils.createGitInitStub();
      });
 
