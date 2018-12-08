@@ -25,13 +25,14 @@ const assert = Chai.assert;
 suite('generator Tests:', () => {
     let letsGoGenerator: LetsGoGenerator;
     let generatorOptionStub: Sinon.SinonStub;
+    let generatorLogStub: Sinon.SinonStub;
     const options = yoUtils.generatorOptions;
 
     setup(() => {
         yoUtils.stubInternalGeneratorFunctions();
         generatorOptionStub = Sinon.stub(YeomanGenerator.prototype, 'option');
         letsGoGenerator = new LetsGoGenerator([], options);
-        Sinon.stub(letsGoGenerator, 'log');
+        generatorLogStub = Sinon.stub(letsGoGenerator, 'log');
     });
 
     teardown(() => {
@@ -87,23 +88,41 @@ suite('generator Tests:', () => {
         const genFs = testUtils.generatorFs;
         const fsStatsStub = testUtils.fsStatStub;
         const resolvedGitPath = 'usr/foo/app-name/.git';
-        const joinedGitPath = '/' + resolvedGitPath;
+        let copyTplStub: Sinon.SinonStub;
+        let promptStub: Sinon.SinonStub;
 
         setup(() => {
-            Sinon.stub(YeomanGenerator.prototype, 'prompt').callsFake(() => Promise.resolve(answers));
-            Sinon.stub(YeomanGenerator.prototype, 'destinationPath').callsFake(() => appName);
-            Sinon.stub(YeomanGenerator.prototype, 'destinationRoot').callsFake(() => '');
-            Sinon.stub(YeomanGenerator.prototype, 'spawnCommandSync').callsFake(() => null);
-            Sinon.stub(YeomanGenerator.prototype, 'fs').callsFake(() => genFs);
-            Sinon.stub(genFs, 'copyTpl');
-            Sinon.stub(genFs, 'move');
+            promptStub = Sinon.stub(letsGoGenerator, 'prompt').callsFake(() => Promise.resolve(answers));
+            Sinon.stub(letsGoGenerator, 'destinationPath').callsFake(() => appName);
+            Sinon.stub(letsGoGenerator, 'destinationRoot').callsFake(() => '');
+            Sinon.stub(letsGoGenerator, 'spawnCommandSync').callsFake(() => null);
+            letsGoGenerator.fs = genFs;
+            copyTplStub = Sinon.stub(genFs, 'copyTpl');
             Sinon.stub(mkdirp, 'sync');
             Sinon.stub(path, 'basename').callsFake(() => appName);
-            Sinon.stub(path, 'join').onFirstCall().callsFake(() => joinedGitPath);
             Sinon.stub(path, 'resolve').onFirstCall().callsFake(() => resolvedGitPath);
             Sinon.stub(fs, 'statSync').callsFake(() => fsStatsStub);
             Sinon.stub(fs, 'unlinkSync');
             Sinon.stub(fsStatsStub, 'isFile').callsFake(() => false);
+        });
+
+        test('Should run generator creation functions', async () => {
+            await letsGoGenerator.createProject();
+            assert.isTrue(promptStub.called);
+            assert.deepEqual(copyTplStub.callCount, 4);
+        });
+
+        test('Should log correct error message on internal error with no details', async () => {
+            copyTplStub.throws(new Error());
+            await letsGoGenerator.createProject();
+            assert.isTrue(generatorLogStub.calledWithExactly(testUtils.expectedErrorMessageBase));
+        });
+
+        test('Should log correct error message on internal error with details', async () => {
+            const details = 'failed';
+            copyTplStub.throws(new Error(details));
+            await letsGoGenerator.createProject();
+            assert.isTrue(generatorLogStub.calledWithExactly(testUtils.getExpectedErrorMessage(details)));
         });
     });
 });
