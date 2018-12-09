@@ -6,7 +6,7 @@ import descriptionInput = require('../../../../generators/app/inputs/description
 import IProjectConfig = require('../../../../generators/app/interfaces/project-config');
 import PromptType = require('../../../../generators/app/enums/prompt-type');
 
-const input = descriptionInput.input;
+const input = descriptionInput;
 const prompt = input.prompt;
 const assert = chai.assert;
 

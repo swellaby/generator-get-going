@@ -8,7 +8,7 @@ import Linter = require('../../../../generators/app/enums/linter');
 import linterInput = require('../../../../generators/app/inputs/linter-input');
 import PromptType = require('../../../../generators/app/enums/prompt-type');
 
-const input = linterInput.input;
+const input = linterInput;
 const prompt = input.prompt;
 const assert = chai.assert;
 

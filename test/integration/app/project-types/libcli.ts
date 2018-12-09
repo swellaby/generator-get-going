@@ -7,12 +7,13 @@ import yeomanAssert = require('yeoman-assert');
 import intTestUtils = require('../../int-test-utils');
 import ProjectType = require('../../../../generators/app/enums/project-type');
 import projectTypeInput = require('../../../../generators/app/inputs/type-input');
+import testUtils = require('../../../test-utils');
 
 suite('libCli project Tests:', () => {
-    const prompts = intTestUtils.defaultPromptAnswersCopy();
+    const prompts = testUtils.defaultPromptAnswersCopy();
 
     suiteSetup(() => {
-        prompts[projectTypeInput.input.prompt.name] = ProjectType.libcli;
+        prompts[projectTypeInput.prompt.name] = ProjectType.libcli;
         return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
     });
 

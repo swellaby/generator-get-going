@@ -5,6 +5,7 @@ import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../../int-test-utils');
+import testUtils = require('../../../test-utils');
 
 suite('vscode cSpell Tests:', () => {
     let prompts;
@@ -40,7 +41,7 @@ suite('vscode cSpell Tests:', () => {
     ];
 
     suiteSetup(() => {
-        prompts = intTestUtils.defaultPromptAnswersCopy();
+        prompts = testUtils.defaultPromptAnswersCopy();
         return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
     });
 

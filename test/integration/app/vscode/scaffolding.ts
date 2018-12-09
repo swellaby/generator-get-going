@@ -5,17 +5,18 @@ import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../../int-test-utils');
+import testUtils = require('../../../test-utils');
 import vscodeInput = require('../../../../generators/app/inputs/vscode-input');
 
 suite('vscode scaffolding Tests:', () => {
     let prompts;
     let options;
     const vscodeFiles = intTestUtils.vsCodeFiles;
-    const promptName = vscodeInput.input.prompt.name;
-    const optionName = vscodeInput.input.optionName;
+    const promptName = vscodeInput.prompt.name;
+    const optionName = vscodeInput.optionName;
 
     setup(() => {
-        prompts = intTestUtils.defaultPromptAnswersCopy();
+        prompts = testUtils.defaultPromptAnswersCopy();
         options = intTestUtils.defaultOptionsCopy();
         intTestUtils.createGitInitStub();
      });

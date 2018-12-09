@@ -6,6 +6,7 @@ import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../../int-test-utils');
 import taskRunnerInput = require('../../../../generators/app/inputs/task-runner-input');
+import testUtils = require('../../../test-utils');
 import TaskRunner = require('../../../../generators/app/enums/task-runner');
 
 suite('task Tests:', () => {
@@ -20,7 +21,7 @@ suite('task Tests:', () => {
     const cmdsSpaceRegex = cmdsRegex + spaceRegex;
 
     suiteSetup(() => {
-        prompts = intTestUtils.defaultPromptAnswersCopy;
+        prompts = testUtils.defaultPromptAnswersCopy;
         prompts.taskRunner = TaskRunner.task;
         return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
     });
@@ -35,7 +36,7 @@ suite('task Tests:', () => {
 
     test('Should use prompt answer when option is invalid', async () => {
         const options = intTestUtils.defaultOptionsCopy();
-        options[taskRunnerInput.input.optionName] = 'abc';
+        options[taskRunnerInput.optionName] = 'abc';
         await helpers.run(intTestUtils.generatorRoot).withOptions(options).withPrompts(prompts).toPromise();
         yeomanAssert.file(expTaskfile);
     });

@@ -37,27 +37,15 @@ export const owner = 'swellaby';
 export const name = 'captain-githook';
 export const moduleName = `github.com/${owner}/${name}`;
 
-export const defaultPromptAnswers = {};
-defaultPromptAnswers[descriptionInput.input.prompt.name] = description;
-defaultPromptAnswers[linterInput.input.prompt.name] = Linter.golint;
-defaultPromptAnswers[moduleInput.input.prompt.name] = moduleName;
-defaultPromptAnswers[ownerInput.input.prompt.name] = owner;
-defaultPromptAnswers[nameInput.input.prompt.name] = name;
-defaultPromptAnswers[taskRunnerInput.input.prompt.name] = TaskRunner.task;
-defaultPromptAnswers[typeInput.input.prompt.name] = ProjectType.boilerplate;
-defaultPromptAnswers[vscodeInput.input.prompt.name] = true;
-
-export const defaultPromptAnswersCopy = () => JSON.parse(JSON.stringify(defaultPromptAnswers));
-
 export const defaultOptions = {};
-defaultOptions[descriptionInput.input.optionName] = description;
-defaultOptions[linterInput.input.optionName] = Linter.golint;
-defaultOptions[moduleInput.input.optionName] = moduleName;
-defaultOptions[ownerInput.input.optionName] = owner;
-defaultOptions[nameInput.input.optionName] = name;
-defaultOptions[taskRunnerInput.input.optionName] = TaskRunner.task;
-defaultOptions[typeInput.input.optionName] = ProjectType.boilerplate;
-defaultOptions[vscodeInput.input.optionName] = true;
+defaultOptions[descriptionInput.optionName] = description;
+defaultOptions[linterInput.optionName] = Linter.golint;
+defaultOptions[moduleInput.optionName] = moduleName;
+defaultOptions[ownerInput.optionName] = owner;
+defaultOptions[nameInput.optionName] = name;
+defaultOptions[taskRunnerInput.optionName] = TaskRunner.task;
+defaultOptions[typeInput.optionName] = ProjectType.boilerplate;
+defaultOptions[vscodeInput.optionName] = true;
 
 export const defaultOptionsCopy = () => JSON.parse(JSON.stringify(defaultOptions));
 

@@ -7,6 +7,7 @@ import path = require('path');
 import Sinon = require('sinon');
 
 import intTestUtils = require('../int-test-utils');
+import testUtils = require('../../test-utils');
 
 const assert = chai.assert;
 
@@ -14,7 +15,7 @@ suite('git Tests:', () => {
     let gitInitCommandStub: Sinon.SinonStub;
     let yoDestinationPathStub: Sinon.SinonStub;
     const baseAppName = 'baseOptionApp';
-    const prompts = intTestUtils.defaultPromptAnswersCopy();
+    const prompts = testUtils.defaultPromptAnswersCopy();
     prompts.name = baseAppName;
 
     setup(() => {

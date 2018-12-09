@@ -5,6 +5,7 @@ import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../../int-test-utils');
+import testUtils = require('../../../test-utils');
 
 suite('vscode tasks Tests:', () => {
     let prompts;
@@ -37,7 +38,7 @@ suite('vscode tasks Tests:', () => {
     const tasksFile = intTestUtils.vscodeTasksFile;
 
     suiteSetup(() => {
-        prompts = intTestUtils.defaultPromptAnswersCopy();
+        prompts = testUtils.defaultPromptAnswersCopy();
         return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
     });
 

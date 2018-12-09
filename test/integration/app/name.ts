@@ -7,13 +7,14 @@ import yeomanAssert = require('yeoman-assert');
 
 import nameInput = require('../../../generators/app/inputs/name-input');
 import intTestUtils = require('../int-test-utils');
+import testUtils = require('../../test-utils');
 
 const assert = chai.assert;
 
 suite('name Tests:', () => {
-    let prompts = intTestUtils.defaultPromptAnswersCopy();
-    const promptName = nameInput.input.prompt.name;
-    const optionName = nameInput.input.optionName;
+    let prompts = testUtils.defaultPromptAnswersCopy();
+    const promptName = nameInput.prompt.name;
+    const optionName = nameInput.optionName;
     const readmeFile = intTestUtils.readmeFileName;
 
     suiteSetup(() => {
@@ -21,7 +22,7 @@ suite('name Tests:', () => {
     });
 
     setup(() => {
-        prompts = intTestUtils.defaultPromptAnswersCopy();
+        prompts = testUtils.defaultPromptAnswersCopy();
         intTestUtils.createGitInitStub();
      });
 
@@ -62,12 +63,12 @@ suite('name Tests:', () => {
     });
 
     test('Should return true when validate function called with valid value', () => {
-        assert.isTrue(nameInput.input.prompt.validate(intTestUtils.name));
+        assert.isTrue(nameInput.prompt.validate(intTestUtils.name));
     });
 
     test('Should return correct error when validate function called with invalid value', () => {
         const invalidAppName = '(*^&$&^*//)\\6ad7_/*&';
-        const msg = nameInput.input.prompt.validate(invalidAppName);
+        const msg = nameInput.prompt.validate(invalidAppName);
         assert.deepEqual(msg, `Invalid app name: '${invalidAppName}'`);
     });
 });

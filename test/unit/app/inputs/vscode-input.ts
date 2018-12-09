@@ -6,7 +6,7 @@ import IProjectConfig = require('../../../../generators/app/interfaces/project-c
 import PromptType = require('../../../../generators/app/enums/prompt-type');
 import vscodeInput = require('../../../../generators/app/inputs/vscode-input');
 
-const input = vscodeInput.input;
+const input = vscodeInput;
 const prompt = input.prompt;
 const assert = chai.assert;
 

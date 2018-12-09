@@ -7,7 +7,7 @@ import IProjectConfig = require('../../../../generators/app/interfaces/project-c
 import PromptType = require('../../../../generators/app/enums/prompt-type');
 import nameInput = require('../../../../generators/app/inputs/name-input');
 
-const input = nameInput.input;
+const input = nameInput;
 const prompt = input.prompt;
 const assert = chai.assert;
 
@@ -74,36 +74,6 @@ suite('NameInput Tests:', () => {
             test('Should return true on valid numeric string input', () => {
                 assert.isTrue(prompt.validate('-7', answers));
             });
-        });
-    });
-
-    suite('isValid Tests:', () => {
-        test('Should return false on null input', () => {
-            assert.isFalse(nameInput.isValid(null));
-        });
-
-        test('Should return false on undefined input', () => {
-            assert.isFalse(nameInput.isValid(undefined));
-        });
-
-        test('Should return false on empty string input', () => {
-            assert.isFalse(nameInput.isValid(''));
-        });
-
-        test('Should return false on invalid string input', () => {
-            assert.isFalse(nameInput.isValid('foo/bar'));
-        });
-
-        test('Should return true on valid dash string input', () => {
-            assert.isTrue(nameInput.isValid('foo-bar'));
-        });
-
-        test('Should return true on valid underscore string input', () => {
-            assert.isTrue(nameInput.isValid('foo_bar'));
-        });
-
-        test('Should return true on valid numeric string input', () => {
-            assert.isTrue(nameInput.isValid('-7'));
         });
     });
 

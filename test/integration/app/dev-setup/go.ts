@@ -5,9 +5,10 @@ import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../../int-test-utils');
+import testUtils = require('../../../test-utils');
 
 suite('dev_setup.go Tests:', () => {
-    const prompts = intTestUtils.defaultPromptAnswersCopy();
+    const prompts = testUtils.defaultPromptAnswersCopy();
     const devSetupFile = intTestUtils.devSetupGoScriptFileName;
     const spaceRegex = intTestUtils.spaceRegex;
     let headerRegex = `package main${spaceRegex}`;

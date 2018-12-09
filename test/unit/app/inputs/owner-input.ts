@@ -6,7 +6,7 @@ import IProjectConfig = require('../../../../generators/app/interfaces/project-c
 import PromptType = require('../../../../generators/app/enums/prompt-type');
 import ownerInput = require('../../../../generators/app/inputs/owner-input');
 
-const input = ownerInput.input;
+const input = ownerInput;
 const prompt = input.prompt;
 const assert = chai.assert;
 
@@ -39,36 +39,6 @@ suite('OwnerInput Tests:', () => {
 
         test('Should have correct prompt display message', () => {
             assert.deepEqual(prompt.message, 'Who is the owner/author of this app?');
-        });
-    });
-
-    suite('isValid Tests:', () => {
-        test('Should return false on null input', () => {
-            assert.isFalse(ownerInput.isValid(null));
-        });
-
-        test('Should return false on undefined input', () => {
-            assert.isFalse(ownerInput.isValid(undefined));
-        });
-
-        test('Should return false on empty string input', () => {
-            assert.isFalse(ownerInput.isValid(''));
-        });
-
-        test('Should return false on invalid string input', () => {
-            assert.isFalse(ownerInput.isValid('foo/bar'));
-        });
-
-        test('Should return true on valid dash string input', () => {
-            assert.isTrue(ownerInput.isValid('foo-bar'));
-        });
-
-        test('Should return true on valid underscore string input', () => {
-            assert.isTrue(ownerInput.isValid('foo_bar'));
-        });
-
-        test('Should return true on valid numeric string input', () => {
-            assert.isTrue(ownerInput.isValid('-7'));
         });
     });
 

@@ -14,12 +14,12 @@ import intTestUtils = require('../int-test-utils');
 const assert = chai.assert;
 
 suite('module Tests:', () => {
-    let prompts = intTestUtils.defaultPromptAnswersCopy();
+    let prompts = testUtils.defaultPromptAnswersCopy();
     const expGoModFile = intTestUtils.goModFileName;
-    const modOptionName = moduleInput.input.optionName;
-    const modPromptName = moduleInput.input.prompt.name;
-    const namePromptName = nameInput.input.prompt.name;
-    const ownerPromptName = ownerInput.input.prompt.name;
+    const modOptionName = moduleInput.optionName;
+    const modPromptName = moduleInput.prompt.name;
+    const namePromptName = nameInput.prompt.name;
+    const ownerPromptName = ownerInput.prompt.name;
     const expDefaultModuleName = intTestUtils.moduleName;
 
     suiteSetup(() => {
@@ -27,7 +27,7 @@ suite('module Tests:', () => {
     });
 
     setup(() => {
-        prompts = intTestUtils.defaultPromptAnswersCopy();
+        prompts = testUtils.defaultPromptAnswersCopy();
         intTestUtils.createGitInitStub();
      });
 
@@ -82,13 +82,13 @@ suite('module Tests:', () => {
     });
 
     test('Should return true when validate function called with valid value', () => {
-        assert.isTrue(moduleInput.input.prompt.validate(expDefaultModuleName));
+        assert.isTrue(moduleInput.prompt.validate(expDefaultModuleName));
     });
 
     test('Should return correct error when validate function called with invalid value', () => {
         const invalidModuleName = 'abc';
         const expErrorMessage = testUtils.getModuleNameValidationErrorMessage(invalidModuleName);
-        const msg = moduleInput.input.prompt.validate(invalidModuleName);
+        const msg = moduleInput.prompt.validate(invalidModuleName);
         assert.deepEqual(msg, expErrorMessage);
     });
 });
