@@ -32,15 +32,18 @@ const prompt: YeomanGenerator.Question = {
 };
 
 const option: YeomanGenerator.OptionConfig = {
+    type: String,
     description: 'The type of linter to use'
 };
 
 const tryExtractInputValue = (value: unknown, projectConfig: IProjectConfig): boolean => {
+    console.log(`on line 39. value is: ${value}`);
     if (!value) {
         return false;
     }
 
     const optionVal: string = String(value);
+    console.log(`on line 45. parsed optionValue is: ${optionVal}`);
     const linter: Linter = Linter[optionVal.toLowerCase()];
 
     if (linter === undefined) {

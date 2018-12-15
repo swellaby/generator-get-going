@@ -12,15 +12,19 @@ const prompt = input.prompt;
 const assert = chai.assert;
 
 suite('TypeInput Tests:', () => {
-    const expSettingName = 'projectType';
+    const expInputName = 'projectType';
 
-    test('Should have correct setting name', () => {
-       assert.deepEqual(input.name, expSettingName);
+    test('Should have correct input name', () => {
+       assert.deepEqual(input.name, expInputName);
     });
 
     suite('optionConfig Tests:', () => {
         test('Should have correct option name', () => {
             assert.deepEqual(input.optionName, 'type');
+        });
+
+        test('Should have correct option type', () => {
+            assert.deepEqual(input.option.type, String);
         });
 
         test('Should have correct option description', () => {
@@ -34,7 +38,7 @@ suite('TypeInput Tests:', () => {
 
     suite('promptConfig Tests:', () => {
         test('Should have correct prompt name', () => {
-            assert.deepEqual(prompt.name, expSettingName);
+            assert.deepEqual(prompt.name, expInputName);
         });
 
         test('Should have correct prompt type', () => {

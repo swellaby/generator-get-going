@@ -13,15 +13,19 @@ const prompt = input.prompt;
 const assert = chai.assert;
 
 suite('LinterInput Tests:', () => {
-    const expSettingName = 'linter';
+    const expInputName = 'linter';
 
-    test('Should have correct setting name', () => {
-       assert.deepEqual(input.name, expSettingName);
+    test('Should have correct input name', () => {
+       assert.deepEqual(input.name, expInputName);
     });
 
     suite('optionConfig Tests:', () => {
         test('Should have correct option name', () => {
-            assert.deepEqual(input.optionName, expSettingName);
+            assert.deepEqual(input.optionName, expInputName);
+        });
+
+        test('Should have correct option type', () => {
+            assert.deepEqual(input.option.type, String);
         });
 
         test('Should have correct option description', () => {
@@ -32,7 +36,7 @@ suite('LinterInput Tests:', () => {
 
     suite('promptConfig Tests:', () => {
         test('Should have correct prompt name', () => {
-            assert.deepEqual(prompt.name, expSettingName);
+            assert.deepEqual(prompt.name, expInputName);
         });
 
         test('Should have correct prompt type', () => {

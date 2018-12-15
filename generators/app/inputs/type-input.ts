@@ -54,6 +54,7 @@ const prompt: YeomanGenerator.Question = {
 };
 
 const option: YeomanGenerator.OptionConfig = {
+    type: String,
     description: 'The type of project to create'
 };
 

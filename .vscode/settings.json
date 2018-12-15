@@ -6,7 +6,8 @@
         ".coverage": true,
         ".testresults": true,
         "node_modules": true,
-        ".nyc_output": true
+        ".nyc_output": true,
+        "test/functional/.testcontext": false
     },
     "testExplorer.codeLens": true,
     "mochaExplorer.nodePath": null,
