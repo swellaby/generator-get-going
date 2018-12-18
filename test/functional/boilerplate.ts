@@ -1,13 +1,14 @@
 'use strict';
 
 import chai = require('chai');
+import shell = require('shelljs');
 import testUtils = require('./func-test-utils');
 
 const assert = chai.assert;
 
 describe('boilerplate Tests:', () => {
     describe('all options provided', () => {
-        let execResponse;
+        let execResponse: shell.ExecOutputReturnValue;
         const name = 'b3';
         const description = 'save the world';
         const owner = 'swellaby';
@@ -29,10 +30,12 @@ describe('boilerplate Tests:', () => {
             const vsCodeOption = testUtils.optionUtils.addVSCodeOption(includeVsCode);
             const allOpts = [ descriptionOption, nameOption, ownerOption, moduleOption, typeOption, linterOption, taskRunnerOption, vsCodeOption ];
             const options = testUtils.optionUtils.aggregateOptions(allOpts);
-            execResponse = testUtils.runGenerator(options);
+            execResponse = <shell.ExecOutputReturnValue>testUtils.runGenerator(options);
         });
 
         it('Should have a successful response code', () => {
+            console.log(`std err: ${execResponse.stderr}`);
+            console.log(`std out: ${execResponse.stderr}`);
             assert.deepEqual(execResponse.code, testUtils.successfulReturnCode);
         });
     });
