@@ -21,10 +21,12 @@ export const generatorRoot = path.join(__dirname, '../../generators/app');
 export const devSetupGoScriptFileName = 'scripts/dev_setup.go';
 export const goModFileName = 'go.mod';
 export const gitIgnoreFileName = '.gitignore';
+export const gitAttributesFileName = '.gitattributes';
 export const readmeFileName = 'README.md';
 
 export const commonFiles = [
     gitIgnoreFileName,
+    gitAttributesFileName,
     goModFileName,
     readmeFileName,
     devSetupGoScriptFileName

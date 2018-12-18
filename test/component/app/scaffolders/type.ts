@@ -37,7 +37,7 @@ suite('type scaffolder Tests:', () => {
         config.projectType = ProjectType.boilerplate;
         scaffoldEngine.scaffoldNewProject(scaffolders, generator, config);
         assert.deepEqual(fsCopyTplStub.callCount, 2);
-        assert.isTrue(fsMoveStub.called);
+        assert.deepEqual(fsMoveStub.callCount, 2);
     });
 
     test('Should scaffold lib project correctly', () => {

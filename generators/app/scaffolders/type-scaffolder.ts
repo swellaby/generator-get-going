@@ -39,6 +39,7 @@ const scaffoldSharedContent = (generator: YeomanGenerator, config: IProjectConfi
     const destRoot = generator.destinationRoot();
     generator.fs.copyTpl(allProjectsTemplates, destRoot, config);
     generator.fs.move(`${destRoot}/gitignore`, `${destRoot}/.gitignore`);
+    generator.fs.move(`${destRoot}/gitattributes`, `${destRoot}/.gitattributes`);
 };
 
 const projectScaffolderFunctionMap = new Map<ProjectType, (generator: YeomanGenerator, config: IProjectConfig) => void>();
