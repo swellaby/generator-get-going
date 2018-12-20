@@ -61,7 +61,7 @@ const aggregateOptions = (options: string[]): string => {
 };
 
 const buildGeneratorCommand = (options: string): string => {
-    let command = 'yo --no-insight lets-go';
+    let command = 'yo lets-go --no-insight';
     if (options) {
         command = `${command} ${options}`;
     }
