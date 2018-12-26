@@ -9,15 +9,16 @@ const assert = chai.assert;
 describe('boilerplate Tests:', () => {
     describe('all options provided', () => {
         let execResponse: shell.ExecOutputReturnValue;
-        const name = 'b3';
-        const description = 'save the world';
-        const owner = 'swellaby';
-        // tslint:disable-next-line:mocha-no-side-effect-code
-        const moduleName = `github.com/${owner}/${name}`;
-        const projectType = 'boilerplate';
-        const linter = 'golint';
-        const taskRunner = 'task';
-        const includeVsCode = true;
+        const {
+            name,
+            owner,
+            moduleName,
+            projectType,
+            description,
+            linter,
+            taskRunner,
+            includeVsCode
+        } = testUtils.inputConfigs.boilerplateInputs.b3;
 
         before(() => {
             const descriptionOption = testUtils.optionUtils.addDescriptionOption(description);
@@ -34,9 +35,19 @@ describe('boilerplate Tests:', () => {
         });
 
         it('Should have a successful response code', () => {
-            console.log(`std err: ${execResponse.stderr}`);
-            console.log(`std out: ${execResponse.stderr}`);
             assert.deepEqual(execResponse.code, testUtils.successfulReturnCode);
+        });
+
+        it('Should create git files', () => {
+            const scaffoldedGitignorePath = testUtils.getScaffoldedBoilerplateFilePath('.gitignore');
+            const scaffoldedGitattributesPath = testUtils.getScaffoldedBoilerplateFilePath('.gitattributes');
+            const ignoreFileContents = testUtils.getFileContents(scaffoldedGitignorePath);
+            const attributesFileContents = testUtils.getFileContents(scaffoldedGitattributesPath);
+            const fixturesGitignorePath = testUtils.getFixturesBoilerplateFilePath('.gitignore');
+            const expIgnoreFileContents = testUtils.getFileContents(fixturesGitignorePath);
+            const expAttributesFileContents = testUtils.fixtures.gitattributesContent;
+            assert.deepEqual(ignoreFileContents, expIgnoreFileContents);
+            assert.deepEqual(attributesFileContents, expAttributesFileContents);
         });
     });
 });

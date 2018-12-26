@@ -1,0 +1,51 @@
+// 'use strict';
+
+// import chai = require('chai');
+// import shell = require('shelljs');
+// import testUtils = require('./func-test-utils');
+
+// const assert = chai.assert;
+
+// describe('vscode Tests:', () => {
+//     let execResponse: shell.ExecOutputReturnValue;
+//     const name = 'b3';
+//     const description = 'save the world';
+//     const owner = 'swellaby';
+//     // tslint:disable-next-line:mocha-no-side-effect-code
+//     const moduleName = `github.com/${owner}/${name}`;
+//     const projectType = 'boilerplate';
+//     const linter = 'golint';
+//     const taskRunner = 'task';
+//     const includeVsCode = true;
+
+//     before(() => {
+//         const descriptionOption = testUtils.optionUtils.addDescriptionOption(description);
+//         const nameOption = testUtils.optionUtils.addNameOption(name);
+//         const ownerOption = testUtils.optionUtils.addOwnerOption(owner);
+//         const moduleOption = testUtils.optionUtils.addModuleOption(moduleName);
+//         const typeOption = testUtils.optionUtils.addTypeOption(projectType);
+//         const linterOption = testUtils.optionUtils.addLinterOption(linter);
+//         const taskRunnerOption = testUtils.optionUtils.addTaskRunnerOption(taskRunner);
+//         const vsCodeOption = testUtils.optionUtils.addVSCodeOption(includeVsCode);
+//         const allOpts = [ descriptionOption, nameOption, ownerOption, moduleOption, typeOption, linterOption, taskRunnerOption, vsCodeOption ];
+//         const options = testUtils.optionUtils.aggregateOptions(allOpts);
+//         execResponse = <shell.ExecOutputReturnValue>testUtils.runGenerator(options);
+//     });
+
+//     it('Should have a successful response code', () => {
+//         assert.deepEqual(execResponse.code, testUtils.successfulReturnCode);
+//     });
+
+//     it('Should create vs code files', () => {
+//         const scaffoldedGitignorePath = testUtils.getScaffoldedBoilerplateFilePath('.gitignore');
+//         const scaffoldedGitattributesPath = testUtils.getScaffoldedBoilerplateFilePath('.gitattributes');
+//         const ignoreFileContents = testUtils.getFileContents(scaffoldedGitignorePath);
+//         const attributesFileContents = testUtils.getFileContents(scaffoldedGitattributesPath);
+//         const fixturesGitignorePath = testUtils.getFixturesBoilerplateFilePath('.gitignore');
+//         const fixturesGitattributesPath = testUtils.getFixturesBoilerplateFilePath('.gitattributes');
+//         const expIgnoreFileContents = testUtils.getFileContents(fixturesGitignorePath);
+//         const expAttributesFileContents = testUtils.getFileContents(fixturesGitattributesPath);
+//         assert.deepEqual(ignoreFileContents, expIgnoreFileContents);
+//         assert.deepEqual(attributesFileContents, expAttributesFileContents);
+//     });
+// });
