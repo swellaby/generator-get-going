@@ -30,6 +30,18 @@ const getGitAttributesFileContents = (rootDirPath: string): string => {
     return getFileContents(path.join(rootDirPath, '.gitattributes'));
 };
 
+const getReadmeFileContents = (rootDirPath: string): string => {
+    return getFileContents(path.join(rootDirPath, 'README.md'));
+};
+
+const getGoModFileContents = (rootDirPath: string): string => {
+    return getFileContents(path.join(rootDirPath, 'go.mod'));
+};
+
+const getTaskfileYamlFileContents = (rootDirPath: string): string => {
+    return getFileContents(path.join(rootDirPath, 'Taskfile.yml'));
+};
+
 const getFilePath = (rootDir, filePath) => path.join(rootDir, filePath);
 const normalizeDirectoryPaths = originalPath => originalPath.replace(/\\/g, '/');
 
@@ -48,5 +60,8 @@ export = {
     getFilePath,
     getIgnoreFileContents: getGitIgnoreFileContents,
     gitAttributesFileContents: getGitAttributesFileContents,
+    getReadmeFileContents,
+    getGoModFileContents,
+    getTaskfileYamlFileContents,
     normalizeDirectoryPaths
 };

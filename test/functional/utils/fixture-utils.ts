@@ -29,6 +29,28 @@ const scriptsFixtures = {
 const boilerplateFixturesRootDirPath = path.join(fileSystemUtils.fixturesRootDirPath, 'boilerplate');
 const b3RootDirPath = path.join(boilerplateFixturesRootDirPath, 'b3');
 
+const getB3ReadmeFileContents = (): string => {
+    return fileSystemUtils.getReadmeFileContents(b3RootDirPath);
+};
+
+const getB3GoModFileContents = (): string => {
+    return fileSystemUtils.getGoModFileContents(b3RootDirPath);
+};
+
+const getB3MainGoFileContents = (): string => {
+    return fileSystemUtils.getFileContents(path.join(boilerplateFixturesRootDirPath, 'main.go'));
+};
+
+const taskRunnerRootDirPath = path.join(fileSystemUtils.fixturesRootDirPath, 'task-runner');
+
+const getTaskfileYamlFileContents = (rootDir: string): string => {
+    return fileSystemUtils.getFileContents(path.join(rootDir, 'Taskfile.yml'));
+};
+
+const getT1TaskfileYamlFileContents = (): string => {
+    return getTaskfileYamlFileContents(path.join(taskRunnerRootDirPath, 'task'));
+};
+
 export = {
     gitattributesContent: fileSystemUtils.gitAttributesFileContents(fileSystemUtils.fixturesRootDirPath),
     vsCodeFixtures,
@@ -40,7 +62,15 @@ export = {
     defaultVsCode,
     boilerplate: {
         b3: {
-            gitIgnoreContents:  fileSystemUtils.getIgnoreFileContents(b3RootDirPath)
+            getReadmeContents: getB3ReadmeFileContents,
+            getGoModContents: getB3GoModFileContents,
+            gitIgnoreContents:  fileSystemUtils.getIgnoreFileContents(b3RootDirPath),
+            getMainGoFileContents: getB3MainGoFileContents
+        }
+    },
+    taskRunner: {
+        t1: {
+            getT1TaskfileYamlFileContents
         }
     }
 };

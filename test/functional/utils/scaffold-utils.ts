@@ -13,6 +13,14 @@ const getB3AttributesFileContents = (): string => {
     return fileSystemUtils.gitAttributesFileContents(b3RootDirPath);
 };
 
+const getB3ReadmeFileContents = (): string => {
+    return fileSystemUtils.getReadmeFileContents(b3RootDirPath);
+};
+
+const getB3GoModFileContents = (): string => {
+    return fileSystemUtils.getGoModFileContents(b3RootDirPath);
+};
+
 const getVSCodeCommonFileContents = (rootDirPath: string, fileName: string): string => {
     return fileSystemUtils.getFileContents(path.join(rootDirPath, '.vscode', fileName));
 };
@@ -29,11 +37,18 @@ const getB3VSCodeLaunchFileContents = (): string => {
     return getVSCodeCommonFileContents(b3RootDirPath, 'launch.json');
 };
 
+const getB3MainGoFileContents = (): string => {
+    return fileSystemUtils.getFileContents(path.join(b3RootDirPath, 'main.go'));
+};
+
 export = {
     boilerplate: {
         b3: {
             getGitIgnoreContents: getB3IgnoreFileContents,
-            getGitAttributesContents: getB3AttributesFileContents
+            getGitAttributesContents: getB3AttributesFileContents,
+            getGoModContents: getB3GoModFileContents,
+            getReadmeContents: getB3ReadmeFileContents,
+            getMainGoContents: getB3MainGoFileContents
         }
     },
     vsCode: {

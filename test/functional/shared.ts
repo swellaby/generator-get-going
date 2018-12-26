@@ -23,12 +23,24 @@ describe('shared files Tests:', () => {
         assert.deepEqual(execResponse.code, commandUtils.successfulReturnCode);
     });
 
-    it('Should create git files', () => {
+    it('Should create correct git files', () => {
         const ignoreFileContents = scaffoldUtils.boilerplate.b3.getGitIgnoreContents();
         const attributesFileContents = scaffoldUtils.boilerplate.b3.getGitAttributesContents();
         const expIgnoreFileContents = fixtureUtils.boilerplate.b3.gitIgnoreContents;
         const expAttributesFileContents = fixtureUtils.gitattributesContent;
         assert.deepEqual(ignoreFileContents, expIgnoreFileContents);
         assert.deepEqual(attributesFileContents, expAttributesFileContents);
+    });
+
+    it('Should create correct README', () => {
+        const actContents = scaffoldUtils.boilerplate.b3.getReadmeContents();
+        const expContents = fixtureUtils.boilerplate.b3.getReadmeContents();
+        assert.deepEqual(actContents, expContents);
+    });
+
+    it('Should create correct go.mod', () => {
+        const actContents = scaffoldUtils.boilerplate.b3.getGoModContents();
+        const expContents = fixtureUtils.boilerplate.b3.getGoModContents();
+        assert.deepEqual(actContents, expContents);
     });
 });
