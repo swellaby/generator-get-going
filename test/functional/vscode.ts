@@ -1,51 +1,41 @@
-// 'use strict';
+'use strict';
 
-// import chai = require('chai');
-// import shell = require('shelljs');
-// import testUtils = require('./func-test-utils');
+import chai = require('chai');
+import shell = require('shelljs');
 
-// const assert = chai.assert;
+import commandUtils = require('./utils/command-utils');
+import fixtureUtils = require('./utils/fixture-utils');
+import inputUtils = require('./utils/input-utils');
+import scaffoldUtils = require('./utils/scaffold-utils');
 
-// describe('vscode Tests:', () => {
-//     let execResponse: shell.ExecOutputReturnValue;
-//     const name = 'b3';
-//     const description = 'save the world';
-//     const owner = 'swellaby';
-//     // tslint:disable-next-line:mocha-no-side-effect-code
-//     const moduleName = `github.com/${owner}/${name}`;
-//     const projectType = 'boilerplate';
-//     const linter = 'golint';
-//     const taskRunner = 'task';
-//     const includeVsCode = true;
+const assert = chai.assert;
 
-//     before(() => {
-//         const descriptionOption = testUtils.optionUtils.addDescriptionOption(description);
-//         const nameOption = testUtils.optionUtils.addNameOption(name);
-//         const ownerOption = testUtils.optionUtils.addOwnerOption(owner);
-//         const moduleOption = testUtils.optionUtils.addModuleOption(moduleName);
-//         const typeOption = testUtils.optionUtils.addTypeOption(projectType);
-//         const linterOption = testUtils.optionUtils.addLinterOption(linter);
-//         const taskRunnerOption = testUtils.optionUtils.addTaskRunnerOption(taskRunner);
-//         const vsCodeOption = testUtils.optionUtils.addVSCodeOption(includeVsCode);
-//         const allOpts = [ descriptionOption, nameOption, ownerOption, moduleOption, typeOption, linterOption, taskRunnerOption, vsCodeOption ];
-//         const options = testUtils.optionUtils.aggregateOptions(allOpts);
-//         execResponse = <shell.ExecOutputReturnValue>testUtils.runGenerator(options);
-//     });
+describe('vscode Tests:', () => {
+    let execResponse: shell.ExecOutputReturnValue;
+    let options: string;
+    const vsCodeFixtures = fixtureUtils.vsCodeFixtures;
+    const vsCodeCommonFixtures = vsCodeFixtures.common;
+    const vsCodeScaffold = scaffoldUtils.vsCode;
+    const vsCodeCommonScaffold = vsCodeScaffold.common;
 
-//     it('Should have a successful response code', () => {
-//         assert.deepEqual(execResponse.code, testUtils.successfulReturnCode);
-//     });
+    before(() => {
+        options = commandUtils.buildInputOptions(inputUtils.boilerplateInputs.b3);
+        execResponse = <shell.ExecOutputReturnValue>commandUtils.runGenerator(options);
+    });
 
-//     it('Should create vs code files', () => {
-//         const scaffoldedGitignorePath = testUtils.getScaffoldedBoilerplateFilePath('.gitignore');
-//         const scaffoldedGitattributesPath = testUtils.getScaffoldedBoilerplateFilePath('.gitattributes');
-//         const ignoreFileContents = testUtils.getFileContents(scaffoldedGitignorePath);
-//         const attributesFileContents = testUtils.getFileContents(scaffoldedGitattributesPath);
-//         const fixturesGitignorePath = testUtils.getFixturesBoilerplateFilePath('.gitignore');
-//         const fixturesGitattributesPath = testUtils.getFixturesBoilerplateFilePath('.gitattributes');
-//         const expIgnoreFileContents = testUtils.getFileContents(fixturesGitignorePath);
-//         const expAttributesFileContents = testUtils.getFileContents(fixturesGitattributesPath);
-//         assert.deepEqual(ignoreFileContents, expIgnoreFileContents);
-//         assert.deepEqual(attributesFileContents, expAttributesFileContents);
-//     });
-// });
+    it('Should have a successful response code', () => {
+        assert.deepEqual(execResponse.code, commandUtils.successfulReturnCode);
+    });
+
+    it('Should create VS Code files', () => {
+        const expCspellJsonContents = vsCodeCommonFixtures.cSpellContents;
+        const expExtensionsJsonContents = vsCodeCommonFixtures.extensionsContents;
+        const expLaunchJsonContents = vsCodeCommonFixtures.launchContents;
+        const cSpellContents = vsCodeCommonScaffold.getB3VSCodeCSpellFileContents();
+        const extensionsContents = vsCodeCommonScaffold.getB3VSCodeExtensionsFileContents();
+        const launchContents = vsCodeCommonScaffold.getB3VSCodeLaunchFileContents();
+        assert.deepEqual(cSpellContents, expCspellJsonContents);
+        assert.deepEqual(extensionsContents, expExtensionsJsonContents);
+        assert.deepEqual(launchContents, expLaunchJsonContents);
+    });
+});
