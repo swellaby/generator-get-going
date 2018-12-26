@@ -7,7 +7,7 @@
         ".testresults": true,
         "node_modules": true,
         ".nyc_output": true,
-        "test/functional/.testcontext": false
+        "test/functional/.testcontext": true
     },
     "testExplorer.codeLens": true,
     "mochaExplorer.nodePath": null,

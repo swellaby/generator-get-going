@@ -53,8 +53,10 @@ const aggregateOptions = (options: string[]): string => {
     return opts;
 };
 
-const addFreeformInputs = (inputConfig, opts: string[]) => {
-    if (inputConfig.name) {
+const addFreeformInputs = (inputConfig, opts: string[], name?: string) => {
+    if (name) {
+        opts.push(addNameOption(name));
+    } else if (inputConfig.name) {
         opts.push(addNameOption(inputConfig.name));
     }
     if (inputConfig.description) {
@@ -68,9 +70,9 @@ const addFreeformInputs = (inputConfig, opts: string[]) => {
     }
 };
 
-const buildInputOptions = (inputConfig): string => {
+const buildInputOptions = (inputConfig, name?: string ): string => {
     const opts: string[] = [];
-    addFreeformInputs(inputConfig, opts);
+    addFreeformInputs(inputConfig, opts, name);
     if (inputConfig.projectType) {
         opts.push(addTypeOption(inputConfig.projectType));
     }

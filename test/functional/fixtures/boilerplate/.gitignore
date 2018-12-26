@@ -1,5 +1,0 @@
-.coverage/
-.testresults/
-**/*.exe
-b3
-!b3/

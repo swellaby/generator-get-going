@@ -27,15 +27,21 @@ describe('vscode Tests:', () => {
         assert.deepEqual(execResponse.code, commandUtils.successfulReturnCode);
     });
 
-    it('Should create VS Code files', () => {
+    it('Should create correct VS Code cSpell.json file', () => {
         const expCspellJsonContents = vsCodeCommonFixtures.cSpellContents;
-        const expExtensionsJsonContents = vsCodeCommonFixtures.extensionsContents;
-        const expLaunchJsonContents = vsCodeCommonFixtures.launchContents;
         const cSpellContents = vsCodeCommonScaffold.getB3VSCodeCSpellFileContents();
-        const extensionsContents = vsCodeCommonScaffold.getB3VSCodeExtensionsFileContents();
-        const launchContents = vsCodeCommonScaffold.getB3VSCodeLaunchFileContents();
         assert.deepEqual(cSpellContents, expCspellJsonContents);
+    });
+
+    it('Should create correct VS Code extensions.json file', () => {
+        const expExtensionsJsonContents = vsCodeCommonFixtures.extensionsContents;
+        const extensionsContents = vsCodeCommonScaffold.getB3VSCodeExtensionsFileContents();
         assert.deepEqual(extensionsContents, expExtensionsJsonContents);
+    });
+
+    it('Should create correct VS Code launch.json file', () => {
+        const expLaunchJsonContents = vsCodeCommonFixtures.launchContents;
+        const launchContents = vsCodeCommonScaffold.getB3VSCodeLaunchFileContents();
         assert.deepEqual(launchContents, expLaunchJsonContents);
     });
 });
