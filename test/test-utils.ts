@@ -23,7 +23,7 @@ import ProjectType = require('../generators/app/enums/project-type');
 import TaskRunner = require('../generators/app/enums/task-runner');
 
 const generatorRoot = path.join(__dirname, './../../../generators/app');
-const expectedGreetingMessage = yosay('Welcome to the LetsGo Generator!');
+const expectedGreetingMessage = yosay('Welcome to the Get-Going Generator!');
 const expectedErrorMessageBase = 'Encountered an unexpected error while creating your ' +
 'new project. Please try again.';
 

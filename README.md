@@ -1,4 +1,4 @@
-# generator-lets-go
+# generator-get-going
 Yeoman generator for Golang projects 
 
 <br />

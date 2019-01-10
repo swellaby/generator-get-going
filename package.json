@@ -1,11 +1,11 @@
 {
-  "name": "generator-lets-go",
+  "name": "generator-get-going",
   "description": "Yeoman generator for Golang projects",
   "version": "0.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/swellaby/generator-lets-go.git"
+    "url": "git+https://github.com/swellaby/generator-get-going.git"
   },
   "author": {
     "url": "http://swellaby.com",
@@ -20,7 +20,7 @@
     }
   ],
   "bugs": {
-    "url": "https://github.com/swellaby/generator-lets-go/issues"
+    "url": "https://github.com/swellaby/generator-get-going/issues/new/choose"
   },
   "scripts": {
     "build": "npm run coverage:enforce && npm run lint:build",

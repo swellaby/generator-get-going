@@ -34,7 +34,7 @@ suite('readme Tests:', () => {
 
     test('Should include parent generator anchor', () => {
         const readmeGeneratorOriginText = `Initially created by this \\[swell generator\\]\\[parent-generator-url\\]\\!`;
-        const readmeGeneratorUrlVariableText = `\\[parent-generator-url\\]: https://github.com/swellaby/generator-lets-go`;
+        const readmeGeneratorUrlVariableText = `\\[parent-generator-url\\]: https://github.com/swellaby/generator-get-going`;
         let regex = `### Generator${spaceRegex}`;
         regex += `${readmeGeneratorOriginText}${spaceRegex}${readmeGeneratorUrlVariableText}`;
         yeomanAssert.fileContent(readmeFile, new RegExp(regex));

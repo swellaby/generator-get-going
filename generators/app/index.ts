@@ -9,7 +9,7 @@ import projectInputs = require('./project-inputs');
 import projectScaffolders = require('./project-scaffolders');
 import scaffoldEngine = require('./scaffold-engine');
 
-class LetsGoGenerator extends YeomanGenerator {
+class GetGoingGenerator extends YeomanGenerator {
     // tslint:disable-next-line:no-any
     constructor(args: string | string[], opts?: any) {
         super(args, opts);
@@ -17,7 +17,7 @@ class LetsGoGenerator extends YeomanGenerator {
     }
 
     public async createProject(): Promise<void> {
-        this.log(yosay('Welcome to the LetsGo Generator!'));
+        this.log(yosay('Welcome to the Get-Going Generator!'));
 
         try {
             const config: IProjectConfig = await projectInputUtils.getDesiredProjectConfig(this, projectInputs);
@@ -33,4 +33,4 @@ class LetsGoGenerator extends YeomanGenerator {
 
 }
 
-export = LetsGoGenerator;
+export = GetGoingGenerator;

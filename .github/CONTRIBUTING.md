@@ -12,8 +12,8 @@ To build and/or work on this project:
 
 Clone the repo, change into the directory where you cloned the directory, and then run the developer setup script
 ```sh     
-git clone https://github.com/swellaby/generator-lets-go.git
-cd generator-lets-go 
+git clone https://github.com/swellaby/generator-get-going.git
+cd generator-get-going
 npm run dev:setup
 ```
 
@@ -106,7 +106,7 @@ npm run eslint
 
 [Back to Top][top]
 
-[create-issue-url]: https://github.com/swellaby/generator-lets-go/issues/new
+[create-issue-url]: https://github.com/swellaby/generator-get-going/issues/new/choose
 [nodejs-url]:https://nodejs.org/en/download/
 [vscode-url]: https://code.visualstudio.com/
 [husky-url]: https://www.npmjs.com/package/husky

@@ -89,7 +89,7 @@ const buildInputOptions = (inputConfig, name?: string ): string => {
 };
 
 const buildGeneratorCommand = (options: string): string => {
-    let command = 'yo lets-go';
+    let command = 'yo get-going';
     if (options) {
         command = `${command} ${options}`;
     }

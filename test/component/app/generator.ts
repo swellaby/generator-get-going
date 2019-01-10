@@ -7,7 +7,7 @@ import path = require('path');
 import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 
-import LetsGoGenerator = require('../../../generators/app/index');
+import GetGoingGenerator = require('../../../generators/app/index');
 import descriptionInput = require('../../../generators/app/inputs/description-input');
 import linterInput = require('../../../generators/app/inputs/linter-input');
 import moduleInput = require('../../../generators/app/inputs/module-input');
@@ -23,7 +23,7 @@ import yoUtils = require('../../yo-utils');
 const assert = Chai.assert;
 
 suite('generator Tests:', () => {
-    let letsGoGenerator: LetsGoGenerator;
+    let getGoingGenerator: GetGoingGenerator;
     let generatorOptionStub: Sinon.SinonStub;
     let generatorLogStub: Sinon.SinonStub;
     const options = yoUtils.generatorOptions;
@@ -31,13 +31,13 @@ suite('generator Tests:', () => {
     setup(() => {
         yoUtils.stubInternalGeneratorFunctions();
         generatorOptionStub = Sinon.stub(YeomanGenerator.prototype, 'option');
-        letsGoGenerator = new LetsGoGenerator([], options);
-        generatorLogStub = Sinon.stub(letsGoGenerator, 'log');
+        getGoingGenerator = new GetGoingGenerator([], options);
+        generatorLogStub = Sinon.stub(getGoingGenerator, 'log');
     });
 
     teardown(() => {
         Sinon.restore();
-        letsGoGenerator = null;
+        getGoingGenerator = null;
     });
 
     suite('options Tests:', () => {
@@ -92,11 +92,11 @@ suite('generator Tests:', () => {
         let promptStub: Sinon.SinonStub;
 
         setup(() => {
-            promptStub = Sinon.stub(letsGoGenerator, 'prompt').callsFake(() => Promise.resolve(answers));
-            Sinon.stub(letsGoGenerator, 'destinationPath').callsFake(() => appName);
-            Sinon.stub(letsGoGenerator, 'destinationRoot').callsFake(() => '');
-            Sinon.stub(letsGoGenerator, 'spawnCommandSync').callsFake(() => null);
-            letsGoGenerator.fs = genFs;
+            promptStub = Sinon.stub(getGoingGenerator, 'prompt').callsFake(() => Promise.resolve(answers));
+            Sinon.stub(getGoingGenerator, 'destinationPath').callsFake(() => appName);
+            Sinon.stub(getGoingGenerator, 'destinationRoot').callsFake(() => '');
+            Sinon.stub(getGoingGenerator, 'spawnCommandSync').callsFake(() => null);
+            getGoingGenerator.fs = genFs;
             copyTplStub = Sinon.stub(genFs, 'copyTpl');
             Sinon.stub(mkdirp, 'sync');
             Sinon.stub(path, 'basename').callsFake(() => appName);
@@ -107,21 +107,21 @@ suite('generator Tests:', () => {
         });
 
         test('Should run generator creation functions', async () => {
-            await letsGoGenerator.createProject();
+            await getGoingGenerator.createProject();
             assert.isTrue(promptStub.called);
             assert.deepEqual(copyTplStub.callCount, 4);
         });
 
         test('Should log correct error message on internal error with no details', async () => {
             copyTplStub.throws(new Error());
-            await letsGoGenerator.createProject();
+            await getGoingGenerator.createProject();
             assert.isTrue(generatorLogStub.calledWithExactly(testUtils.expectedErrorMessageBase));
         });
 
         test('Should log correct error message on internal error with details', async () => {
             const details = 'failed';
             copyTplStub.throws(new Error(details));
-            await letsGoGenerator.createProject();
+            await getGoingGenerator.createProject();
             assert.isTrue(generatorLogStub.calledWithExactly(testUtils.getExpectedErrorMessage(details)));
         });
     });
