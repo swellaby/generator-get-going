@@ -11,17 +11,9 @@ insert_final_newline = true
 [*.md]
 trim_trailing_whitespace = false
 
-[*.json]
+[*.{json,yml,yaml}]
 indent_style = space
 indent_size = 2
-
-[*.{yml,yaml}]
-indent_style = space
-indent_size = 2
-
-[*.{js,ts}]
-indent_style = space
-indent_size = 4
 
 [*.go]
 indent_style = tab
