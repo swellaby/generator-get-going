@@ -1,0 +1,143 @@
+# github.com/go-task/task
+
+version: '2'
+
+expansions: 3
+
+vars:
+  # The root directory where code coverage reports will be placed
+  COVERAGE_ROOT_DIR: .coverage
+  # Default file names to use various report formats
+  COVERAGE_OUT_FILENAME: coverage.out
+  COVERAGE_JSON_FILENAME: gocov.json
+  COVERAGE_HTML_FILENAME: index.html
+  COBERTURA_XML_FILENAME: cobertura.xml
+
+  # The root directory where test result reports will be placed
+  TESTRESULTS_ROOT_DIR: .testresults
+  # Default file names to use various report formats
+  RESULTS_JUNIT_FILENAME: junit.xml
+  RESULTS_JSON_FILENAME: results.json
+
+  # The root directory where the unit test code coverage reports will be placed
+  # UNIT_TEST_COVERAGE_DIR: '{{cat .COVERAGE_ROOT_DIR "/unit" | nospace | fromSlash}}'
+  UNIT_TEST_COVERAGE_DIR: '{{.COVERAGE_ROOT_DIR}}/unit'
+
+  # The full file paths to the various unit test code coverage report files
+  UNIT_TEST_COVERAGE_OUT_FILEPATH: '{{.UNIT_TEST_COVERAGE_DIR}}/{{.COVERAGE_OUT_FILENAME}}'
+  UNIT_TEST_COVERAGE_JSON_FILEPATH: '{{.UNIT_TEST_COVERAGE_DIR}}/{{.COVERAGE_JSON_FILENAME}}'
+  UNIT_TEST_COVERAGE_HTML_FILEPATH: '{{.UNIT_TEST_COVERAGE_DIR}}/{{.COVERAGE_HTML_FILENAME}}'
+  UNIT_TEST_COVERAGE_COBERTURA_XML_FILEPATH: '{{.UNIT_TEST_COVERAGE_DIR}}/{{.COBERTURA_XML_FILENAME}}'
+
+  # The root directory where the unit test result reports will be placed
+  # UNIT_TEST_RESULTS_DIR: '{{cat .TESTRESULTS_ROOT_DIR "/unit" | nospace | fromSlash}}'
+  UNIT_TEST_RESULTS_DIR: '{{.TESTRESULTS_ROOT_DIR}}/unit'
+
+  # The full file paths to the various unit test result report files
+  UNIT_TEST_RESULTS_JUNIT_FILEPATH: '{{.UNIT_TEST_RESULTS_DIR}}/{{.RESULTS_JUNIT_FILENAME}}'
+  UNIT_TEST_RESULTS_JSON_FILEPATH: '{{.UNIT_TEST_RESULTS_DIR}}/{{.RESULTS_JSON_FILENAME}}'
+
+tasks:
+  default:
+    deps: [test]
+    silent: true
+
+  setup:
+    desc: Sets up the workspace
+    deps: [install, create-report-dirs]
+
+  install:
+    desc: Installs dependencies
+    deps: [install-deps, install-dev-deps]
+    silent: true
+
+  install-deps:
+    desc: Runs go mod download
+    cmds:
+      - go mod download
+    silent: true
+
+  install-dev-deps:
+    desc: Installs dev dependencies
+    # Run this outside the working directory to prevent
+    # these dev deps from being added to the go.mod file.
+    dir: '{{toSlash .TMP_DIR}}'
+    cmds:
+      - go get github.com/axw/gocov/gocov
+      - go get github.com/AlekSi/gocov-xml
+      - go get github.com/matm/gocov-html
+      - go get gotest.tools/gotestsum
+      - go get golang.org/x/lint/golint
+    silent: true
+    vars:
+      TMP_DIR:
+        sh: go env GOPATH
+
+  create-report-dirs:
+    desc: Creates the directories where generated reports are written
+    cmds:
+      - '{{if eq OS "windows"}}cmd.exe /C "mkdir{{else}}mkdir -p{{end}} {{fromSlash .UNIT_TEST_RESULTS_DIR}} {{fromSlash .UNIT_TEST_COVERAGE_DIR}}{{if eq OS "windows"}} 2>nul"{{end}}'
+    silent: true
+    ignore_error: true
+
+  clean:
+    desc: Cleans the workspace
+    cmds:
+      - '{{if eq OS "windows"}}cmd.exe /C "rd /q /s{{else}}rm -rf{{end}} {{.TESTRESULTS_ROOT_DIR}} {{.COVERAGE_ROOT_DIR}}{{if eq OS "windows"}} 2>nul"{{end}}'
+    silent: true
+    ignore_error: true
+
+  test:
+    desc: Runs unit tests
+    deps: [create-report-dirs]
+    cmds:
+      - gotestsum --format standard-verbose --junitfile {{.UNIT_TEST_RESULTS_JUNIT_FILEPATH}} --jsonfile {{.UNIT_TEST_RESULTS_JSON_FILEPATH}} -- -coverprofile={{.UNIT_TEST_COVERAGE_OUT_FILEPATH}} ./...
+    silent: true
+
+  coverage:
+    desc: Runs unit tests and generates code coverage reports
+    deps: [test]
+    cmds:
+      - gocov convert {{.UNIT_TEST_COVERAGE_OUT_FILEPATH}} > {{.UNIT_TEST_COVERAGE_JSON_FILEPATH}}
+      - gocov-xml < {{.UNIT_TEST_COVERAGE_JSON_FILEPATH}} > {{.UNIT_TEST_COVERAGE_COBERTURA_XML_FILEPATH}}
+      - gocov-html {{.UNIT_TEST_COVERAGE_JSON_FILEPATH}} > {{.UNIT_TEST_COVERAGE_HTML_FILEPATH}}
+    silent: true
+
+  open-cov:
+    desc: Opens the HTML Code Coverage Report
+    deps: [coverage]
+    cmds:
+      - '{{if eq OS "windows"}}cmd.exe /C start{{else if eq OS "darwin"}}open{{else}}xdg-open{{end}} {{.UNIT_TEST_COVERAGE_HTML_FILEPATH}}'
+
+  lint:
+    desc: Runs the linter and prints results to STDOUT
+    cmds:
+      - golint ./...
+
+  vet:
+    desc: Runs govet and prints results to STDOUT
+    cmds:
+      - go vet ./...
+
+  ci:
+    desc: Runs sequence of desired commands for performing validation in a CI build
+    deps: [coverage, lint]
+
+  print-version:
+    desc: Prints the current version
+    cmds:
+      - go run ./scripts/version/print/main.go
+    silent: true
+
+  bump-version:
+    desc: Bumps the current patch version
+    cmds:
+      - go run ./scripts/version/bump/main.go
+    silent: true
+
+  check-gofmt:
+    desc: Checks that files are Go formatted
+    cmds:
+      - echo "Running gofmt check..."
+      - 'if [ "$(gofmt -l .)" = "" ]; then echo "All files are Go formatted!"; else echo "Some files are not Go formatted" && exit 1; fi'
+    silent: true

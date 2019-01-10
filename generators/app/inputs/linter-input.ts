@@ -32,6 +32,7 @@ const prompt: YeomanGenerator.Question = {
 };
 
 const option: YeomanGenerator.OptionConfig = {
+    type: String,
     description: 'The type of linter to use'
 };
 

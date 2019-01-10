@@ -7,8 +7,14 @@ test/
 .editorconfig
 .eslintignore
 .eslintrc.js
+.gitattributes
 .huskyrc.json
 .nycrc.json
 renovate.json
+sonar-project.properties
 tsconfig.json
 tslint.json
+**/*.ts
+**/*.map
+**/*.tar
+**/*.tgz

@@ -5,16 +5,15 @@ import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../../int-test-utils');
-import ProjectType = require('../../../../generators/app/enums/project-type');
-import projectTypeInput = require('../../../../generators/app/inputs/type-input');
+import Linter = require('../../../../generators/app/enums/linter');
+import linterInput = require('../../../../generators/app/inputs/linter-input');
 import testUtils = require('../../../test-utils');
 
-suite('boilerplate project Tests:', () => {
+suite('golint Tests:', () => {
     const prompts = testUtils.defaultPromptAnswersCopy();
-    const boilerplateConfig = intTestUtils.boilerplateProjectContent;
 
     suiteSetup(() => {
-        prompts[projectTypeInput.prompt.name] = ProjectType.boilerplate;
+        prompts[linterInput.prompt.name] = Linter.golint;
         return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
     });
 
@@ -28,20 +27,8 @@ suite('boilerplate project Tests:', () => {
 
     test('Should use prompt answer when option is invalid', async () => {
         const options = intTestUtils.defaultOptionsCopy();
-        options[projectTypeInput.optionName] = 'abc';
+        options[linterInput.optionName] = 'abc';
         await helpers.run(intTestUtils.generatorRoot).withOptions(options).withPrompts(prompts).toPromise();
         yeomanAssert.file(intTestUtils.commonFiles);
-    });
-
-    test('Should include common files', () => {
-        yeomanAssert.file(intTestUtils.commonFiles);
-    });
-
-    test('Should include boilerplate specific files', () => {
-        yeomanAssert.file(boilerplateConfig.files);
-    });
-
-    test('Should include correct main.go file content', () => {
-        yeomanAssert.fileContent(intTestUtils.rootMainGoFileName, boilerplateConfig.mainGoFileContentRegex);
     });
 });
