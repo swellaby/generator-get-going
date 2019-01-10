@@ -42,6 +42,10 @@ const getTaskfileYamlFileContents = (rootDirPath: string): string => {
     return getFileContents(path.join(rootDirPath, 'Taskfile.yml'));
 };
 
+const getDevSetupScriptFileContents = (rootDirPath: string): string => {
+    return getFileContents(path.join(rootDirPath, 'dev_setup.go'));
+};
+
 const getFilePath = (rootDir, filePath) => path.join(rootDir, filePath);
 const normalizeDirectoryPaths = originalPath => originalPath.replace(/\\/g, '/');
 
@@ -63,5 +67,6 @@ export = {
     getReadmeFileContents,
     getGoModFileContents,
     getTaskfileYamlFileContents,
+    getDevSetupScriptFileContents,
     normalizeDirectoryPaths
 };

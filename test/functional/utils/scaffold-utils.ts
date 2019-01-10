@@ -25,6 +25,10 @@ const getVSCodeCommonFileContents = (rootDirPath: string, fileName: string): str
     return fileSystemUtils.getFileContents(path.join(rootDirPath, '.vscode', fileName));
 };
 
+const getScriptsCommonFileContents = (rootDirPath: string, relativeFilePath: string): string => {
+    return fileSystemUtils.getFileContents(path.join(rootDirPath, 'scripts', relativeFilePath));
+};
+
 const getB3VSCodeCSpellFileContents = (): string => {
     return getVSCodeCommonFileContents(b3RootDirPath, 'cSpell.json');
 };
@@ -39,6 +43,10 @@ const getB3VSCodeLaunchFileContents = (): string => {
 
 const getB3MainGoFileContents = (): string => {
     return fileSystemUtils.getFileContents(path.join(b3RootDirPath, 'main.go'));
+};
+
+const getB3GoTaskDevSetupGoFileContents = (): string => {
+    return getScriptsCommonFileContents(b3RootDirPath, 'dev_setup.go');
 };
 
 export = {
@@ -56,6 +64,13 @@ export = {
             getB3VSCodeCSpellFileContents,
             getB3VSCodeExtensionsFileContents,
             getB3VSCodeLaunchFileContents
+        }
+    },
+    scripts: {
+        devSetup: {
+            b3: {
+                getB3GoTaskDevSetupGoFileContents
+            }
         }
     }
 };

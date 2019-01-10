@@ -20,9 +20,13 @@ const vsCodeFixtures = {
     }
 };
 
+const getGoTaskDevSetupFileContents = (): string => {
+    return fileSystemUtils.getDevSetupScriptFileContents(path.join(scriptsDevSetupFixturesRootDirPath, 'task'));
+};
+
 const scriptsFixtures = {
     devSetup: {
-        task: getFileContents(path.join(scriptsDevSetupFixturesRootDirPath, 'task', 'dev_setup.go'))
+        getGoTaskDevSetupFileContents
     }
 };
 
