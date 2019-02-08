@@ -1,10 +1,10 @@
 {
-    "extends": "@swellaby/nyc-config",
-    "include": [
-        "generators/**/*"
-    ],
-    "exclude": [
-        "generators/app/templates",
-        "generators/app/interfaces"
-    ]
+  "extends": "@swellaby/nyc-config",
+  "include": [
+    "generators/**/*"
+  ],
+  "exclude": [
+    "generators/app/templates",
+    "generators/app/interfaces"
+  ]
 }

@@ -1,6 +1,6 @@
 {
-    "extends": "@swellaby/tslint-config",
-    "rules": {
-      
-    }
+  "extends": "@swellaby/tslint-config",
+  "rules": {
+
+  }
 }
