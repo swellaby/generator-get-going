@@ -1,7 +1,0 @@
---ui tdd
---timeout 7500
---slow 1000
--R mocha-multi-reporters
---reporter-options configFile=test/integration/mocha-reporter-config.json
---recursive
-./test/integration/**/*.js
