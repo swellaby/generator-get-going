@@ -6,5 +6,8 @@
   "exclude": [
     "generators/app/templates",
     "generators/app/interfaces"
+  ],
+  "extension": [
+    ".ts"
   ]
 }
