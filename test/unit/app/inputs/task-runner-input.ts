@@ -1,6 +1,7 @@
 'use strict';
 
 import chai = require('chai');
+import inquirer = require('inquirer');
 
 import ITaskRunnerConfig = require('../../../../generators/app/interfaces/task-runner-config');
 import IProjectConfig = require('../../../../generators/app/interfaces/project-config');
@@ -9,7 +10,7 @@ import taskRunnerInput = require('../../../../generators/app/inputs/task-runner-
 import PromptType = require('../../../../generators/app/enums/prompt-type');
 
 const input = taskRunnerInput;
-const prompt = input.prompt;
+const prompt = <inquirer.ListQuestion<Record<string, unknown>>>input.prompt;
 const assert = chai.assert;
 
 suite('TaskRunnerInput Tests:', () => {

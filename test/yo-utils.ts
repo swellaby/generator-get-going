@@ -4,7 +4,7 @@
 const fileEditor = require('mem-fs-editor');
 import path = require('path');
 import Sinon = require('sinon');
-const yeomanEnvironment = require('yeoman-environment');
+// const yeomanEnvironment = require('yeoman-environment');
 const yeomanGenerator = require('yeoman-generator');
 
 const generatorWorkingDirectory = '/foo/bar/roo';
@@ -14,7 +14,7 @@ const generatorOptions = {
             log: () => ''
         },
         runLoop: true,
-        sharedFs: true
+        sharedFs: true,
     },
     cwd: generatorWorkingDirectory,
     resolved: 'foo'
@@ -28,7 +28,7 @@ const stubInternalGeneratorFunctions = () => {
     Sinon.stub(Object, 'assign').callsFake(() => {
         return generatorOptions;
     });
-    Sinon.stub(yeomanEnvironment, 'enforceUpdate');
+    // Sinon.stub(yeomanEnvironment, 'enforceUpdate');
     Sinon.stub(fileEditor, 'create');
     Sinon.stub(yeomanGenerator.prototype, '_getStorage');
     Sinon.stub(yeomanGenerator.prototype, '_getGlobalStorage');

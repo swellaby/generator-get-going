@@ -54,16 +54,13 @@ const generatorStub: YeomanGenerator = <YeomanGenerator> {
     // composeWith: null,
     destinationPath: () => __dirname,
     destinationRoot: () => __dirname,
-    // eslint-disable-next-line
-    option: (name: string, config: YeomanGenerator.OptionConfig) => null,
-    // eslint-disable-next-line
-    prompt: (questions) => Promise.prototype,
+    option: (_name: string, _config: YeomanGenerator.OptionConfig) => null,
+    prompt: (_questions) => Promise.prototype,
     sourceRoot: () => __dirname,
     // desc: null,
     // help: null,
     // user: null,
-    // eslint-disable-next-line
-    spawnCommandSync: (command, args, opt) => null
+    spawnCommandSync: (_command, _args, _opt) => null
 };
 
 const fsStatStub: fs.Stats = <fs.Stats>{

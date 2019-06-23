@@ -1,6 +1,7 @@
 'use strict';
 
 import chai = require('chai');
+import inquirer = require('inquirer');
 
 import IProjectConfig = require('../../../../generators/app/interfaces/project-config');
 import ProjectType = require('../../../../generators/app/enums/project-type');
@@ -8,7 +9,7 @@ import PromptType = require('../../../../generators/app/enums/prompt-type');
 import typeInput = require('../../../../generators/app/inputs/type-input');
 
 const input = typeInput;
-const prompt = input.prompt;
+const prompt = <inquirer.ListQuestion<Record<string, unknown>>>input.prompt;
 const assert = chai.assert;
 
 suite('TypeInput Tests:', () => {

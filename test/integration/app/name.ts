@@ -2,6 +2,7 @@
 
 import chai = require('chai');
 import helpers = require('yeoman-test');
+import inquirer = require('inquirer');
 import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 
@@ -16,6 +17,7 @@ suite('name Tests:', () => {
     const promptName = nameInput.prompt.name;
     const optionName = nameInput.optionName;
     const readmeFile = intTestUtils.readmeFileName;
+    const prompt = <inquirer.InputQuestion<Record<string, unknown>>>nameInput.prompt;
 
     suiteSetup(() => {
         return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
@@ -63,12 +65,12 @@ suite('name Tests:', () => {
     });
 
     test('Should return true when validate function called with valid value', () => {
-        assert.isTrue(nameInput.prompt.validate(intTestUtils.name));
+        assert.isTrue(prompt.validate(intTestUtils.name));
     });
 
     test('Should return correct error when validate function called with invalid value', () => {
         const invalidAppName = '(*^&$&^*//)\\6ad7_/*&';
-        const msg = nameInput.prompt.validate(invalidAppName);
+        const msg = prompt.validate(invalidAppName);
         assert.deepEqual(msg, `Invalid app name: '${invalidAppName}'`);
     });
 });

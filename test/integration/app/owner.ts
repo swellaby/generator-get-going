@@ -2,6 +2,7 @@
 
 import chai = require('chai');
 import helpers = require('yeoman-test');
+import inquirer = require('inquirer');
 import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 
@@ -20,6 +21,7 @@ suite('owner Tests:', () => {
     const modPromptName = moduleInput.prompt.name;
     const modOptionName = moduleInput.optionName;
     const goModFile = intTestUtils.goModFileName;
+    const prompt = <inquirer.InputQuestion<Record<string, unknown>>>moduleInput.prompt;
 
     const buildGoModuleName = (owner: string) => {
         return `github.com/${owner}/${intTestUtils.name}`;
@@ -72,12 +74,12 @@ suite('owner Tests:', () => {
     });
 
     test('Should return true when validate function called with valid value', () => {
-        assert.isTrue(ownerInput.prompt.validate(intTestUtils.owner));
+        assert.isTrue(prompt.validate(intTestUtils.owner));
     });
 
     test('Should return correct error when validate function called with invalid value', () => {
         const invalidOwnerName = '/)\\345had7_/*&';
-        const msg = ownerInput.prompt.validate(invalidOwnerName);
+        const msg = prompt.validate(invalidOwnerName);
         assert.deepEqual(msg, `Invalid owner/author name: '${invalidOwnerName}'`);
     });
 });

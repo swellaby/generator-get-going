@@ -1,6 +1,7 @@
 'use strict';
 
 import Chai = require('chai');
+import inquirer = require('inquirer');
 import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 
@@ -19,7 +20,7 @@ suite('owner input Tests:', () => {
     const input = ownerInput;
     const inputs = [ input ];
     const optionName = input.optionName;
-    const prompt = input.prompt;
+    const prompt = <inquirer.InputQuestion<Record<string, unknown>>>input.prompt;
     const promptName = prompt.name;
     const expOwner = 'swellaby';
 
@@ -62,11 +63,11 @@ suite('owner input Tests:', () => {
         const owner = '!*&#^(^';
         const expMessage = `Invalid owner/author name: '${owner}'`;
 
-        const invalidMessage = input.prompt.validate(owner, answers);
+        const invalidMessage = prompt.validate(owner, answers);
         assert.deepEqual(invalidMessage, expMessage);
     });
 
     test('Should have correct prompt validation response for valid input', async () => {
-        assert.isTrue(input.prompt.validate(expOwner, answers));
+        assert.isTrue(prompt.validate(expOwner, answers));
     });
 });

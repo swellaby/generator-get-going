@@ -1,13 +1,14 @@
 'use strict';
 
 import chai = require('chai');
+import inquirer = require('inquirer');
 
 import IProjectConfig = require('../../../../generators/app/interfaces/project-config');
 import PromptType = require('../../../../generators/app/enums/prompt-type');
 import ownerInput = require('../../../../generators/app/inputs/owner-input');
 
 const input = ownerInput;
-const prompt = input.prompt;
+const prompt = <inquirer.InputQuestion<Record<string, unknown>>>input.prompt;
 const assert = chai.assert;
 
 suite('OwnerInput Tests:', () => {
