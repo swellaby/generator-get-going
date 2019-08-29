@@ -2,7 +2,7 @@
 
 import Chai = require('chai');
 import Sinon = require('sinon');
-import generator = require('yeoman-generator');
+import YeomanGenerator = require('yeoman-generator');
 
 import GetGoingGenerator = require('../../../generators/app');
 import projectInputUtils = require('../../../generators/app/project-input-utils');
@@ -25,6 +25,8 @@ suite('GetGoingGenerator Tests:', () => {
 
     setup(() => {
         yoUtils.stubInternalGeneratorFunctions();
+        Sinon.stub(YeomanGenerator.prototype, 'sourceRoot');
+        Sinon.stub(YeomanGenerator.prototype, 'destinationRoot');
         getDesiredProjectConfigStub = Sinon.stub(projectInputUtils, 'getDesiredProjectConfig').callsFake(() => Promise.resolve(config));
         addGeneratorOptionsStub = Sinon.stub(projectInputUtils, 'addGeneratorOptions');
         scaffoldNewProjectStub = Sinon.stub(scaffoldEngine, 'scaffoldNewProject');
