@@ -61,14 +61,14 @@ suite('module input Tests:', () => {
         assert.deepEqual(config.moduleName, expModule);
     });
 
-    // test('Should have correct prompt default', async () => {
-    //     const appName = 'foo-test';
-    //     const owner = 'swellaby';
-    //     answers[nameInput.prompt.name] = appName;
-    //     answers[ownerInput.prompt.name] = owner;
-    //     const moduleName = input.prompt.default(answers);
-    //     assert.deepEqual(moduleName, `github.com/${owner}/${appName}`);
-    // });
+    test('Should have correct prompt default', async () => {
+        const appName = 'foo-test';
+        const owner = 'swellaby';
+        answers[nameInput.prompt.name] = appName;
+        answers[ownerInput.prompt.name] = owner;
+        const moduleName = input.prompt.default(answers);
+        assert.deepEqual(moduleName, `github.com/${owner}/${appName}`);
+    });
 
     test('Should have correct prompt validation response for invalid input', async () => {
         const invalidModule = '%$';
