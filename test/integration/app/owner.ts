@@ -21,7 +21,7 @@ suite('owner Tests:', () => {
     const modPromptName = moduleInput.prompt.name;
     const modOptionName = moduleInput.optionName;
     const goModFile = intTestUtils.goModFileName;
-    const prompt = <inquirer.InputQuestion<Record<string, unknown>>>moduleInput.prompt;
+    const prompt = <inquirer.InputQuestion<Record<string, unknown>>>ownerInput.prompt;
 
     const buildGoModuleName = (owner: string) => {
         return `github.com/${owner}/${intTestUtils.name}`;

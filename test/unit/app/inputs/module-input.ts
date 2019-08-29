@@ -67,37 +67,37 @@ suite('ModuleInput Tests:', () => {
                 config = null;
             });
 
-            // test('Should return correct module name when config has name and owner', () => {
-            //     input.tryExtractInputValue(null, config);
-            //     assert.deepEqual(prompt.default(answers), expModuleName);
-            // });
+            test('Should return correct module name when config has name and owner', () => {
+                input.tryExtractInputValue(null, config);
+                assert.deepEqual(prompt.default(answers), expModuleName);
+            });
 
-            // test('Should return correct module name when config has name and does not have owner', () => {
-            //     const ownerAnswer = 'caleb';
-            //     answers[ownerInput.prompt.name] = ownerAnswer;
-            //     config.owner = undefined;
-            //     input.tryExtractInputValue(null, config);
-            //     assert.deepEqual(prompt.default(answers), getExpModuleName(ownerAnswer, name));
-            // });
+            test('Should return correct module name when config has name and does not have owner', () => {
+                const ownerAnswer = 'caleb';
+                answers[ownerInput.prompt.name] = ownerAnswer;
+                config.owner = undefined;
+                input.tryExtractInputValue(null, config);
+                assert.deepEqual(prompt.default(answers), getExpModuleName(ownerAnswer, name));
+            });
 
-            // test('Should return correct module name when config does not have name and does have owner', () => {
-            //     const nameAnswer = 'ci-detective';
-            //     answers[nameInput.prompt.name] = nameAnswer;
-            //     config.name = undefined;
-            //     input.tryExtractInputValue(null, config);
-            //     assert.deepEqual(prompt.default(answers), getExpModuleName(owner, nameAnswer));
-            // });
+            test('Should return correct module name when config does not have name and does have owner', () => {
+                const nameAnswer = 'ci-detective';
+                answers[nameInput.prompt.name] = nameAnswer;
+                config.name = undefined;
+                input.tryExtractInputValue(null, config);
+                assert.deepEqual(prompt.default(answers), getExpModuleName(owner, nameAnswer));
+            });
 
-            // test('Should return correct module name when config does not have name nor owner', () => {
-            //     const nameAnswer = 'foo';
-            //     answers[nameInput.prompt.name] = nameAnswer;
-            //     config.name = undefined;
-            //     const ownerAnswer = 'bar';
-            //     answers[ownerInput.prompt.name] = ownerAnswer;
-            //     config.owner = undefined;
-            //     input.tryExtractInputValue(null, config);
-            //     assert.deepEqual(prompt.default(answers), getExpModuleName(ownerAnswer, nameAnswer));
-            // });
+            test('Should return correct module name when config does not have name nor owner', () => {
+                const nameAnswer = 'foo';
+                answers[nameInput.prompt.name] = nameAnswer;
+                config.name = undefined;
+                const ownerAnswer = 'bar';
+                answers[ownerInput.prompt.name] = ownerAnswer;
+                config.owner = undefined;
+                input.tryExtractInputValue(null, config);
+                assert.deepEqual(prompt.default(answers), getExpModuleName(ownerAnswer, nameAnswer));
+            });
         });
     });
 

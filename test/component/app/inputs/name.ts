@@ -1,7 +1,7 @@
 'use strict';
 
 import Chai = require('chai');
-import inquirer = require('inquirer');
+// import inquirer = require('inquirer');
 import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 
@@ -20,7 +20,8 @@ suite('name input Tests:', () => {
     const input = nameInput;
     const inputs = [ input ];
     const optionName = input.optionName;
-    const prompt = <inquirer.InputQuestion<Record<string, unknown>>>input.prompt;
+    // const foo: YeomanGenerator.Question
+    const prompt = <YeomanGenerator.Question<Record<string, unknown>>>input.prompt;
     const promptName = prompt.name;
     const expName = 'excellence';
 

@@ -1,6 +1,7 @@
 'use strict';
 
 import YeomanGenerator = require('yeoman-generator');
+import inquirer = require('inquirer');
 
 import IGoContentConfig = require('../interfaces/go-content-config');
 import IProjectConfig = require('../interfaces/project-config');
@@ -33,7 +34,7 @@ const prompt: YeomanGenerator.Question = {
     name: name,
     message: 'What type of project do you want?',
     default: ProjectType.boilerplate,
-    choices: [
+    choices: <inquirer.DistinctChoice<inquirer.Answers>[]>[
         {
             name: 'New App with just the boilerplate',
             value: ProjectType.boilerplate

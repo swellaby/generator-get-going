@@ -2,6 +2,7 @@
 
 import Chai = require('chai');
 import Sinon = require('sinon');
+import generator = require('yeoman-generator');
 
 import GetGoingGenerator = require('../../../generators/app');
 import projectInputUtils = require('../../../generators/app/project-input-utils');

@@ -3,6 +3,7 @@
 import YeomanGenerator = require('yeoman-generator');
 import IProjectConfig = require('./interfaces/project-config');
 import IProjectInput = require('./interfaces/project-input');
+import inquirer = require('inquirer');
 
 const fatalErrorMessage = 'Something awful happened! Please open an issue on GitHub';
 
@@ -28,7 +29,7 @@ const getDefaultConfig = () => <IProjectConfig>{
 const extractConfigFromInputs = async (generator: YeomanGenerator, inputs: IProjectInput[]): Promise<IProjectConfig> => {
     const config: IProjectConfig = getDefaultConfig();
     const missingInputs: IProjectInput[] = [];
-    const prompts: YeomanGenerator.Question[] = [];
+    const prompts: inquirer.Question[] = [];
 
     inputs.forEach(input => {
         const option = generator.options[input.optionName];

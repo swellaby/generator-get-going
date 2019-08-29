@@ -53,7 +53,7 @@ suite('LinterInput Tests:', () => {
         });
 
         suite('choices Tests:', () => {
-            const choices = prompt.choices;
+            const choices: inquirer.DistinctChoice<inquirer.Answers>[] = <inquirer.DistinctChoice<inquirer.Answers>[]>prompt.choices;
 
             test('Should have correct number of choices', () => {
                 assert.deepEqual(choices.length, 1);
