@@ -33,6 +33,7 @@ const stubInternalGeneratorFunctions = () => {
     Sinon.stub(yeomanGenerator.prototype, '_getGlobalStorage');
     Sinon.stub(yeomanGenerator.prototype, 'determineAppname');
     Sinon.stub(yeomanGenerator.prototype, 'sourceRoot');
+    Sinon.stub(yeomanGenerator.prototype, 'destinationRoot');
     const dirRoot = <path.ParsedPath>{ root: undefined };
     Sinon.stub(path, 'parse').callsFake(() => dirRoot);
 };
