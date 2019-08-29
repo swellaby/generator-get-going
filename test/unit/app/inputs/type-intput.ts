@@ -1,6 +1,8 @@
 'use strict';
 
 import chai = require('chai');
+import inquirer = require('inquirer');
+import YeomanGenerator = require('yeoman-generator');
 
 import IProjectConfig = require('../../../../generators/app/interfaces/project-config');
 import ProjectType = require('../../../../generators/app/enums/project-type');
@@ -8,7 +10,7 @@ import PromptType = require('../../../../generators/app/enums/prompt-type');
 import typeInput = require('../../../../generators/app/inputs/type-input');
 
 const input = typeInput;
-const prompt = input.prompt;
+const prompt = <inquirer.ListQuestion<Record<string, unknown>>>input.prompt;
 const assert = chai.assert;
 
 suite('TypeInput Tests:', () => {
@@ -54,7 +56,7 @@ suite('TypeInput Tests:', () => {
         });
 
         suite('choices Tests:', () => {
-            const choices = prompt.choices;
+            const choices: inquirer.DistinctChoice<inquirer.Answers>[] = <inquirer.DistinctChoice<inquirer.Answers>[]>prompt.choices;
 
             test('Should have correct number of choices', () => {
                 assert.deepEqual(choices.length, 4);

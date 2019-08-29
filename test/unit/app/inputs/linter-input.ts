@@ -1,6 +1,7 @@
 'use strict';
 
 import chai = require('chai');
+import inquirer = require('inquirer');
 
 import ILinterConfig = require('../../../../generators/app/interfaces/linter-config');
 import IProjectConfig = require('../../../../generators/app/interfaces/project-config');
@@ -9,7 +10,7 @@ import linterInput = require('../../../../generators/app/inputs/linter-input');
 import PromptType = require('../../../../generators/app/enums/prompt-type');
 
 const input = linterInput;
-const prompt = input.prompt;
+const prompt = <inquirer.ListQuestion<Record<string, unknown>>>input.prompt;
 const assert = chai.assert;
 
 suite('LinterInput Tests:', () => {
@@ -52,7 +53,7 @@ suite('LinterInput Tests:', () => {
         });
 
         suite('choices Tests:', () => {
-            const choices = prompt.choices;
+            const choices: inquirer.DistinctChoice<inquirer.Answers>[] = <inquirer.DistinctChoice<inquirer.Answers>[]>prompt.choices;
 
             test('Should have correct number of choices', () => {
                 assert.deepEqual(choices.length, 1);

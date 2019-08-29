@@ -2,6 +2,7 @@
 
 import chai = require('chai');
 import helpers = require('yeoman-test');
+import inquirer = require('inquirer');
 import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 
@@ -21,6 +22,7 @@ suite('module Tests:', () => {
     const namePromptName = nameInput.prompt.name;
     const ownerPromptName = ownerInput.prompt.name;
     const expDefaultModuleName = intTestUtils.moduleName;
+    const prompt = <inquirer.InputQuestion<Record<string, unknown>>>moduleInput.prompt;
 
     suiteSetup(() => {
         return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
@@ -82,13 +84,13 @@ suite('module Tests:', () => {
     });
 
     test('Should return true when validate function called with valid value', () => {
-        assert.isTrue(moduleInput.prompt.validate(expDefaultModuleName));
+        assert.isTrue(prompt.validate(expDefaultModuleName));
     });
 
     test('Should return correct error when validate function called with invalid value', () => {
         const invalidModuleName = 'abc';
         const expErrorMessage = testUtils.getModuleNameValidationErrorMessage(invalidModuleName);
-        const msg = moduleInput.prompt.validate(invalidModuleName);
+        const msg = prompt.validate(invalidModuleName);
         assert.deepEqual(msg, expErrorMessage);
     });
 });

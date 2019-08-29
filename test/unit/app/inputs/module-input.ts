@@ -2,6 +2,7 @@
 
 import chai = require('chai');
 import YeomanGenerator = require('yeoman-generator');
+import inquirer = require('inquirer');
 
 import IProjectConfig = require('../../../../generators/app/interfaces/project-config');
 import moduleInput = require('../../../../generators/app/inputs/module-input');
@@ -11,7 +12,7 @@ import PromptType = require('../../../../generators/app/enums/prompt-type');
 import testUtils = require('../../../test-utils');
 
 const input = moduleInput;
-const prompt = input.prompt;
+const prompt = <inquirer.InputQuestion<Record<string, unknown>>>input.prompt;
 const assert = chai.assert;
 
 suite('ModuleInput Tests:', () => {

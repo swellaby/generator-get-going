@@ -1,6 +1,7 @@
 'use strict';
 
 import Chai = require('chai');
+// import inquirer = require('inquirer');
 import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 
@@ -19,7 +20,8 @@ suite('name input Tests:', () => {
     const input = nameInput;
     const inputs = [ input ];
     const optionName = input.optionName;
-    const prompt = input.prompt;
+    // const foo: YeomanGenerator.Question
+    const prompt = <YeomanGenerator.Question<Record<string, unknown>>>input.prompt;
     const promptName = prompt.name;
     const expName = 'excellence';
 
@@ -62,11 +64,11 @@ suite('name input Tests:', () => {
         const invalidName = 'foo/bar';
         const expMessage = `Invalid app name: '${invalidName}'`;
 
-        const invalidMessage = input.prompt.validate(invalidName, answers);
+        const invalidMessage = prompt.validate(invalidName, answers);
         assert.deepEqual(invalidMessage, expMessage);
     });
 
     test('Should have correct prompt validation response for valid input', async () => {
-        assert.isTrue(input.prompt.validate(expName, answers));
+        assert.isTrue(prompt.validate(expName, answers));
     });
 });
