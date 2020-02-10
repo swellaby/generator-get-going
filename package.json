@@ -70,7 +70,7 @@
     "@swellaby/tslint-config": "^3.0.0",
     "@types/chai": "^4.2.0",
     "@types/inquirer": "^6.5.0",
-    "@types/mkdirp": "^0.5.2",
+    "@types/mkdirp": "^1.0.0",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.7.2",
     "@types/shelljs": "^0.8.5",
