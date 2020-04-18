@@ -18,6 +18,7 @@ const generatorOptions = {
         sharedFs: true
     },
     cwd: generatorWorkingDirectory,
+    destinationRoot: '/foo/bar',
     resolved: 'foo'
 };
 
