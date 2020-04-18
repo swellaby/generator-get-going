@@ -24,6 +24,7 @@ suite('GetGoingGenerator Tests:', () => {
     const options = yoUtils.generatorOptions;
 
     setup(function() {
+        // tslint:disable-next-line:no-invalid-this
         this.timeout(5000);
         yoUtils.stubInternalGeneratorFunctions();
         Sinon.stub(YeomanGenerator.prototype, 'sourceRoot');
