@@ -24,7 +24,7 @@ suite('GetGoingGenerator Tests:', () => {
     const options = yoUtils.generatorOptions;
 
     setup(function() {
-        this.timeout(500);
+        this.timeout(5000);
         yoUtils.stubInternalGeneratorFunctions();
         Sinon.stub(YeomanGenerator.prototype, 'sourceRoot');
         Sinon.stub(YeomanGenerator.prototype, 'destinationRoot');
