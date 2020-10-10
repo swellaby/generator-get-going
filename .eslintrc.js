@@ -8,6 +8,12 @@ module.exports = {
             rules: {
                 quotes: [ 'off' ]
             }
+        },
+        {
+            files: [ 'test/integration/int-test-utils.js' ],
+            rules: {
+                'max-len': [ 'off' ]
+            }
         }
     ]
 };
