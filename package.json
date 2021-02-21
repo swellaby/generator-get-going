@@ -98,7 +98,7 @@
   "dependencies": {
     "mkdirp": "^1.0.4",
     "tslib": "^2.0.0",
-    "yeoman-generator": "^4.11.0",
+    "yeoman-generator": "^5.0.0",
     "yosay": "^2.0.2"
   }
 }
