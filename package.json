@@ -77,7 +77,7 @@
     "@types/sinon": "^9.0.0",
     "@types/yeoman-generator": "^3.1.4",
     "@types/yeoman-test": "^2.0.3",
-    "@types/yosay": "^0.0.29",
+    "@types/yosay": "^2.0.0",
     "chai": "^4.2.0",
     "eslint": "^7.0.0",
     "husky": "^4.2.5",
