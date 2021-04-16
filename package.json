@@ -75,7 +75,7 @@
     "@types/node": "^12.7.2",
     "@types/shelljs": "^0.8.7",
     "@types/sinon": "^10.0.0",
-    "@types/yeoman-generator": "^3.1.4",
+    "@types/yeoman-generator": "^4.0.0",
     "@types/yeoman-test": "^2.0.3",
     "@types/yosay": "^2.0.0",
     "chai": "^4.2.0",
