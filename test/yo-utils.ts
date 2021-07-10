@@ -15,10 +15,12 @@ const generatorOptions = {
             log: (_msg) => ''
         },
         runLoop: true,
-        sharedFs: true
+        sharedFs: true,
+        fs: {}
     },
     cwd: generatorWorkingDirectory,
     destinationRoot: '/foo/bar',
+    ignoreVersionCheck: true,
     resolved: 'foo'
 };
 
