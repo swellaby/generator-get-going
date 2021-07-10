@@ -30,6 +30,7 @@ suite('generator Tests:', () => {
 
     setup(() => {
         yoUtils.stubInternalGeneratorFunctions();
+        Sinon.stub(fs, 'mkdirSync');
         generatorOptionStub = Sinon.stub(YeomanGenerator.prototype, 'option');
         getGoingGenerator = new GetGoingGenerator([], options);
         generatorLogStub = Sinon.stub(getGoingGenerator, 'log');
