@@ -37,7 +37,7 @@ suite('git Tests:', () => {
         // the same directory as the destinationRoot of the generator.
         yoDestinationPathStub.callsFake(() => intTestUtils.getCwdAppNameSubDirectoryPath(baseAppName));
         await helpers.run(intTestUtils.generatorRoot).inTmpDir((dir) => {
-            fs.writeFileSync(path.join(dir, '.git'), null);
+            fs.writeFileSync(path.join(dir, '.git'), "");
         }).withPrompts(prompts).toPromise();
         assert.isTrue(gitInitCommandStub.called);
     });
