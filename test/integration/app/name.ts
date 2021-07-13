@@ -16,7 +16,7 @@ suite('name Tests:', () => {
     let prompts = testUtils.defaultPromptAnswersCopy();
     const promptName = nameInput.prompt.name;
     const optionName = nameInput.optionName;
-    const readmeFile = intTestUtils.readmeFileName;
+    const readmeFile = `${testUtils.defaultGeneratorName}/${intTestUtils.readmeFileName}`;
     const prompt = <inquirer.InputQuestion<Record<string, unknown>>>nameInput.prompt;
 
     suiteSetup(() => {

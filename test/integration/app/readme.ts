@@ -9,7 +9,7 @@ import intTestUtils = require('../int-test-utils');
 
 suite('readme Tests:', () => {
     const prompts = testUtils.defaultPromptAnswersCopy();
-    const readmeFile = intTestUtils.readmeFileName;
+    const readmeFile = `${testUtils.defaultGeneratorName}/${intTestUtils.readmeFileName}`;
     const spaceRegex = intTestUtils.spaceRegex;
 
     suiteSetup(() => {
