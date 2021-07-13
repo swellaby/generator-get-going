@@ -10,7 +10,7 @@ import testUtils = require('../../../test-utils');
 suite('vscode settings Tests:', () => {
     let prompts;
     const defaultAppName = intTestUtils.name;
-    const settingsFile = `${testUtils.defaultGeneratorName}/${intTestUtils.vscodeSettingsFile}`
+    const settingsFile = `${testUtils.defaultGeneratorName}/${intTestUtils.vscodeSettingsFile}`;
 
     suiteSetup(() => {
         prompts = testUtils.defaultPromptAnswersCopy();
