@@ -11,7 +11,7 @@ import TaskRunner = require('../../../../generators/app/enums/task-runner');
 
 suite('task Tests:', () => {
     let prompts;
-    const expTaskfile = 'Taskfile.yml';
+    const expTaskfile = `${testUtils.defaultGeneratorName}/Taskfile.yml`;
     const spaceRegex = intTestUtils.spaceRegex;
     const silentTrueRegex = '(silent: true)';
     const ignoreErrorRegex = '(ignore_error: true)';
