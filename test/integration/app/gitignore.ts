@@ -10,42 +10,46 @@ import testUtils = require('../../test-utils');
 
 suite('gitignore Tests:', () => {
     const prompts = testUtils.defaultPromptAnswersCopy();
-    const gitignoreFile = intTestUtils.gitIgnoreFileName;
     const promptName = nameInput.prompt.name;
+    const gitignoreFile = `${prompts[promptName]}/${intTestUtils.gitIgnoreFileName}`;
+    let runResult: helpers.RunResult;
 
-    suiteSetup(() => {
-        return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
-    });
+    suiteSetup(async () => {
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
+
+    })
 
     setup(() => {
         intTestUtils.createGitInitStub();
      });
 
     teardown(() => {
+        runResult.restore();
         Sinon.restore();
     });
 
     test('Should include gitignore file', () => {
-        yeomanAssert.file(gitignoreFile);
+        runResult.assertFile(gitignoreFile);
     });
 
     test('Should include line to exclude coverage reports', () => {
-        yeomanAssert.fileContent(gitignoreFile, '.coverage');
+        runResult.assertFileContent(gitignoreFile, '.coverage');
     });
 
     test('Should include line to exclude test results reports', () => {
-        yeomanAssert.fileContent(gitignoreFile, '.testresults');
+        runResult.assertFileContent(gitignoreFile, '.testresults');
     });
 
     test('Should include line to exclude .exe files', () => {
-        yeomanAssert.fileContent(gitignoreFile, '**/*.exe');
+        runResult.assertFileContent(gitignoreFile, '**/*.exe');
     });
 
     test('Should include line to exclude unix binary', async () => {
         const expName = 'awesomeness';
         prompts[promptName] = expName;
-        await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
-        yeomanAssert.fileContent(gitignoreFile, `${expName}`);
-        yeomanAssert.fileContent(gitignoreFile, `!${expName}/`);
+        const targetFile = `${expName}/${intTestUtils.gitIgnoreFileName}`;
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
+        runResult.assertFileContent(targetFile, `${expName}`);
+        runResult.assertFileContent(targetFile, `!${expName}/`);
     });
 });
