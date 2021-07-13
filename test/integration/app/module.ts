@@ -16,7 +16,7 @@ const assert = chai.assert;
 
 suite('module Tests:', () => {
     let prompts = testUtils.defaultPromptAnswersCopy();
-    const expGoModFile = intTestUtils.goModFileName;
+    const expGoModFile = `${testUtils.defaultGeneratorName}/${intTestUtils.goModFileName}`;
     const modOptionName = moduleInput.optionName;
     const modPromptName = moduleInput.prompt.name;
     const namePromptName = nameInput.prompt.name;
@@ -58,8 +58,9 @@ suite('module Tests:', () => {
         prompts[namePromptName] = expName;
         prompts[ownerPromptName] = expOwner;
         prompts[modPromptName] = '';
+        const file = `${expName}/${intTestUtils.goModFileName}`
         await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
-        yeomanAssert.fileContent(expGoModFile, `module github.com/${expOwner}/${expName}`);
+        yeomanAssert.fileContent(file, `module github.com/${expOwner}/${expName}`);
     });
 
     test('Should use prompt answer for module name when invalid option is provided', async () => {

@@ -39,8 +39,9 @@ suite('name Tests:', () => {
     test('Should use provided name when valid prompt answer', async () => {
         const expName = 'awesomeness';
         prompts[promptName] = expName;
+        const file = `${expName}/${intTestUtils.readmeFileName}`
         await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
-        yeomanAssert.fileContent(readmeFile, `# ${expName}`);
+        yeomanAssert.fileContent(file, `# ${expName}`);
     });
 
     test('Should use prompt answer for module name when invalid option is provided', async () => {
@@ -57,11 +58,12 @@ suite('name Tests:', () => {
         const expName = 'go-getter';
         const options = intTestUtils.defaultOptionsCopy();
         options[optionName] = expName;
+        const file = `${expName}/${intTestUtils.readmeFileName}`
         await helpers.run(intTestUtils.generatorRoot)
             .withOptions(options)
             .withPrompts(prompts)
             .toPromise();
-        yeomanAssert.fileContent(readmeFile, `# ${expName}`);
+        yeomanAssert.fileContent(file, `# ${expName}`);
     });
 
     test('Should return true when validate function called with valid value', () => {
