@@ -9,7 +9,7 @@ import testUtils = require('../../../test-utils');
 
 suite('vscode launch Tests:', () => {
     let prompts;
-    const launchFile = intTestUtils.vscodeLaunchFile;
+    const launchFile = `${testUtils.defaultGeneratorName}/${intTestUtils.vscodeLaunchFile}`;
 
     suiteSetup(() => {
         prompts = testUtils.defaultPromptAnswersCopy();

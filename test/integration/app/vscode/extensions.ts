@@ -9,7 +9,7 @@ import testUtils = require('../../../test-utils');
 
 suite('vscode extensions Tests:', () => {
     let prompts;
-    const extensionsFile = intTestUtils.vscodeExtensionsFile;
+    const extensionsFile = `${testUtils.defaultGeneratorName}/${intTestUtils.vscodeExtensionsFile}`;
 
     suiteSetup(() => {
         prompts = testUtils.defaultPromptAnswersCopy();

@@ -35,7 +35,7 @@ suite('vscode tasks Tests:', () => {
         type: 'shell'
     };
 
-    const tasksFile = intTestUtils.vscodeTasksFile;
+    const tasksFile = `${testUtils.defaultGeneratorName}/${intTestUtils.vscodeTasksFile}`
 
     suiteSetup(() => {
         prompts = testUtils.defaultPromptAnswersCopy();
