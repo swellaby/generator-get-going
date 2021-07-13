@@ -5,7 +5,7 @@
     "npm-debug.log": true,
     ".coverage": true,
     ".testresults": true,
-    "node_modules": false,
+    "node_modules": true,
     ".nyc_output": true,
     "test/functional/.testcontext": true,
     "**/*.tgz": true,
