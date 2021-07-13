@@ -3,6 +3,7 @@
 import fs = require('fs');
 import path = require('path');
 import YeomanGenerator = require('yeoman-generator');
+import { Editor } from 'mem-fs-editor';
 import yosay = require('yosay');
 
 import IProjectConfig = require('../generators/app/interfaces/project-config');
@@ -33,7 +34,8 @@ const getExpectedErrorMessage = (errDetails: string): string => {
     return expectedErrorMessageBase + ` Error details: '${errDetails}'`;
 };
 
-const fsStats: YeomanGenerator.MemFsEditor = {
+const fsStats: Editor = <Editor> {
+    append: null,
     commit: null,
     copy: null,
     copyTpl: () => null,
