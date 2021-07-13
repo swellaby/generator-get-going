@@ -39,6 +39,10 @@ export const owner = 'swellaby';
 export const name = 'captain-githook';
 export const moduleName = `github.com/${owner}/${name}`;
 
+export const commonFilePaths = commonFiles.map(f =>
+    `${name}/${f}`
+);
+
 export const defaultOptions = {};
 defaultOptions[descriptionInput.optionName] = description;
 defaultOptions[linterInput.optionName] = Linter.golint;

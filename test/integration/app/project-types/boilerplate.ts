@@ -12,9 +12,7 @@ import testUtils = require('../../../test-utils');
 suite('boilerplate project Tests:', () => {
     const prompts = testUtils.defaultPromptAnswersCopy();
     const boilerplateConfig = intTestUtils.boilerplateProjectContent;
-    const commonFiles = intTestUtils.commonFiles.map(f =>
-        `${testUtils.defaultGeneratorName}/${f}`
-    );
+    const commonFiles = intTestUtils.commonFilePaths;
 
     suiteSetup(() => {
         prompts[projectTypeInput.prompt.name] = ProjectType.boilerplate;
