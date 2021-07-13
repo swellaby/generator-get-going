@@ -16,7 +16,6 @@ suite('gitignore Tests:', () => {
 
     suiteSetup(async () => {
         runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
-
     })
 
     setup(() => {

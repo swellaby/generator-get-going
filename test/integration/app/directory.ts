@@ -1,6 +1,7 @@
 'use strict';
 
 import chai = require('chai');
+import { readdir } from 'fs/promises';
 import helpers = require('yeoman-test');
 import path = require('path');
 import Sinon = require('sinon');
@@ -27,18 +28,18 @@ suite('directory Tests:', () => {
     });
 
     test('Should scaffold into a new directory if the specified app name differs from the current directory', async () => {
-        const dir = await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
-        const cwd = intTestUtils.getYeomanTmpCwd();
-        assert.deepEqual(path.basename(cwd), baseAppName);
-        assert.deepEqual(path.resolve(cwd), path.join(dir, baseAppName));
+        const runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
+        const files = await readdir(runResult.cwd, { withFileTypes: true });
+        assert.deepEqual(files.length, 1);
+        assert.deepEqual(files[0].name, baseAppName);
+        assert.isTrue(files[0].isDirectory());
     });
 
     test('Should scaffold into the current directory when the specified app name matches the current directory name', async () => {
         intTestUtils.createYoDestinationPathStub().callsFake(() => baseAppNameDir);
-        const dir = await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
-        const cwd = intTestUtils.getYeomanTmpCwd();
-        assert.deepEqual(path.basename(cwd), path.basename(dir));
-        assert.deepEqual(path.resolve(cwd), path.resolve(dir));
-        yeomanAssert.noFile(path.join(process.cwd(), baseAppName));
+        const runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
+        const files = await readdir(runResult.cwd, { withFileTypes: true });
+        assert.isTrue(files.length > 1);
+        assert.isFalse(files.some(f => f.name === baseAppNameDir && f.isDirectory()))
     });
 });
