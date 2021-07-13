@@ -39,7 +39,7 @@ suite('name Tests:', () => {
     test('Should use provided name when valid prompt answer', async () => {
         const expName = 'awesomeness';
         prompts[promptName] = expName;
-        const file = `${expName}/${intTestUtils.readmeFileName}`
+        const file = `${expName}/${intTestUtils.readmeFileName}`;
         await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
         yeomanAssert.fileContent(file, `# ${expName}`);
     });
@@ -58,7 +58,7 @@ suite('name Tests:', () => {
         const expName = 'go-getter';
         const options = intTestUtils.defaultOptionsCopy();
         options[optionName] = expName;
-        const file = `${expName}/${intTestUtils.readmeFileName}`
+        const file = `${expName}/${intTestUtils.readmeFileName}`;
         await helpers.run(intTestUtils.generatorRoot)
             .withOptions(options)
             .withPrompts(prompts)

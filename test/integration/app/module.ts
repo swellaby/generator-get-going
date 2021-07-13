@@ -58,7 +58,7 @@ suite('module Tests:', () => {
         prompts[namePromptName] = expName;
         prompts[ownerPromptName] = expOwner;
         prompts[modPromptName] = '';
-        const file = `${expName}/${intTestUtils.goModFileName}`
+        const file = `${expName}/${intTestUtils.goModFileName}`;
         await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
         yeomanAssert.fileContent(file, `module github.com/${expOwner}/${expName}`);
     });
