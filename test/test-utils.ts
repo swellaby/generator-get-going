@@ -166,6 +166,7 @@ export = {
     getModuleNameValidationErrorMessage,
     fatalErrorMessage,
     defaultPromptAnswersCopy,
+    defaultGeneratorName: name,
     defaultPromptAnswers,
     initGitRepoMessage,
     gitFileFoundMessage,

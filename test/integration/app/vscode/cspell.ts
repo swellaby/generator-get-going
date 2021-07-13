@@ -8,8 +8,8 @@ import intTestUtils = require('../../int-test-utils');
 import testUtils = require('../../../test-utils');
 
 suite('vscode cSpell Tests:', () => {
-    let prompts;
-    const cSpellFile = intTestUtils.vscodeCSpellFile;
+    const prompts = testUtils.defaultPromptAnswersCopy();
+    const cSpellFile = `${testUtils.defaultGeneratorName}/${intTestUtils.vscodeCSpellFile}`;
     const expWords = [
         'circleci',
         'cmds',
@@ -41,7 +41,6 @@ suite('vscode cSpell Tests:', () => {
     ];
 
     suiteSetup(() => {
-        prompts = testUtils.defaultPromptAnswersCopy();
         return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
     });
 

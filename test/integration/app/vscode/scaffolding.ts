@@ -11,7 +11,7 @@ import vscodeInput = require('../../../../generators/app/inputs/vscode-input');
 suite('vscode scaffolding Tests:', () => {
     let prompts;
     let options;
-    const vscodeFiles = intTestUtils.vsCodeFiles;
+    const vscodeFiles = intTestUtils.vsCodeFiles.map(f => `${testUtils.defaultGeneratorName}/${f}`);
     const promptName = vscodeInput.prompt.name;
     const optionName = vscodeInput.optionName;
 
