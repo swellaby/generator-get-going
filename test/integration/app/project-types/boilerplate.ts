@@ -12,6 +12,9 @@ import testUtils = require('../../../test-utils');
 suite('boilerplate project Tests:', () => {
     const prompts = testUtils.defaultPromptAnswersCopy();
     const boilerplateConfig = intTestUtils.boilerplateProjectContent;
+    const commonFiles = intTestUtils.commonFiles.map(f =>
+        `${testUtils.defaultGeneratorName}/${f}`
+    );
 
     suiteSetup(() => {
         prompts[projectTypeInput.prompt.name] = ProjectType.boilerplate;
@@ -30,18 +33,22 @@ suite('boilerplate project Tests:', () => {
         const options = intTestUtils.defaultOptionsCopy();
         options[projectTypeInput.optionName] = 'abc';
         await helpers.run(intTestUtils.generatorRoot).withOptions(options).withPrompts(prompts).toPromise();
-        yeomanAssert.file(intTestUtils.commonFiles);
+        yeomanAssert.file(commonFiles);
     });
 
     test('Should include common files', () => {
-        yeomanAssert.file(intTestUtils.commonFiles);
+        yeomanAssert.file(commonFiles);
     });
 
     test('Should include boilerplate specific files', () => {
-        yeomanAssert.file(boilerplateConfig.files);
+        const files = boilerplateConfig.files.map(f =>
+            `${testUtils.defaultGeneratorName}/${f}`
+        );
+        yeomanAssert.file(files);
     });
 
     test('Should include correct main.go file content', () => {
-        yeomanAssert.fileContent(intTestUtils.rootMainGoFileName, boilerplateConfig.mainGoFileContentRegex);
+        const file = `${testUtils.defaultGeneratorName}/${intTestUtils.rootMainGoFileName}`;
+        yeomanAssert.fileContent(file, boilerplateConfig.mainGoFileContentRegex);
     });
 });
