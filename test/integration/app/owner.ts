@@ -20,7 +20,7 @@ suite('owner Tests:', () => {
     const optionName = ownerInput.optionName;
     const modPromptName = moduleInput.prompt.name;
     const modOptionName = moduleInput.optionName;
-    const goModFile = intTestUtils.goModFileName;
+    const goModFile = `${testUtils.defaultGeneratorName}/${intTestUtils.goModFileName}`;
     const prompt = <inquirer.InputQuestion<Record<string, unknown>>>ownerInput.prompt;
 
     const buildGoModuleName = (owner: string) => {
