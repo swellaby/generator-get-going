@@ -9,7 +9,7 @@ import testUtils = require('../../../test-utils');
 
 suite('dev_setup.go Tests:', () => {
     const prompts = testUtils.defaultPromptAnswersCopy();
-    const devSetupFile = intTestUtils.devSetupGoScriptFileName;
+    const devSetupFile = `${testUtils.defaultGeneratorName}/${intTestUtils.devSetupGoScriptFileName}`;
     const spaceRegex = intTestUtils.spaceRegex;
     let headerRegex = `package main${spaceRegex}`;
     headerRegex += `import \\(${spaceRegex}"fmt"${spaceRegex}"os"${spaceRegex}`;
