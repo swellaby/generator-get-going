@@ -29,6 +29,8 @@ suite('golint Tests:', () => {
         const options = intTestUtils.defaultOptionsCopy();
         options[linterInput.optionName] = 'abc';
         await helpers.run(intTestUtils.generatorRoot).withOptions(options).withPrompts(prompts).toPromise();
-        yeomanAssert.file(intTestUtils.commonFiles);
+        yeomanAssert.file(intTestUtils.commonFiles.map(f =>
+            `${testUtils.defaultGeneratorName}/${f}`
+        ));
     });
 });
