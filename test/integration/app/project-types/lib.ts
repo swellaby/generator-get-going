@@ -26,6 +26,6 @@ suite('lib project Tests:', () => {
     });
 
     test('Should include common files', () => {
-        yeomanAssert.file(intTestUtils.commonFiles);
+        yeomanAssert.file(intTestUtils.commonFilePaths);
     });
 });
