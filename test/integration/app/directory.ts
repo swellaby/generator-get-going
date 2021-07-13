@@ -40,6 +40,6 @@ suite('directory Tests:', () => {
         const runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
         const files = await readdir(runResult.cwd, { withFileTypes: true });
         assert.isTrue(files.length > 1);
-        assert.isFalse(files.some(f => f.name === baseAppNameDir && f.isDirectory()))
+        assert.isFalse(files.some(f => f.name === baseAppNameDir && f.isDirectory()));
     });
 });
