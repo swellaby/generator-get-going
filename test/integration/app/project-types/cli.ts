@@ -26,8 +26,6 @@ suite('cli project Tests:', () => {
     });
 
     test('Should include common files', () => {
-        yeomanAssert.file(intTestUtils.commonFiles.map(f =>
-            `${testUtils.defaultGeneratorName}/${f}`
-        ));
+        yeomanAssert.file(intTestUtils.commonFilePaths);
     });
 });
