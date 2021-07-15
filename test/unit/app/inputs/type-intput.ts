@@ -56,7 +56,7 @@ suite('TypeInput Tests:', () => {
         });
 
         suite('choices Tests:', () => {
-            const choices: inquirer.DistinctChoice<inquirer.Answers>[] = <inquirer.DistinctChoice<inquirer.Answers>[]>prompt.choices;
+            const choices: inquirer.ListChoiceOptions<inquirer.Answers>[] = <inquirer.ListChoiceOptions<inquirer.Answers>[]>prompt.choices;
 
             test('Should have correct number of choices', () => {
                 assert.deepEqual(choices.length, 4);

@@ -53,7 +53,7 @@ suite('LinterInput Tests:', () => {
         });
 
         suite('choices Tests:', () => {
-            const choices: inquirer.DistinctChoice<inquirer.Answers>[] = <inquirer.DistinctChoice<inquirer.Answers>[]>prompt.choices;
+            const choices: inquirer.ListChoiceOptions<inquirer.Answers>[] = <inquirer.ListChoiceOptions<inquirer.Answers>[]>prompt.choices;
 
             test('Should have correct number of choices', () => {
                 assert.deepEqual(choices.length, 1);
@@ -61,6 +61,7 @@ suite('LinterInput Tests:', () => {
 
             test('Should have correct golint choice', () => {
                 const choice = choices[0];
+                let x = prompt.choices;
                 assert.deepEqual(choice.name, 'Golint - The default Go linter');
                 assert.deepEqual(choice.value, Linter.golint);
             });
