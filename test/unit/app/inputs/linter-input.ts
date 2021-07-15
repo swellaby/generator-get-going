@@ -61,7 +61,6 @@ suite('LinterInput Tests:', () => {
 
             test('Should have correct golint choice', () => {
                 const choice = choices[0];
-                let x = prompt.choices;
                 assert.deepEqual(choice.name, 'Golint - The default Go linter');
                 assert.deepEqual(choice.value, Linter.golint);
             });
