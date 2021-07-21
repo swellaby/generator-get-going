@@ -2,7 +2,6 @@
 
 import helpers = require('yeoman-test');
 import Sinon = require('sinon');
-import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../../int-test-utils');
 import testUtils = require('../../../test-utils');
@@ -36,8 +35,10 @@ suite('dev_setup.go Tests:', () => {
     mainFuncRegex += `fmt\\.Println\\("Running \`task setup\` to configure workspace\\.\\.\\."\\)${spaceRegex}`;
     mainFuncRegex += `runSetupTarget\\(\\)${spaceRegex}}${spaceRegex}`;
 
-    suiteSetup(() => {
-        return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+    let runResult: helpers.RunResult;
+
+    suiteSetup(async () => {
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
     });
 
     setup(() => {
@@ -49,11 +50,11 @@ suite('dev_setup.go Tests:', () => {
     });
 
     test('Should include dev_setup.go file', () => {
-        yeomanAssert.file(devSetupFile);
+        runResult.assertFile(devSetupFile);
     });
 
     test('Should include correct file contents', () => {
         const regex = headerRegex + installTaskRunnerFuncRegex + runSetupFuncRegex + mainFuncRegex;
-        yeomanAssert.fileContent(devSetupFile, new RegExp(regex));
+        runResult.assertFileContent(devSetupFile, new RegExp(regex));
     });
 });
