@@ -46,6 +46,7 @@ suite('dev_setup.go Tests:', () => {
      });
 
     teardown(() => {
+        runResult.restore();
         Sinon.restore();
     });
 
