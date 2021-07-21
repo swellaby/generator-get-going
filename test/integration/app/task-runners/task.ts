@@ -20,10 +20,12 @@ suite('task Tests:', () => {
     const spaceIgnoreErrorRegex = spaceRegex + ignoreErrorRegex;
     const cmdsSpaceRegex = cmdsRegex + spaceRegex;
 
-    suiteSetup(() => {
+    let runResult: helpers.RunResult;
+
+    suiteSetup(async () => {
         prompts = testUtils.defaultPromptAnswersCopy;
         prompts.taskRunner = TaskRunner.task;
-        return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
     });
 
     setup(() => {
@@ -31,41 +33,42 @@ suite('task Tests:', () => {
     });
 
     teardown(() => {
+        runResult.restore();
         Sinon.restore();
     });
 
     test('Should use prompt answer when option is invalid', async () => {
         const options = intTestUtils.defaultOptionsCopy();
         options[taskRunnerInput.optionName] = 'abc';
-        await helpers.run(intTestUtils.generatorRoot).withOptions(options).withPrompts(prompts).toPromise();
-        yeomanAssert.file(expTaskfile);
+        runResult = await helpers.run(intTestUtils.generatorRoot).withOptions(options).withPrompts(prompts).toPromise();
+        runResult.assertFile(expTaskfile);
     });
 
     test('Should create Taskfile', () => {
-        yeomanAssert.file(expTaskfile);
+        runResult.assertFile(expTaskfile);
     });
 
     test('Should configure variables correctly', () => {
-        yeomanAssert.fileContent(expTaskfile, 'COVERAGE_ROOT_DIR: .coverage');
-        yeomanAssert.fileContent(expTaskfile, 'COVERAGE_OUT_FILENAME: coverage.out');
-        yeomanAssert.fileContent(expTaskfile, 'TESTRESULTS_ROOT_DIR: .testresults');
-        yeomanAssert.fileContent(expTaskfile, 'RESULTS_JSON_FILENAME: results.json');
+        runResult.assertFileContent(expTaskfile, 'COVERAGE_ROOT_DIR: .coverage');
+        runResult.assertFileContent(expTaskfile, 'COVERAGE_OUT_FILENAME: coverage.out');
+        runResult.assertFileContent(expTaskfile, 'TESTRESULTS_ROOT_DIR: .testresults');
+        runResult.assertFileContent(expTaskfile, 'RESULTS_JSON_FILENAME: results.json');
     });
 
     test('Should configure default task correctly', () => {
-        yeomanAssert.fileContent(expTaskfile, new RegExp(`(tasks:)${spaceRegex}(default:)${spaceRegex}(deps: \\[test\\])${spaceSilentRegex}`));
+        runResult.assertFileContent(expTaskfile, new RegExp(`(tasks:)${spaceRegex}(default:)${spaceRegex}(deps: \\[test\\])${spaceSilentRegex}`));
     });
 
     test('Should configure setup task correctly', () => {
         let regex = `(setup:)${spaceRegex}(desc: Sets up the workspace)${spaceRegex}`;
         regex += `(deps: \\[install, create-report-dirs\\])`;
-        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+        runResult.assertFileContent(expTaskfile, new RegExp(regex));
     });
 
     test('Should configure install task correctly', () => {
         let regex = `(install:)${spaceRegex}(desc: Installs dependencies)${spaceRegex}`;
         regex += `(deps: \\[install-deps, install-dev-deps\\])${spaceSilentRegex}`;
-        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+        runResult.assertFileContent(expTaskfile, new RegExp(regex));
     });
 
     suite('linter dev dep Tests:', () => {
@@ -81,14 +84,14 @@ suite('task Tests:', () => {
 
         test('Should configure install-dev-deps task correctly with golint', () => {
             const depRegex = `${regex}(- go get golang.org/x/lint/golint)${spaceRegex}${regexSuffix}`;
-            yeomanAssert.fileContent(expTaskfile, new RegExp(depRegex));
+            runResult.assertFileContent(expTaskfile, new RegExp(depRegex));
         });
 
         test('Should configure lint task correctly', () => {
             const cmd = `golint ./...`;
             let regex = `(lint:)${spaceRegex}(desc: Runs the linter and prints results to STDOUT)${spaceRegex}`;
             regex += `${cmdsSpaceRegex}(- ${cmd})${spaceRegex}`;
-            yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+            runResult.assertFileContent(expTaskfile, new RegExp(regex));
         });
     });
 
@@ -97,7 +100,7 @@ suite('task Tests:', () => {
         cmd += `{{fromSlash .UNIT_TEST_COVERAGE_DIR}}{{if eq OS "windows"}} 2>nul"{{end}}'`;
         let regex = `(create-report-dirs:)${spaceRegex}(desc: Creates the directories where generated reports are written)${spaceRegex}`;
         regex += `${cmdsSpaceRegex}(- ${cmd})${spaceSilentRegex}${spaceIgnoreErrorRegex}`;
-        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+        runResult.assertFileContent(expTaskfile, new RegExp(regex));
     });
 
     test('Should configure create-report-dirs task correctly', () => {
@@ -105,7 +108,7 @@ suite('task Tests:', () => {
         cmd += `{{fromSlash .UNIT_TEST_COVERAGE_DIR}}{{if eq OS "windows"}} 2>nul"{{end}}'`;
         let regex = `(create-report-dirs:)${spaceRegex}(desc: Creates the directories where generated reports are written)${spaceRegex}`;
         regex += `${cmdsSpaceRegex}(- ${cmd})${spaceSilentRegex}${spaceIgnoreErrorRegex}`;
-        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+        runResult.assertFileContent(expTaskfile, new RegExp(regex));
     });
 
     test('Should configure clean task correctly', () => {
@@ -113,7 +116,7 @@ suite('task Tests:', () => {
         cmd += `{{.COVERAGE_ROOT_DIR}}{{if eq OS "windows"}} 2>nul"{{end}}'`;
         let regex = `(clean:)${spaceRegex}(desc: Cleans the workspace)${spaceRegex}`;
         regex += `${cmdsSpaceRegex}(- ${cmd})${spaceSilentRegex}${spaceIgnoreErrorRegex}`;
-        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+        runResult.assertFileContent(expTaskfile, new RegExp(regex));
     });
 
     test('Should configure test task correctly', () => {
@@ -122,7 +125,7 @@ suite('task Tests:', () => {
         let regex = `(test:)${spaceRegex}(desc: Runs unit tests)${spaceRegex}`;
         regex += `(deps: \\[create-report-dirs\\])${spaceRegex}`;
         regex += `${cmdsSpaceRegex}(- ${cmd})${spaceSilentRegex}`;
-        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+        runResult.assertFileContent(expTaskfile, new RegExp(regex));
     });
 
     test('Should configure coverage task correctly', () => {
@@ -131,7 +134,7 @@ suite('task Tests:', () => {
         regex += `${cmdsSpaceRegex}(- gocov convert {{.UNIT_TEST_COVERAGE_OUT_FILEPATH}} > {{.UNIT_TEST_COVERAGE_JSON_FILEPATH}})${spaceRegex}`;
         regex += `(- gocov-xml < {{.UNIT_TEST_COVERAGE_JSON_FILEPATH}} > {{.UNIT_TEST_COVERAGE_COBERTURA_XML_FILEPATH}})${spaceRegex}`;
         regex += `(- gocov-html {{.UNIT_TEST_COVERAGE_JSON_FILEPATH}} > {{.UNIT_TEST_COVERAGE_HTML_FILEPATH}})${spaceSilentRegex}`;
-        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+        runResult.assertFileContent(expTaskfile, new RegExp(regex));
     });
 
     test('Should configure open-coverage task correctly', () => {
@@ -139,34 +142,34 @@ suite('task Tests:', () => {
         let regex = `(open-cov:)${spaceRegex}(desc: Opens the HTML Code Coverage Report)${spaceRegex}`;
         regex += `(deps: \\[coverage\\])${spaceRegex}`;
         regex += `${cmdsSpaceRegex}(- ${cmd})${spaceRegex}`;
-        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+        runResult.assertFileContent(expTaskfile, new RegExp(regex));
     });
 
     test('Should configure vet task correctly', () => {
         const cmd = `go vet ./...`;
         let regex = `(vet:)${spaceRegex}(desc: Runs govet and prints results to STDOUT)${spaceRegex}`;
         regex += `${cmdsSpaceRegex}(- ${cmd})${spaceRegex}`;
-        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+        runResult.assertFileContent(expTaskfile, new RegExp(regex));
     });
 
     test('Should configure ci task correctly', () => {
         let regex = `(ci:)${spaceRegex}(desc: Runs sequence of desired commands for performing validation in a CI build)${spaceRegex}`;
         regex += `(deps: \\[coverage, lint\\])${spaceRegex}`;
-        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+        runResult.assertFileContent(expTaskfile, new RegExp(regex));
     });
 
     test('Should configure print-version task correctly', () => {
         const cmd = `go run ./scripts/version/print/main.go`;
         let regex = `(print-version:)${spaceRegex}(desc: Prints the current version)${spaceRegex}`;
         regex += `${cmdsSpaceRegex}(- ${cmd})${spaceSilentRegex}`;
-        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+        runResult.assertFileContent(expTaskfile, new RegExp(regex));
     });
 
     test('Should configure bump-version task correctly', () => {
         const cmd = `go run ./scripts/version/bump/main.go`;
         let regex = `(bump-version:)${spaceRegex}(desc: Bumps the current patch version)${spaceRegex}`;
         regex += `${cmdsSpaceRegex}(- ${cmd})${spaceSilentRegex}`;
-        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+        runResult.assertFileContent(expTaskfile, new RegExp(regex));
     });
 
     test('Should configure check-gofmt task correctly', () => {
@@ -174,6 +177,6 @@ suite('task Tests:', () => {
         let regex = `(check-gofmt:)${spaceRegex}(desc: Checks that files are Go formatted)${spaceRegex}`;
         regex += `${cmdsSpaceRegex}(- echo "Running gofmt check...")${spaceRegex}`;
         regex += `(- ${cmd})${spaceSilentRegex}`;
-        yeomanAssert.fileContent(expTaskfile, new RegExp(regex));
+        runResult.assertFileContent(expTaskfile, new RegExp(regex));
     });
 });
