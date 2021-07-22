@@ -4,7 +4,6 @@ import chai = require('chai');
 import helpers = require('yeoman-test');
 import inquirer = require('inquirer');
 import Sinon = require('sinon');
-import yeomanAssert = require('yeoman-assert');
 
 import moduleInput = require('../../../generators/app/inputs/module-input');
 import ownerInput = require('../../../generators/app/inputs/owner-input');
@@ -22,13 +21,14 @@ suite('owner Tests:', () => {
     const modOptionName = moduleInput.optionName;
     const goModFile = `${testUtils.defaultGeneratorName}/${intTestUtils.goModFileName}`;
     const prompt = <inquirer.InputQuestion<Record<string, unknown>>>ownerInput.prompt;
+    let runResult: helpers.RunResult;
 
     const buildGoModuleName = (owner: string) => {
         return `github.com/${owner}/${intTestUtils.name}`;
     };
 
-    suiteSetup(() => {
-        return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+    suiteSetup(async () => {
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
     });
 
     setup(() => {
@@ -37,6 +37,7 @@ suite('owner Tests:', () => {
      });
 
     teardown(() => {
+        runResult.restore();
         Sinon.restore();
     });
 
@@ -45,18 +46,18 @@ suite('owner Tests:', () => {
         prompts[promptName] = owner;
         prompts[modPromptName] = '';
         const expModuleName = buildGoModuleName(owner);
-        await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
-        yeomanAssert.fileContent(goModFile, `module ${expModuleName}`);
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
+        runResult.assertFileContent(goModFile, `module ${expModuleName}`);
     });
 
     test('Should use prompt answer for owner name when invalid option is provided', async () => {
         const options = intTestUtils.defaultOptionsCopy();
         options[optionName] = '';
-        await helpers.run(intTestUtils.generatorRoot)
+        runResult = await helpers.create(intTestUtils.generatorRoot)
             .withOptions(options)
             .withPrompts(prompts)
-            .toPromise();
-        yeomanAssert.fileContent(goModFile, `module ${intTestUtils.moduleName}`);
+            .run();
+        runResult.assertFileContent(goModFile, `module ${intTestUtils.moduleName}`);
     });
 
     test('Should use option module name when valid option is provided', async () => {
@@ -66,11 +67,11 @@ suite('owner Tests:', () => {
         options[modOptionName] = '';
         prompts[modPromptName] = '';
         const expModuleName = buildGoModuleName(owner);
-        await helpers.run(intTestUtils.generatorRoot)
+        runResult = await helpers.create(intTestUtils.generatorRoot)
             .withOptions(options)
             .withPrompts(prompts)
-            .toPromise();
-        yeomanAssert.fileContent(goModFile, `module ${expModuleName}`);
+            .run();
+        runResult.assertFileContent(goModFile, `module ${expModuleName}`);
     });
 
     test('Should return true when validate function called with valid value', () => {
