@@ -50,7 +50,7 @@ suite('vscode cSpell Tests:', () => {
      });
 
     teardown(() => {
-        runResult.restore()
+        runResult.restore();
         Sinon.restore();
     });
 
