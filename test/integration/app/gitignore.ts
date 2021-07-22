@@ -2,7 +2,6 @@
 
 import helpers = require('yeoman-test');
 import Sinon = require('sinon');
-import yeomanAssert = require('yeoman-assert');
 
 import nameInput = require('../../../generators/app/inputs/name-input');
 import intTestUtils = require('../int-test-utils');

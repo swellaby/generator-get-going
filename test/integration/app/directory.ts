@@ -5,7 +5,6 @@ import { readdir } from 'fs/promises';
 import helpers = require('yeoman-test');
 import path = require('path');
 import Sinon = require('sinon');
-import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../int-test-utils');
 import testUtils = require('../../test-utils');
