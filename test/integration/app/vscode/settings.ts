@@ -11,10 +11,11 @@ suite('vscode settings Tests:', () => {
     let prompts;
     const defaultAppName = intTestUtils.name;
     const settingsFile = `${testUtils.defaultGeneratorName}/${intTestUtils.vscodeSettingsFile}`;
+    let runResult: helpers.RunResult;
 
-    suiteSetup(() => {
+    suiteSetup(async () => {
         prompts = testUtils.defaultPromptAnswersCopy();
-        return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
     });
 
     setup(() => {
@@ -22,6 +23,7 @@ suite('vscode settings Tests:', () => {
      });
 
     teardown(() => {
+        runResult.restore();
         Sinon.restore();
     });
 
@@ -32,11 +34,11 @@ suite('vscode settings Tests:', () => {
             '.testresults': true
         };
         exclusions[defaultAppName] = true;
-        yeomanAssert.JSONFileContent(settingsFile, { 'files.exclude': exclusions });
+        runResult.assertJsonFileContent(settingsFile, { 'files.exclude': exclusions });
     });
 
     test('Should enable cSpell extension', () => {
-        yeomanAssert.JSONFileContent(settingsFile, { 'cSpell.enabled': true });
+        runResult.assertJsonFileContent(settingsFile, { 'cSpell.enabled': true });
     });
 
     test('Should enable correct cSpell languages', () => {
@@ -51,7 +53,7 @@ suite('vscode settings Tests:', () => {
             'yaml',
             'yml'
         ];
-        yeomanAssert.JSONFileContent(settingsFile, { 'cSpell.enabledLanguageIds': expLanguageIds });
+        runResult.assertJsonFileContent(settingsFile, { 'cSpell.enabledLanguageIds': expLanguageIds });
     });
 
     test('Should enable correct cSpell dictionaries', () => {
@@ -63,11 +65,11 @@ suite('vscode settings Tests:', () => {
             'misc',
             'softwareTerms'
         ];
-        yeomanAssert.JSONFileContent(settingsFile, { 'cSpell.dictionaries': expDictionaries });
+        runResult.assertJsonFileContent(settingsFile, { 'cSpell.dictionaries': expDictionaries });
     });
 
     test('Should include correct Go standard configuration', () => {
-        yeomanAssert.JSONFileContent(settingsFile, {
+        runResult.assertJsonFileContent(settingsFile, {
             'go.autocompleteUnimportedPackages': false,
             'go.vetOnSave': 'workspace',
             'go.testOnSave': false,
@@ -80,7 +82,7 @@ suite('vscode settings Tests:', () => {
     });
 
     test('Should include correct Go coverage configuration', () => {
-        yeomanAssert.JSONFileContent(settingsFile, {
+        runResult.assertJsonFileContent(settingsFile, {
             'go.coverageOptions': 'showBothCoveredAndUncoveredCode',
             'go.coverageDecorator': {
                 'type': 'highlight',

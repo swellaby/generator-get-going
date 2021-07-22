@@ -2,7 +2,6 @@
 
 import helpers = require('yeoman-test');
 import Sinon = require('sinon');
-import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../../int-test-utils');
 import testUtils = require('../../../test-utils');
@@ -27,22 +26,22 @@ suite('vscode scaffolding Tests:', () => {
 
     test('Should add vscode files when prompt is answered in the affirmative', async () => {
         prompts[promptName] = true;
-        await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
-        yeomanAssert.file(vscodeFiles);
+        let runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
+        runResult.assertFile(vscodeFiles);
     });
 
     test('Should not add vscode files when prompt is answered in the negative', async () => {
         prompts[promptName] = false;
-        await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
-        yeomanAssert.noFile(vscodeFiles);
+        let runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
+        runResult.assertNoFile(vscodeFiles);
     });
 
     test('Should add vscode files when option is included', async () => {
         options[optionName] = true;
-        await helpers.run(intTestUtils.generatorRoot)
+        let runResult = await helpers.run(intTestUtils.generatorRoot)
             .withOptions(options)
             .withPrompts(prompts)
             .toPromise();
-        yeomanAssert.file(vscodeFiles);
+        runResult.assertFile(vscodeFiles);
     });
 });

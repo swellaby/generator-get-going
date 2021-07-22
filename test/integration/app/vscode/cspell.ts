@@ -2,7 +2,6 @@
 
 import helpers = require('yeoman-test');
 import Sinon = require('sinon');
-import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../../int-test-utils');
 import testUtils = require('../../../test-utils');
@@ -40,8 +39,10 @@ suite('vscode cSpell Tests:', () => {
         'testresults'
     ];
 
-    suiteSetup(() => {
-        return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+    let runResult: helpers.RunResult;
+
+    suiteSetup(async () => {
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
     });
 
     setup(() => {
@@ -49,11 +50,12 @@ suite('vscode cSpell Tests:', () => {
      });
 
     teardown(() => {
+        runResult.restore()
         Sinon.restore();
     });
 
     test('Should add correct cSpell configuration', () => {
-        yeomanAssert.JSONFileContent(cSpellFile, {
+        runResult.assertJsonFileContent(cSpellFile, {
             'version': '0.1',
             'language': 'en',
             'words': expWords,

@@ -2,7 +2,6 @@
 
 import helpers = require('yeoman-test');
 import Sinon = require('sinon');
-import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../../int-test-utils');
 import testUtils = require('../../../test-utils');
@@ -10,10 +9,11 @@ import testUtils = require('../../../test-utils');
 suite('vscode extensions Tests:', () => {
     let prompts;
     const extensionsFile = `${testUtils.defaultGeneratorName}/${intTestUtils.vscodeExtensionsFile}`;
+    let runResult: helpers.RunResult;
 
-    suiteSetup(() => {
+    suiteSetup(async () => {
         prompts = testUtils.defaultPromptAnswersCopy();
-        return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
     });
 
     setup(() => {
@@ -21,11 +21,12 @@ suite('vscode extensions Tests:', () => {
      });
 
     teardown(() => {
+        runResult.restore();
         Sinon.restore();
     });
 
     test('Should add correct recommended extensions', () => {
-        yeomanAssert.JSONFileContent(extensionsFile, {
+        runResult.assertJsonFileContent(extensionsFile, {
             'recommendations': [
                 'ms-vscode.Go',
                 'GuardRex.status-bar-tasks',
