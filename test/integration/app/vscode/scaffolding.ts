@@ -26,19 +26,19 @@ suite('vscode scaffolding Tests:', () => {
 
     test('Should add vscode files when prompt is answered in the affirmative', async () => {
         prompts[promptName] = true;
-        let runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
+        const runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
         runResult.assertFile(vscodeFiles);
     });
 
     test('Should not add vscode files when prompt is answered in the negative', async () => {
         prompts[promptName] = false;
-        let runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
+        const runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
         runResult.assertNoFile(vscodeFiles);
     });
 
     test('Should add vscode files when option is included', async () => {
         options[optionName] = true;
-        let runResult = await helpers.run(intTestUtils.generatorRoot)
+        const runResult = await helpers.run(intTestUtils.generatorRoot)
             .withOptions(options)
             .withPrompts(prompts)
             .toPromise();

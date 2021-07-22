@@ -22,7 +22,7 @@ suite('lib project Tests:', () => {
      });
 
     teardown(() => {
-        runResult.restore()
+        runResult.restore();
         Sinon.restore();
     });
 
