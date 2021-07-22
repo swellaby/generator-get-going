@@ -2,7 +2,6 @@
 
 import helpers = require('yeoman-test');
 import Sinon = require('sinon');
-import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../../int-test-utils');
 import ProjectType = require('../../../../generators/app/enums/project-type');
@@ -14,9 +13,11 @@ suite('boilerplate project Tests:', () => {
     const boilerplateConfig = intTestUtils.boilerplateProjectContent;
     const commonFiles = intTestUtils.commonFilePaths;
 
-    suiteSetup(() => {
+    let runResult: helpers.RunResult;
+
+    suiteSetup(async() => {
         prompts[projectTypeInput.prompt.name] = ProjectType.boilerplate;
-        return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
     });
 
     setup(() => {
@@ -24,29 +25,30 @@ suite('boilerplate project Tests:', () => {
      });
 
     teardown(() => {
+        runResult.restore();
         Sinon.restore();
     });
 
     test('Should use prompt answer when option is invalid', async () => {
         const options = intTestUtils.defaultOptionsCopy();
         options[projectTypeInput.optionName] = 'abc';
-        await helpers.run(intTestUtils.generatorRoot).withOptions(options).withPrompts(prompts).toPromise();
-        yeomanAssert.file(commonFiles);
+        runResult = await helpers.run(intTestUtils.generatorRoot).withOptions(options).withPrompts(prompts).toPromise();
+        runResult.assertFile(commonFiles);
     });
 
     test('Should include common files', () => {
-        yeomanAssert.file(commonFiles);
+        runResult.assertFile(commonFiles);
     });
 
     test('Should include boilerplate specific files', () => {
         const files = boilerplateConfig.files.map(f =>
             `${testUtils.defaultGeneratorName}/${f}`
         );
-        yeomanAssert.file(files);
+        runResult.assertFile(files);
     });
 
     test('Should include correct main.go file content', () => {
         const file = `${testUtils.defaultGeneratorName}/${intTestUtils.rootMainGoFileName}`;
-        yeomanAssert.fileContent(file, boilerplateConfig.mainGoFileContentRegex);
+        runResult.assertFileContent(file, boilerplateConfig.mainGoFileContentRegex);
     });
 });

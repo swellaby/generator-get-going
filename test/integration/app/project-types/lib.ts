@@ -2,7 +2,6 @@
 
 import helpers = require('yeoman-test');
 import Sinon = require('sinon');
-import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../../int-test-utils');
 import ProjectType = require('../../../../generators/app/enums/project-type');
@@ -11,10 +10,11 @@ import testUtils = require('../../../test-utils');
 
 suite('lib project Tests:', () => {
     const prompts = testUtils.defaultPromptAnswersCopy();
+    let runResult: helpers.RunResult;
 
-    suiteSetup(() => {
+    suiteSetup(async () => {
         prompts[projectTypeInput.prompt.name] = ProjectType.lib;
-        return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
     });
 
     setup(() => {
@@ -22,10 +22,11 @@ suite('lib project Tests:', () => {
      });
 
     teardown(() => {
+        runResult.restore()
         Sinon.restore();
     });
 
     test('Should include common files', () => {
-        yeomanAssert.file(intTestUtils.commonFilePaths);
+        runResult.assertFile(intTestUtils.commonFilePaths);
     });
 });
