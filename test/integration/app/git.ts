@@ -28,7 +28,7 @@ suite('git Tests:', () => {
     });
 
     test('Should init a new git repository when the destination directory does not have a .git directory', async () => {
-        await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+        await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
         assert.isTrue(gitInitCommandStub.called);
     });
 
@@ -36,9 +36,9 @@ suite('git Tests:', () => {
         // this stub is to ensure that the tmp directory (see below) creates the .git directory in
         // the same directory as the destinationRoot of the generator.
         yoDestinationPathStub.callsFake(() => intTestUtils.getCwdAppNameSubDirectoryPath(baseAppName));
-        await helpers.run(intTestUtils.generatorRoot).inTmpDir((dir) => {
+        await helpers.create(intTestUtils.generatorRoot).inTmpDir((dir) => {
             fs.writeFileSync(path.join(dir, '.git'), '');
-        }).withPrompts(prompts).toPromise();
+        }).withPrompts(prompts).run();
         assert.isTrue(gitInitCommandStub.called);
     });
 
@@ -46,15 +46,15 @@ suite('git Tests:', () => {
         // this stub is to ensure that the tmp directory (see below) creates the .git directory in
         // the same directory as the destinationRoot of the generator.
         yoDestinationPathStub.callsFake(() => intTestUtils.getCwdAppNameSubDirectoryPath(baseAppName));
-        await helpers.run(intTestUtils.generatorRoot).inTmpDir((dir) => {
+        await helpers.create(intTestUtils.generatorRoot).inTmpDir((dir) => {
             fs.mkdirSync(path.join(path.resolve(dir), '.git'));
-        }).withPrompts(prompts).toPromise();
+        }).withPrompts(prompts).run();
         assert.isFalse(gitInitCommandStub.called);
     });
 
     test('Should log an error message when init errors', async () => {
         gitInitCommandStub.throws(new Error());
-        await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+        await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
         assert.isTrue(gitInitCommandStub.called);
     });
 });

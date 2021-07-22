@@ -24,7 +24,7 @@ suite('app Tests:', () => {
 
     test('Should handle error with no inner message', async () => {
         Sinon.stub(projectInputUtils, 'getDesiredProjectConfig').throws(new Error());
-        await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+        await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
     });
 
     test('Should have error path for empty project input list on option add', async () => {
