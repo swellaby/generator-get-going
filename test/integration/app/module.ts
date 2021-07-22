@@ -4,7 +4,6 @@ import chai = require('chai');
 import helpers = require('yeoman-test');
 import inquirer = require('inquirer');
 import Sinon = require('sinon');
-import yeomanAssert = require('yeoman-assert');
 
 import moduleInput = require('../../../generators/app/inputs/module-input');
 import nameInput = require('../../../generators/app/inputs/name-input');
@@ -23,9 +22,10 @@ suite('module Tests:', () => {
     const ownerPromptName = ownerInput.prompt.name;
     const expDefaultModuleName = intTestUtils.moduleName;
     const prompt = <inquirer.InputQuestion<Record<string, unknown>>>moduleInput.prompt;
+    let runResult: helpers.RunResult;
 
-    suiteSetup(() => {
-        return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+    suiteSetup(async () => {
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
     });
 
     setup(() => {
@@ -34,22 +34,23 @@ suite('module Tests:', () => {
      });
 
     teardown(() => {
+        runResult.restore();
         Sinon.restore();
     });
 
     test('Should include go.mod file', () => {
-        yeomanAssert.file(expGoModFile);
+        runResult.assertFile(expGoModFile);
     });
 
     test('Should include correct module name', () => {
-        yeomanAssert.fileContent(expGoModFile, `module ${expDefaultModuleName}`);
+        runResult.assertFileContent(expGoModFile, `module ${expDefaultModuleName}`);
     });
 
     test('Should use provided module name when valid prompt answer', async () => {
         const expModuleName = 'github.com/caleb/abc';
         prompts[modPromptName] = expModuleName;
-        await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
-        yeomanAssert.fileContent(expGoModFile, `module ${expModuleName}`);
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
+        runResult.assertFileContent(expGoModFile, `module ${expModuleName}`);
     });
 
     test('Should use provided module name based on name and owner answers', async () => {
@@ -59,29 +60,29 @@ suite('module Tests:', () => {
         prompts[ownerPromptName] = expOwner;
         prompts[modPromptName] = '';
         const file = `${expName}/${intTestUtils.goModFileName}`;
-        await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
-        yeomanAssert.fileContent(file, `module github.com/${expOwner}/${expName}`);
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
+        runResult.assertFileContent(file, `module github.com/${expOwner}/${expName}`);
     });
 
     test('Should use prompt answer for module name when invalid option is provided', async () => {
         const options = intTestUtils.defaultOptionsCopy();
         options[modOptionName] = '';
-        await helpers.run(intTestUtils.generatorRoot)
+        runResult = await helpers.create(intTestUtils.generatorRoot)
             .withOptions(options)
             .withPrompts(prompts)
-            .toPromise();
-        yeomanAssert.fileContent(expGoModFile, `module ${expDefaultModuleName}`);
+            .run();
+        runResult.assertFileContent(expGoModFile, `module ${expDefaultModuleName}`);
     });
 
     test('Should use option module name when valid option is provided', async () => {
         const expModuleName = 'github.com/swellaby/foo';
         const options = intTestUtils.defaultOptionsCopy();
         options[modOptionName] = expModuleName;
-        await helpers.run(intTestUtils.generatorRoot)
+        runResult = await helpers.create(intTestUtils.generatorRoot)
             .withOptions(options)
             .withPrompts(prompts)
-            .toPromise();
-        yeomanAssert.fileContent(expGoModFile, `module ${expModuleName}`);
+            .run();
+        runResult.assertFileContent(expGoModFile, `module ${expModuleName}`);
     });
 
     test('Should return true when validate function called with valid value', () => {
