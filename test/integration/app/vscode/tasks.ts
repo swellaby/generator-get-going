@@ -36,10 +36,11 @@ suite('vscode tasks Tests:', () => {
     };
 
     const tasksFile = `${testUtils.defaultGeneratorName}/${intTestUtils.vscodeTasksFile}`;
+    let runResult: helpers.RunResult;
 
-    suiteSetup(() => {
+    suiteSetup(async () => {
         prompts = testUtils.defaultPromptAnswersCopy();
-        return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
     });
 
     setup(() => {
@@ -47,15 +48,16 @@ suite('vscode tasks Tests:', () => {
      });
 
     teardown(() => {
+        runResult.restore();
         Sinon.restore();
     });
 
     test('Should add correct task file version', () => {
-        yeomanAssert.JSONFileContent(tasksFile, { version: '2.0.0' });
+        runResult.assertJsonFileContent(tasksFile, { version: '2.0.0' });
     });
 
     test('Should add correct tasks', () => {
-        yeomanAssert.JSONFileContent(tasksFile, {
+        runResult.assertJsonFileContent(tasksFile, {
             tasks: [
                 expLintTask,
                 expTestTask,

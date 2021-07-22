@@ -2,7 +2,6 @@
 
 import helpers = require('yeoman-test');
 import Sinon = require('sinon');
-import yeomanAssert = require('yeoman-assert');
 
 import intTestUtils = require('../../int-test-utils');
 import testUtils = require('../../../test-utils');
@@ -10,10 +9,11 @@ import testUtils = require('../../../test-utils');
 suite('vscode launch Tests:', () => {
     let prompts;
     const launchFile = `${testUtils.defaultGeneratorName}/${intTestUtils.vscodeLaunchFile}`;
+    let runResult: helpers.RunResult;
 
-    suiteSetup(() => {
+    suiteSetup(async () => {
         prompts = testUtils.defaultPromptAnswersCopy();
-        return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
     });
 
     setup(() => {
@@ -21,11 +21,12 @@ suite('vscode launch Tests:', () => {
      });
 
     teardown(() => {
+        runResult.restore();
         Sinon.restore();
     });
 
     test('Should add correct launch file', () => {
-        yeomanAssert.JSONFileContent(launchFile, {
+        runResult.assertJsonFileContent(launchFile, {
             version: '0.2.0',
             configurations: []
         });
