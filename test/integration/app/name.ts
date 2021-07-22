@@ -4,7 +4,6 @@ import chai = require('chai');
 import helpers = require('yeoman-test');
 import inquirer = require('inquirer');
 import Sinon = require('sinon');
-import yeomanAssert = require('yeoman-assert');
 
 import nameInput = require('../../../generators/app/inputs/name-input');
 import intTestUtils = require('../int-test-utils');
@@ -18,9 +17,10 @@ suite('name Tests:', () => {
     const optionName = nameInput.optionName;
     const readmeFile = `${testUtils.defaultGeneratorName}/${intTestUtils.readmeFileName}`;
     const prompt = <inquirer.InputQuestion<Record<string, unknown>>>nameInput.prompt;
+    let runResult: helpers.RunResult;
 
-    suiteSetup(() => {
-        return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+    suiteSetup(async () => {
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
     });
 
     setup(() => {
@@ -29,29 +29,30 @@ suite('name Tests:', () => {
      });
 
     teardown(() => {
+        runResult.restore();
         Sinon.restore();
     });
 
     test('Should include correct name in readme header', () => {
-        yeomanAssert.fileContent(readmeFile, `# ${intTestUtils.name}`);
+        runResult.assertFileContent(readmeFile, `# ${intTestUtils.name}`);
     });
 
     test('Should use provided name when valid prompt answer', async () => {
         const expName = 'awesomeness';
         prompts[promptName] = expName;
         const file = `${expName}/${intTestUtils.readmeFileName}`;
-        await helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
-        yeomanAssert.fileContent(file, `# ${expName}`);
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
+        runResult.assertFileContent(file, `# ${expName}`);
     });
 
     test('Should use prompt answer for module name when invalid option is provided', async () => {
         const options = intTestUtils.defaultOptionsCopy();
         options[optionName] = '';
-        await helpers.run(intTestUtils.generatorRoot)
+        runResult = await helpers.create(intTestUtils.generatorRoot)
             .withOptions(options)
             .withPrompts(prompts)
-            .toPromise();
-        yeomanAssert.fileContent(readmeFile, `# ${intTestUtils.name}`);
+            .run();
+        runResult.assertFileContent(readmeFile, `# ${intTestUtils.name}`);
     });
 
     test('Should use option module name when valid option is provided', async () => {
@@ -59,11 +60,11 @@ suite('name Tests:', () => {
         const options = intTestUtils.defaultOptionsCopy();
         options[optionName] = expName;
         const file = `${expName}/${intTestUtils.readmeFileName}`;
-        await helpers.run(intTestUtils.generatorRoot)
+        runResult = await helpers.create(intTestUtils.generatorRoot)
             .withOptions(options)
             .withPrompts(prompts)
-            .toPromise();
-        yeomanAssert.fileContent(file, `# ${expName}`);
+            .run();
+        runResult.assertFileContent(file, `# ${expName}`);
     });
 
     test('Should return true when validate function called with valid value', () => {

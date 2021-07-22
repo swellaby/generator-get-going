@@ -2,7 +2,6 @@
 
 import helpers = require('yeoman-test');
 import Sinon = require('sinon');
-import yeomanAssert = require('yeoman-assert');
 
 import testUtils = require('../../test-utils');
 import intTestUtils = require('../int-test-utils');
@@ -11,9 +10,10 @@ suite('readme Tests:', () => {
     const prompts = testUtils.defaultPromptAnswersCopy();
     const readmeFile = `${testUtils.defaultGeneratorName}/${intTestUtils.readmeFileName}`;
     const spaceRegex = intTestUtils.spaceRegex;
+    let runResult: helpers.RunResult;
 
-    suiteSetup(() => {
-        return helpers.run(intTestUtils.generatorRoot).withPrompts(prompts).toPromise();
+    suiteSetup(async () => {
+        runResult = await helpers.create(intTestUtils.generatorRoot).withPrompts(prompts).run();
     });
 
     setup(() => {
@@ -21,15 +21,16 @@ suite('readme Tests:', () => {
      });
 
     teardown(() => {
+        runResult.restore();
         Sinon.restore();
     });
 
     test('Should include correct name in readme header', () => {
-        yeomanAssert.fileContent(readmeFile, `# ${intTestUtils.name}`);
+        runResult.assertFileContent(readmeFile, `# ${intTestUtils.name}`);
     });
 
     test('Should include description in readme', () => {
-        yeomanAssert.fileContent(readmeFile, `${intTestUtils.description}`);
+        runResult.assertFileContent(readmeFile, `${intTestUtils.description}`);
     });
 
     test('Should include parent generator anchor', () => {
@@ -37,6 +38,6 @@ suite('readme Tests:', () => {
         const readmeGeneratorUrlVariableText = `\\[parent-generator-url\\]: https://github.com/swellaby/generator-get-going`;
         let regex = `### Generator${spaceRegex}`;
         regex += `${readmeGeneratorOriginText}${spaceRegex}${readmeGeneratorUrlVariableText}`;
-        yeomanAssert.fileContent(readmeFile, new RegExp(regex));
+        runResult.assertFileContent(readmeFile, new RegExp(regex));
     });
 });
