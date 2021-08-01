@@ -1,4 +1,4 @@
-name: linux
+name: macos-ci
 on:
   push:
     branches:
@@ -8,11 +8,11 @@ on:
 jobs:
   build:
     runs-on: macos-latest
-    name: ci-macos-${{ matrix.node-version }}
+    name: ${{ matrix.node-version }}
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x, 17.x, 18.x]
+        node-version: [12, 14, 16, 17, 18]
 
     steps:
       - name: checkout
