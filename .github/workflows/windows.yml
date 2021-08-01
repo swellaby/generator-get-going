@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    name: windows-node-${{ matrix.node-version }}
+    name: windows-node-v${{ matrix.node-version }}
 
     strategy:
       fail-fast: false
