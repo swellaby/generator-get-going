@@ -8,11 +8,12 @@ on:
 jobs:
   build:
     runs-on: macos-latest
-    name: ${{ matrix.node-version }}
+    name: node-${{ matrix.node-version }}
+    fail-fast: false
 
     strategy:
       matrix:
-        node-version: [12, 14, 16, 17, 18]
+        node-version: [12, 14, 15, 16]
 
     steps:
       - name: checkout
