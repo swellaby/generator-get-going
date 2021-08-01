@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: macos-latest
-    name: macos-node-${{ matrix.node-version }}
+    name: macos-node-v${{ matrix.node-version }}
 
     strategy:
       fail-fast: false
