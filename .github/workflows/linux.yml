@@ -29,3 +29,8 @@ jobs:
 
       - name: run build script
         run: npm run build
+
+      - name: publish code coverage results
+        uses: codecov/codecov-action@v2
+        with:
+          files: .coverage/unit/cobertura-coverage.xml
