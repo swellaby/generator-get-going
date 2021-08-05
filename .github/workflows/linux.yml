@@ -34,3 +34,4 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           files: .coverage/unit/cobertura-coverage.xml
+        if: matrix.node-version == 16
