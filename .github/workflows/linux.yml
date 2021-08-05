@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: linux-latest
+    runs-on: ubuntu-latest
     name: linux-node-v${{ matrix.node-version }}
 
     strategy:
