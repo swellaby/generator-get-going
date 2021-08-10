@@ -12,9 +12,9 @@ Initially created by this [swell generator][parent-generator-url]!
 
 
 [parent-generator-url]: https://github.com/swellaby/generator-swell
-[linux-ci-badge]: https://img.shields.io/github/workflow/status/swellaby/generator-get-going/linux-ci/master?label=linux%20build&style=flat-square
-[linux-ci-url]: https://github.com/swellaby/generator-get-going/actions/workflows/linux.yml?query=branch%3Amaster
-[mac-ci-badge]: https://img.shields.io/github/workflow/status/swellaby/generator-get-going/macos-ci/master?label=macos%20build&style=flat-square
-[mac-ci-url]: https://github.com/swellaby/generator-get-going/actions/workflows/mac.yml?query=branch%3Amaster
-[windows-ci-badge]: https://img.shields.io/github/workflow/status/swellaby/generator-get-going/windows-ci/master?label=windows%20build&style=flat-square
-[windows-ci-url]: https://github.com/swellaby/generator-get-going/actions/workflows/windows-ci.yml?query=branch%3Amaster
+[linux-ci-badge]: https://img.shields.io/github/workflow/status/swellaby/generator-get-going/linux-ci/main?label=linux%20build&style=flat-square
+[linux-ci-url]: https://github.com/swellaby/generator-get-going/actions/workflows/linux.yml?query=branch%3Amain
+[mac-ci-badge]: https://img.shields.io/github/workflow/status/swellaby/generator-get-going/macos-ci/main?label=macos%20build&style=flat-square
+[mac-ci-url]: https://github.com/swellaby/generator-get-going/actions/workflows/mac.yml?query=branch%3Amain
+[windows-ci-badge]: https://img.shields.io/github/workflow/status/swellaby/generator-get-going/windows-ci/main?label=windows%20build&style=flat-square
+[windows-ci-url]: https://github.com/swellaby/generator-get-going/actions/workflows/windows-ci.yml?query=branch%3Amain
