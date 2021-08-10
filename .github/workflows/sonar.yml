@@ -1,6 +1,14 @@
 name: sonar
 on:
   pull_request:
+    paths:
+      - .github/workflows/sonar.yml
+      - generators/**/*
+      - test/**/*
+      - .eslint*
+      - package*.json
+      - ts*.json
+      - sonar-project.properties
 
 jobs:
   build:
