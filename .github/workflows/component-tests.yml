@@ -1,0 +1,42 @@
+name: component-tests
+on:
+  pull_request:
+    paths:
+      - .github/workflows/component-tests.yml
+      - generators/**/*
+      - test/**/*
+      - package*.json
+
+jobs:
+  build:
+    runs-on: ${ matrix.os }-latest
+    name: ${{ matrix.os }}-component-tests
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["linux", "macos", "windows"]
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: use Node.js v1
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: install dependencies
+        run: npm install
+
+      - name: run component tests
+        run: npm run coverage:component
+
+      # TODO: could see if there's any attribute we could use
+      # with Codecov and TestSpace to publish these results
+      # separately from the unit tests
+      # - name: publish code coverage results
+      #   uses: codecov/codecov-action@v2
+      #   with:
+      #     files: .coverage/component/cobertura-coverage.xml
+      #   if: matrix.node-version == 16
