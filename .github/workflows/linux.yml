@@ -3,7 +3,21 @@ on:
   push:
     branches:
       - main
+    paths:
+      - .github/workflows/linux.yml
+      - generators/**/*
+      - test/**/*
+      - .eslint*
+      - package*.json
+      - ts*.json
   pull_request:
+    paths:
+      - .github/workflows/linux.yml
+      - generators/**/*
+      - test/**/*
+      - .eslint*
+      - package*.json
+      - ts*.json
 
 jobs:
   build:
