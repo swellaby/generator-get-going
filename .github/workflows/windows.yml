@@ -3,25 +3,32 @@ on:
   push:
     branches:
       - main
-    paths:
-      - .github/workflows/windows.yml
-      - generators/**/*
-      - test/**/*
-      - .eslint*
-      - package*.json
-      - ts*.json
   pull_request:
-    paths:
-      - .github/workflows/windows.yml
-      - generators/**/*
-      - test/**/*
-      - .eslint*
-      - package*.json
-      - ts*.json
+
 
 jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.impactful }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            impactful:
+              - .github/workflows/windows.yml
+              - generators/**/*
+              - test/**/*
+              - .eslint*
+              - package*.json
+              - ts*.json
+
   build:
     runs-on: windows-latest
+    needs: detect-changes
     name: windows-node-v${{ matrix.node-version }}
 
     strategy:
@@ -32,6 +39,10 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+
+      - name: decide whether to skip this job
+        if: ${{ needs.changes.outputs.impactful != 'true' }}
+        run: echo "SKIP_JOB=1" >> "${GITHUB_ENV}"
 
       - name: use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
