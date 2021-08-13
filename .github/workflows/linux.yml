@@ -39,7 +39,6 @@ jobs:
               - package*.json
               - ts*.json
 
-jobs:
   build:
     runs-on: ubuntu-latest
     needs: detect-changes
