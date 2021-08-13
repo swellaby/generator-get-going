@@ -3,25 +3,47 @@ on:
   push:
     branches:
       - main
-    paths:
-      - .github/workflows/linux.yml
-      - generators/**/*
-      - test/**/*
-      - .eslint*
-      - package*.json
-      - ts*.json
+    # paths:
+    #   - .github/workflows/linux.yml
+    #   - generators/**/*
+    #   - test/**/*
+    #   - .eslint*
+    #   - package*.json
+    #   - ts*.json
   pull_request:
-    paths:
-      - .github/workflows/linux.yml
-      - generators/**/*
-      - test/**/*
-      - .eslint*
-      - package*.json
-      - ts*.json
+    # paths:
+    #   - .github/workflows/linux.yml
+    #   - generators/**/*
+    #   - test/**/*
+    #   - .eslint*
+    #   - package*.json
+    #   - ts*.json
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.impactful }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            impactful:
+              - .github/workflows/linux.yml
+              - generators/**/*
+              - test/**/*
+              - .eslint*
+              - package*.json
+              - ts*.json
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    needs: detect-changes
+    if: ${{ needs.changes.outputs.impactful == 'true' }}
     name: linux-node-v${{ matrix.node-version }}
 
     strategy:
