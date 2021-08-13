@@ -39,17 +39,16 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: decide whether to skip this job
-        if: ${{ needs.changes.outputs.impactful != 'true' }}
-        exit: success()
-
       - name: use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
+        if: ${{ needs.changes.outputs.impactful == 'true' }}
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: install dependencies
+        if: ${{ needs.changes.outputs.impactful == 'true' }}
         run: npm install
 
       - name: run build script
+        if: ${{ needs.changes.outputs.impactful == 'true' }}
         run: npm run build
