@@ -42,7 +42,7 @@ jobs:
 
       - name: decide whether to skip this job
         if: ${{ needs.changes.outputs.impactful != true }}
-        run: echo "SKIP_JOB=1" >> "${GITHUB_ENV}"
+        exit: success()
 
       - name: use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
