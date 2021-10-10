@@ -6,28 +6,8 @@ on:
   pull_request:
 
 jobs:
-  detect-changes:
-    runs-on: ubuntu-latest
-    outputs:
-      backend: ${{ steps.filter.outputs.impactful }}
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - uses: dorny/paths-filter@v2
-        id: filter
-        with:
-          filters: |
-            impactful:
-              - .github/workflows/linux.yml
-              - generators/**/*
-              - test/**/*
-              - .eslint*
-              - package*.json
-              - ts*.json
-
   build:
     runs-on: ubuntu-latest
-    needs: detect-changes
     name: linux-node-v${{ matrix.node-version }}
 
     strategy:
